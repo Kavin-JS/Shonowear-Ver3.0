@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collection - ShonoWear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+      <ul class="nav-links">
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="new-arrivals.html">New Arrivals</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="cart-wrap">
+        <a href="cart.html" class="nav-links icon-link"><i class="fas fa-shopping-bag"></i></a>
+        <div class="cart-badge">0</div>
+      </div>
+      <a id="nav-login" class="nav-links" href="login.html"><i class="fas fa-user"></i></a>
+      <div id="nav-user" class="nav-user" style="display:none;">
+        <span class="nav-uname" id="nav-uname"></span>
+        <button class="nav-logout" onclick="logout()">Logout</button>
+      </div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
+  <div class="mob-menu" id="mob-menu">
+    <div class="mob-logo">SHONO<span style="color:#e8153a;">WEAR</span></div>
+    <button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button>
+    <a href="collection.html"><i class="fas fa-shopping-bag"></i>Collection</a>
+    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
+    <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </div>
+
+  <!-- COLLECTION PAGE -->
+  <div class="pw">
+    <section class="prd-sec">
+      <div class="sh">
+        <span class="sh-tag">— COLLECTION</span>
+        <h2 class="sh-title">ALL PRODUCTS</h2>
+        <div class="sh-line"></div>
+      </div>
+
+      <!-- SEARCH BAR -->
+      <div class="search-wrap">
+        <div class="search-bar">
+          <input type="text" placeholder="Search products..." id="search-input">
+          <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <!-- FILTERS & SORTING -->
+      <div class="filters-section">
+        <div class="filter-group">
+          <label>CATEGORY</label>
+          <select id="category-filter" onchange="filterProducts()">
+            <option value="">All Categories</option>
+            <option value="Apparel">Apparel</option>
+            <option value="Figurines">Figurines</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Posters">Posters</option>
+            <option value="Books">Books</option>
+            <option value="Decor">Decor</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>TYPE</label>
+          <select id="type-filter" onchange="filterProducts()">
+            <option value="">All Types</option>
+            <option value="hoodie">Hoodie</option>
+            <option value="tee">T-Shirt</option>
+            <option value="phone">Phone Case</option>
+            <option value="figurine">Figurine</option>
+            <option value="oversized">Oversized</option>
+            <option value="statue">Statue</option>
+            <option value="poster">Poster</option>
+            <option value="jacket">Jacket</option>
+            <option value="cap">Cap</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>SORT BY</label>
+          <select id="sort-filter" onchange="filterProducts()">
+            <option value="newest">Newest First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name-a">Name: A to Z</option>
+            <option value="name-z">Name: Z to A</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>PRICE RANGE</label>
+          <input type="range" id="price-filter" min="0" max="10000" value="10000" onchange="filterProducts()">
+          <span id="price-value">₹10,000</span>
+        </div>
+
+        <button class="btn-reset" onclick="resetFilters()">RESET ALL</button>
+      </div>
+
+      <!-- PRODUCTS GRID -->
+      <div class="prd-grid" id="products-grid"></div>
+      <div class="no-res" id="no-res"><i class="fas fa-inbox"></i>No products found</div>
+    </section>
+  </div>
+
+  <!-- TOAST & POPUP -->
+  <div id="toast" class="toast"></div>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <button class="popup-close" onclick="closePop()"><i class="fas fa-times"></i></button>
+      <div style="text-align:center;padding:40px;">
+        <div id="pop-ico" style="font-size:3rem;margin-bottom:20px;"></div>
+        <h2 id="pop-title" style="font-family:var(--font-d);font-size:1.8rem;margin-bottom:14px;"></h2>
+        <p id="pop-msg" style="color:var(--muted);"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script src="collection.js"></script>
+</body>
+</html>

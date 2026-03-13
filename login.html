@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - ShonoWear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+    </div>
+  </nav>
+
+  <div class="pw" style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 62px);">
+    <div style="background:var(--surface);border:1px solid var(--border);padding:40px;width:100%;max-width:350px;">
+      <h2 style="font-family:var(--font-d);font-size:1.8rem;letter-spacing:2px;margin-bottom:30px;text-align:center;">SIGN IN</h2>
+      
+      <div style="margin-bottom:20px;">
+        <label style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;">EMAIL</label>
+        <input type="email" id="login-email" placeholder="your@email.com" style="width:100%;padding:12px;background:var(--bg2);border:1px solid var(--border);color:var(--white);font-family:var(--font-b);">
+      </div>
+
+      <div style="margin-bottom:30px;">
+        <label style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;">PASSWORD</label>
+        <input type="password" id="login-pass" placeholder="••••••••" style="width:100%;padding:12px;background:var(--bg2);border:1px solid var(--border);color:var(--white);font-family:var(--font-b);">
+      </div>
+
+      <button class="btn-r" style="width:100%;" onclick="doLogin()">LOGIN</button>
+
+      <p style="text-align:center;margin-top:20px;color:var(--muted);font-size:13px;">
+        Don't have an account? <a href="signup.html" style="color:var(--gold);text-decoration:none;">Sign up</a>
+      </p>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <button class="popup-close" onclick="closePop()"><i class="fas fa-times"></i></button>
+      <div style="text-align:center;padding:40px;">
+        <div id="pop-ico" style="font-size:3rem;margin-bottom:20px;"></div>
+        <h2 id="pop-title" style="font-family:var(--font-d);font-size:1.8rem;margin-bottom:14px;"></h2>
+        <p id="pop-msg" style="color:var(--muted);"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script>
+    function doLogin() {
+      const email = document.getElementById('login-email').value;
+      const pass = document.getElementById('login-pass').value;
+      
+      if (!email || !pass) {
+        toast('Please fill all fields', 'error');
+        return;
+      }
+      
+      localStorage.setItem('sw_user', email);
+      localStorage.setItem('sw_username', email.split('@')[0]);
+      updateNav();
+      toast('Login successful!', 'success');
+      
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

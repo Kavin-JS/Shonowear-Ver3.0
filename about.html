@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - ShonoWear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+      <ul class="nav-links">
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="new-arrivals.html">New Arrivals</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="cart-wrap">
+        <a href="cart.html" class="nav-links icon-link"><i class="fas fa-shopping-bag"></i></a>
+        <div class="cart-badge">0</div>
+      </div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
+  <div class="mob-menu" id="mob-menu">
+    <div class="mob-logo">SHONO<span style="color:#e8153a;">WEAR</span></div>
+    <button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button>
+    <a href="collection.html">Collection</a>
+    <a href="new-arrivals.html">New Arrivals</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="pw">
+    <section class="prd-sec">
+      <div class="sh">
+        <span class="sh-tag">— ABOUT US</span>
+        <h2 class="sh-title">OUR STORY</h2>
+        <div class="sh-line"></div>
+      </div>
+
+      <div style="max-width:800px;margin:0 auto;">
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:20px;">
+          ShonoWear is your ultimate destination for premium anime merchandise. Founded with a passion for anime culture, we bring the best quality products to fans around the world.
+        </p>
+        
+        <h3 style="font-family:var(--font-d);font-size:1.5rem;color:var(--white);margin:40px 0 20px;">OUR MISSION</h3>
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:30px;">
+          To provide authentic, high-quality anime merchandise that celebrates the art and culture of anime. We believe every fan deserves access to exclusive, well-crafted products.
+        </p>
+
+        <h3 style="font-family:var(--font-d);font-size:1.5rem;color:var(--white);margin:40px 0 20px;">WHY CHOOSE US?</h3>
+        <ul style="list-style:none;color:var(--muted);line-height:2;">
+          <li>✓ 100% Authentic Products</li>
+          <li>✓ Fast Worldwide Shipping (3-7 days)</li>
+          <li>✓ Premium Quality Materials</li>
+          <li>✓ Exclusive Limited Edition Items</li>
+          <li>✓ 24/7 Customer Support</li>
+        </ul>
+
+        <a href="collection.html" class="btn-r" style="margin-top:40px;">SHOP NOW</a>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - ShonoWear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+      <ul class="nav-links">
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="new-arrivals.html">New Arrivals</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="cart-wrap">
+        <a href="cart.html" class="nav-links icon-link"><i class="fas fa-shopping-bag"></i></a>
+        <div class="cart-badge">0</div>
+      </div>
+      <a id="nav-login" class="nav-links" href="login.html"><i class="fas fa-user"></i></a>
+      <div id="nav-user" class="nav-user" style="display:none;">
+        <span class="nav-uname" id="nav-uname"></span>
+        <button class="nav-logout" onclick="logout()">Logout</button>
+      </div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
+  <div class="mob-menu" id="mob-menu">
+    <div class="mob-logo">SHONO<span style="color:#e8153a;">WEAR</span></div>
+    <button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button>
+    <a href="collection.html"><i class="fas fa-shopping-bag"></i>Collection</a>
+    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
+    <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </div>
+
+  <!-- CART PAGE -->
+  <div class="pw">
+    <section class="prd-sec">
+      <div class="sh">
+        <span class="sh-tag">— CHECKOUT</span>
+        <h2 class="sh-title">YOUR CART</h2>
+        <div class="sh-line"></div>
+      </div>
+
+      <div id="cart-items"></div>
+      <div class="cart-empty" id="empty-cart" style="display:none;">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Your cart is empty</p>
+        <a href="collection.html" class="btn-r" style="margin-top:20px;">CONTINUE SHOPPING</a>
+      </div>
+
+      <div id="cart-summary" style="display:none;margin-top:40px;padding:20px;background:var(--surface);border:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:15px;font-size:14px;font-weight:600;">
+          <span>Subtotal:</span>
+          <span id="subtotal">₹0</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:15px;font-size:14px;font-weight:600;">
+          <span>Shipping:</span>
+          <span>₹0 (FREE)</span>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:15px;display:flex;justify-content:space-between;font-size:1.2rem;font-weight:700;color:var(--gold);">
+          <span>Total:</span>
+          <span id="total">₹0</span>
+        </div>
+        <button class="btn-r" style="width:100%;margin-top:20px;" onclick="checkout()">PROCEED TO CHECKOUT</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- TOAST & POPUP -->
+  <div id="toast" class="toast"></div>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <button class="popup-close" onclick="closePop()"><i class="fas fa-times"></i></button>
+      <div style="text-align:center;padding:40px;">
+        <div id="pop-ico" style="font-size:3rem;margin-bottom:20px;"></div>
+        <h2 id="pop-title" style="font-family:var(--font-d);font-size:1.8rem;margin-bottom:14px;"></h2>
+        <p id="pop-msg" style="color:var(--muted);"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>

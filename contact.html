@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - ShonoWear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+      <ul class="nav-links">
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="new-arrivals.html">New Arrivals</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="cart-wrap">
+        <a href="cart.html" class="nav-links icon-link"><i class="fas fa-shopping-bag"></i></a>
+        <div class="cart-badge">0</div>
+      </div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
+  <div class="mob-menu" id="mob-menu">
+    <div class="mob-logo">SHONO<span style="color:#e8153a;">WEAR</span></div>
+    <button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button>
+    <a href="collection.html">Collection</a>
+    <a href="new-arrivals.html">New Arrivals</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="pw">
+    <section class="prd-sec">
+      <div class="sh">
+        <span class="sh-tag">— GET IN TOUCH</span>
+        <h2 class="sh-title">CONTACT US</h2>
+        <div class="sh-line"></div>
+      </div>
+
+      <div style="max-width:600px;margin:0 auto;">
+        <div style="margin-bottom:30px;">
+          <label style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;">NAME</label>
+          <input type="text" placeholder="Your Name" style="width:100%;padding:12px;background:var(--surface);border:1px solid var(--border);color:var(--white);font-family:var(--font-b);">
+        </div>
+
+        <div style="margin-bottom:30px;">
+          <label style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;">EMAIL</label>
+          <input type="email" placeholder="your@email.com" style="width:100%;padding:12px;background:var(--surface);border:1px solid var(--border);color:var(--white);font-family:var(--font-b);">
+        </div>
+
+        <div style="margin-bottom:30px;">
+          <label style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;">MESSAGE</label>
+          <textarea placeholder="Your message..." style="width:100%;padding:12px;background:var(--surface);border:1px solid var(--border);color:var(--white);font-family:var(--font-b);height:150px;"></textarea>
+        </div>
+
+        <button class="btn-r" style="width:100%;" onclick="sendMessage()">SEND MESSAGE</button>
+
+        <div style="margin-top:50px;padding:30px;background:var(--surface);border:1px solid var(--border);text-align:center;">
+          <p style="color:var(--muted);margin-bottom:20px;"><i class="fas fa-envelope" style="color:var(--red);margin-right:10px;"></i>support@shonowear.com</p>
+          <p style="color:var(--muted);"><i class="fas fa-phone" style="color:var(--gold);margin-right:10px;"></i>+1 (555) 123-4567</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script>
+    function sendMessage() {
+      toast('Message sent! We\'ll reply soon.', 'success');
+    }
+  </script>
+</body>
+</html>

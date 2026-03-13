@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShonoWear — Minimal Streetwear for the Modern Generation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="new-arrivals.html">New Arrivals</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <button class="nav-icon-btn" id="search-toggle" title="Search"><i class="fas fa-search"></i></button>
+      <div class="cart-wrap">
+        <a href="cart.html" class="nav-icon-btn"><i class="fas fa-shopping-bag"></i></a>
+        <div class="cart-badge">0</div>
+      </div>
+      <a id="nav-login" class="nav-icon-btn" href="login.html" title="Login"><i class="fas fa-user"></i></a>
+      <div id="nav-user" class="nav-user" style="display:none;">
+        <span class="nav-uname" id="nav-uname"></span>
+        <button class="nav-logout" onclick="logout()">Logout</button>
+      </div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <div class="search-dropdown" id="search-dropdown">
+    <div class="search-inner">
+      <input type="text" placeholder="Search hoodies, tees, figurines..." id="search-input" />
+      <button onclick="doSearch()"><i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
+  <div class="mob-menu" id="mob-menu">
+    <div class="mob-logo">SHONO<span>WEAR</span></div>
+    <button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button>
+    <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="collection.html"><i class="fas fa-shopping-bag"></i>Collection</a>
+    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
+    <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-pill"><span class="pill-dot"></span> NEW COLLECTION 2025</div>
+      <h1 class="hero-title">
+        <span class="line1">Shonowear</span>
+        <span class="line2">Minimal Streetwear</span>
+        <span class="line3">for the Modern Generation</span>
+      </h1>
+      <p class="hero-sub">Discover curated fashion collections designed for style and comfort.</p>
+      <div class="hero-btns">
+        <a href="collection.html" class="btn-primary">Shop Collection</a>
+        <a href="new-arrivals.html" class="btn-outline">Explore New Arrivals</a>
+      </div>
+      <div class="hero-trust">
+        <span><i class="fas fa-shield-alt"></i> Secure Checkout</span>
+        <span><i class="fas fa-shipping-fast"></i> Free Shipping above 999</span>
+        <span><i class="fas fa-star"></i> 4.9/5 Rating</span>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>SCROLL</span><i class="fas fa-chevron-down"></i></div>
+  </section>
+
+  <!-- SCROLLING STRIP -->
+  <div class="strip">
+    <div class="strip-track">
+      <div class="strip-item">ANIME FIGURES <span>★</span></div>
+      <div class="strip-item">EXCLUSIVE APPAREL <span>★</span></div>
+      <div class="strip-item">COLLECTIBLES <span>★</span></div>
+      <div class="strip-item">LIMITED EDITION <span>★</span></div>
+      <div class="strip-item">FREE RETURNS <span>★</span></div>
+      <div class="strip-item">PREMIUM QUALITY <span>★</span></div>
+      <div class="strip-item">ANIME FIGURES <span>★</span></div>
+      <div class="strip-item">EXCLUSIVE APPAREL <span>★</span></div>
+      <div class="strip-item">COLLECTIBLES <span>★</span></div>
+      <div class="strip-item">LIMITED EDITION <span>★</span></div>
+    </div>
+  </div>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="section-block fade-in-section">
+    <div class="section-header">
+      <span class="section-tag">— FEATURED</span>
+      <h2 class="section-title">Trending Now</h2>
+      <p class="section-sub">Hand-picked styles from our most-loved collection</p>
+    </div>
+    <div class="prd-grid" id="featured-products"></div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section-block categories-section fade-in-section">
+    <div class="section-header">
+      <span class="section-tag">— SHOP BY</span>
+      <h2 class="section-title">Browse Categories</h2>
+    </div>
+    <div class="cat-grid">
+      <a href="collection.html" class="cat-card cat-streetwear">
+        <div class="cat-overlay">
+          <span class="cat-count">24 items</span>
+          <h3>Streetwear</h3>
+          <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a href="collection.html" class="cat-card cat-casual">
+        <div class="cat-overlay">
+          <span class="cat-count">18 items</span>
+          <h3>Accessories</h3>
+          <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a href="collection.html" class="cat-card cat-minimal">
+        <div class="cat-overlay">
+          <span class="cat-count">30 items</span>
+          <h3>Minimal Tees</h3>
+          <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a href="collection.html" class="cat-card cat-essentials">
+        <div class="cat-overlay">
+          <span class="cat-count">16 items</span>
+          <h3>Figurines</h3>
+          <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- WHY SHONOWEAR -->
+  <section class="section-block why-section fade-in-section">
+    <div class="section-header">
+      <span class="section-tag">— OUR PROMISE</span>
+      <h2 class="section-title">Why Shonowear</h2>
+      <p class="section-sub">Built for those who wear their passion</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon"><i class="fas fa-tshirt"></i></div>
+        <h4>Premium Fabric</h4>
+        <p>350 GSM heavyweight cotton blends that feel as good as they look — built to last season after season.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="fas fa-paint-brush"></i></div>
+        <h4>Minimal Design</h4>
+        <p>Clean lines, intentional graphics. Every piece is designed with restraint and purpose — not noise.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="fas fa-tag"></i></div>
+        <h4>Affordable Pricing</h4>
+        <p>Premium streetwear doesn't have to break the bank. We keep quality high and prices fair.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="fas fa-fire"></i></div>
+        <h4>Modern Streetwear</h4>
+        <p>Inspired by anime culture and global street fashion — pieces that connect community and style.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW ARRIVALS PREVIEW -->
+  <section class="section-block fade-in-section">
+    <div class="section-header">
+      <span class="section-tag">— JUST DROPPED</span>
+      <h2 class="section-title">New Arrivals</h2>
+      <p class="section-sub">Fresh pieces added to the roster</p>
+    </div>
+    <div class="prd-grid" id="new-arrivals-preview"></div>
+    <div class="section-cta">
+      <a href="new-arrivals.html" class="btn-primary">View All New Arrivals <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section-block testimonials-section fade-in-section">
+    <div class="section-header">
+      <span class="section-tag">— REVIEWS</span>
+      <h2 class="section-title">What People Say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Clean designs and amazing quality. My Naruto hoodie is hands-down the most comfortable piece I own."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AR</div>
+          <div><strong>Aryan R.</strong><span>Mumbai</span></div>
+        </div>
+      </div>
+      <div class="testi-card featured-testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Finally a streetwear brand that looks premium. The stitching, the fit, the graphics — nothing else compares."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SK</div>
+          <div><strong>Simran K.</strong><span>Delhi</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Ordered twice already. Shipping was fast and the packaging is so premium. 10/10 would recommend."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RP</div>
+          <div><strong>Rohan P.</strong><span>Bangalore</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★☆</div>
+        <p>"The JJK Gojo hoodie is insane quality. Runs a bit big but that's the oversized aesthetic anyway."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">NM</div>
+          <div><strong>Nisha M.</strong><span>Chennai</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section fade-in-section">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <span class="section-tag">— STAY CONNECTED</span>
+        <h2>Join the Shonowear Community</h2>
+        <p>Get updates on new collections and drops. No spam — only fire.</p>
+      </div>
+      <div class="newsletter-form">
+        <div class="nl-input-wrap">
+          <input type="email" placeholder="your@email.com" id="nl-email" />
+          <button onclick="nlSubscribe()">Subscribe <i class="fas fa-arrow-right"></i></button>
+        </div>
+        <p class="nl-note"><i class="fas fa-lock"></i> No spam, unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo footer-logo">SHONO<span>WEAR</span></a>
+        <p>Minimal streetwear for the modern generation. Designed with intent. Worn with purpose.</p>
+        <div class="footer-social">
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="contact.html" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h5>Shop</h5>
+        <a href="collection.html">Collection</a>
+        <a href="new-arrivals.html">New Arrivals</a>
+        <a href="cart.html">Cart</a>
+      </div>
+      <div class="footer-links">
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h5>Legal</h5>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Shipping Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>2025 Shonowear. All rights reserved.</p>
+      <p>Made with love for the community</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <button class="popup-close" onclick="closePop()"><i class="fas fa-times"></i></button>
+      <div style="text-align:center;padding:40px;">
+        <div id="pop-ico" style="font-size:3rem;margin-bottom:20px;"></div>
+        <h2 id="pop-title" style="font-family:var(--font-d);font-size:1.8rem;margin-bottom:14px;"></h2>
+        <p id="pop-msg" style="color:var(--muted);"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

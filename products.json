@@ -1,0 +1,1445 @@
+{
+    "products": [
+        {
+            "id": "p1",
+            "name": "Naruto Uzumaki Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Premium oversized anime hoodie inspired by Naruto.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a",
+                "n"
+            ]
+        },
+        {
+            "id": "p2",
+            "name": "Naruto Streetwear Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear anime tee inspired by Naruto.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p3",
+            "name": "Naruto Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Protective anime themed phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p4",
+            "name": "Naruto Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Anime collectible figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p5",
+            "name": "One Piece Luffy Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Oversized hoodie inspired by Luffy.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p6",
+            "name": "One Piece Pirate Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee inspired by One Piece.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p7",
+            "name": "One Piece Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime themed phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p8",
+            "name": "One Piece Figurine",
+            "price": 1999,
+            "img": "🗿",
+            "desc": "Premium collectible figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p9",
+            "name": "Jujutsu Kaisen Gojo Hoodie",
+            "price": 2199,
+            "img": "🎌",
+            "desc": "Premium hoodie inspired by Gojo Satoru.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p10",
+            "name": "Jujutsu Kaisen Sorcerer Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee inspired by Jujutsu Kaisen.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p11",
+            "name": "Jujutsu Kaisen Phone Case",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime themed phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p12",
+            "name": "Jujutsu Kaisen Figurine",
+            "price": 1999,
+            "img": "🗿",
+            "desc": "Collectible anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p13",
+            "name": "Attack on Titan Scout Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Anime hoodie inspired by the Scout Regiment.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p14",
+            "name": "Attack on Titan Wings Tee",
+            "price": 749,
+            "img": "👕",
+            "desc": "Oversized tee featuring Wings of Freedom.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p15",
+            "name": "Attack on Titan Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime phone case inspired by Attack on Titan.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p16",
+            "name": "Attack on Titan Figurine",
+            "price": 1999,
+            "img": "🗿",
+            "desc": "Anime collectible inspired by Attack on Titan.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p17",
+            "name": "Demon Slayer Tanjiro Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Oversized hoodie inspired by Tanjiro.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p18",
+            "name": "Demon Slayer Hashira Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee inspired by Demon Slayer.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p19",
+            "name": "Demon Slayer Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime phone case featuring Demon Slayer design.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p20",
+            "name": "Demon Slayer Figurine",
+            "price": 2199,
+            "img": "🗿",
+            "desc": "Collectible anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p21",
+            "name": "Dragon Ball Goku Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Oversized hoodie inspired by Son Goku.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p22",
+            "name": "Dragon Ball Saiyan Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee inspired by Saiyan warriors.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p23",
+            "name": "Dragon Ball Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Protective anime phone case.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p24",
+            "name": "Dragon Ball Goku Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Premium collectible Son Goku figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p25",
+            "name": "Tokyo Revengers Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Oversized hoodie inspired by Tokyo Revengers.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p26",
+            "name": "Tokyo Revengers Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee inspired by Tokyo Revengers.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p27",
+            "name": "Tokyo Revengers Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime phone case.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p28",
+            "name": "Tokyo Revengers Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Collectible figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p29",
+            "name": "Chainsaw Man Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Oversized hoodie inspired by Chainsaw Man.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p30",
+            "name": "Chainsaw Man Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee inspired by Chainsaw Man.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p31",
+            "name": "Chainsaw Man Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime phone case.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p32",
+            "name": "Chainsaw Man Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Collectible figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p33",
+            "name": "Bleach Ichigo Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Oversized hoodie inspired by Ichigo.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p34",
+            "name": "Bleach Soul Reaper Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee inspired by Soul Reapers.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p35",
+            "name": "Bleach Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime phone case.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p36",
+            "name": "Bleach Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Collectible anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p37",
+            "name": "Berserk Guts Hoodie",
+            "price": 2199,
+            "img": "🎌",
+            "desc": "Oversized hoodie inspired by Guts.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p38",
+            "name": "Berserk Brand Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee inspired by Berserk.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p39",
+            "name": "Berserk Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime phone case.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p40",
+            "name": "Berserk Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Collectible anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p41",
+            "name": "My Hero Academia Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Oversized hoodie inspired by My Hero Academia.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p42",
+            "name": "My Hero Academia Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p43",
+            "name": "My Hero Academia Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime phone case.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p44",
+            "name": "My Hero Academia Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Collectible figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p45",
+            "name": "Solo Leveling Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Premium hoodie inspired by Solo Leveling.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p46",
+            "name": "Solo Leveling Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p47",
+            "name": "Solo Leveling Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime phone case.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p48",
+            "name": "Solo Leveling Figurine",
+            "price": 1999,
+            "img": "🗿",
+            "desc": "Collectible figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p49",
+            "name": "Anime Street Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Oversized anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p50",
+            "name": "Anime Graphic Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear anime graphic tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p51",
+            "name": "Anime Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Oversized anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p52",
+            "name": "Anime Streetwear Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Streetwear anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p53",
+            "name": "Anime Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime themed phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p54",
+            "name": "Anime Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Collectible anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p55",
+            "name": "Otaku Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Premium anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p56",
+            "name": "Otaku Graphic Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Graphic anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p57",
+            "name": "Otaku Phone Case",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p58",
+            "name": "Otaku Figurine",
+            "price": 1999,
+            "img": "🗿",
+            "desc": "Anime collectible figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p59",
+            "name": "Shonen Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Shonen style anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p60",
+            "name": "Shonen Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Shonen inspired tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p61",
+            "name": "Shonen Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Shonen themed phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p62",
+            "name": "Shonen Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Shonen anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p63",
+            "name": "Anime Culture Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Anime culture hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p64",
+            "name": "Anime Culture Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Anime culture tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p65",
+            "name": "Anime Culture Phone Case",
+            "price": 299,
+            "img": "📱",
+            "desc": "Anime themed phone case.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p66",
+            "name": "Anime Culture Figurine",
+            "price": 1999,
+            "img": "🗿",
+            "desc": "Anime culture collectible.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p67",
+            "name": "Anime Street Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Street anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p68",
+            "name": "Anime Street Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Street anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p69",
+            "name": "Anime Street Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Street anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p70",
+            "name": "Anime Street Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Street anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p71",
+            "name": "Anime Hero Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Hero themed anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p72",
+            "name": "Anime Hero Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Hero themed anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p73",
+            "name": "Anime Hero Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Hero themed phone case.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p74",
+            "name": "Anime Hero Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Hero anime collectible.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p75",
+            "name": "Anime Legend Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Legend inspired hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p76",
+            "name": "Anime Legend Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Legend inspired tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p77",
+            "name": "Anime Legend Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Legend anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p78",
+            "name": "Anime Legend Figurine",
+            "price": 1999,
+            "img": "🗿",
+            "desc": "Legend anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p79",
+            "name": "Anime Spirit Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Spirit themed hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p80",
+            "name": "Anime Spirit Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Spirit anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p81",
+            "name": "Anime Spirit Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Spirit anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p82",
+            "name": "Anime Spirit Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Spirit anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p83",
+            "name": "Anime Power Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Power anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p84",
+            "name": "Anime Power Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Power anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p85",
+            "name": "Anime Power Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Power anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p86",
+            "name": "Anime Power Figurine",
+            "price": 1999,
+            "img": "🗿",
+            "desc": "Power anime collectible.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p87",
+            "name": "Anime Warrior Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Warrior anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p88",
+            "name": "Anime Warrior Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Warrior anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p89",
+            "name": "Anime Warrior Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Warrior anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p90",
+            "name": "Anime Warrior Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Warrior anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p91",
+            "name": "Anime Shadow Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Shadow anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p92",
+            "name": "Anime Shadow Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Shadow anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p93",
+            "name": "Anime Shadow Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Shadow anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p94",
+            "name": "Anime Shadow Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Shadow anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p95",
+            "name": "Anime Dragon Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Dragon anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p96",
+            "name": "Anime Dragon Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Dragon anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p97",
+            "name": "Anime Dragon Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Dragon anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p98",
+            "name": "Anime Dragon Figurine",
+            "price": 1999,
+            "img": "🗿",
+            "desc": "Dragon anime collectible.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p99",
+            "name": "Anime Storm Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Storm anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p100",
+            "name": "Anime Storm Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Storm anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p101",
+            "name": "Anime Storm Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Storm anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p102",
+            "name": "Anime Storm Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Storm anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p103",
+            "name": "Anime Blade Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Blade anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p104",
+            "name": "Anime Blade Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Blade anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p105",
+            "name": "Anime Blade Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Blade anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p106",
+            "name": "Anime Blade Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Blade anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p107",
+            "name": "Anime Flame Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Flame anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p108",
+            "name": "Anime Flame Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Flame anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p109",
+            "name": "Anime Flame Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Flame anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p110",
+            "name": "Anime Flame Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Flame anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p111",
+            "name": "Anime Eclipse Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Eclipse anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p112",
+            "name": "Anime Eclipse Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Eclipse anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p113",
+            "name": "Anime Eclipse Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Eclipse anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p114",
+            "name": "Anime Eclipse Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Eclipse anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p115",
+            "name": "Anime Phantom Hoodie",
+            "price": 1999,
+            "img": "🎌",
+            "desc": "Phantom anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p116",
+            "name": "Anime Phantom Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Phantom anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p117",
+            "name": "Anime Phantom Phone Cover",
+            "price": 299,
+            "img": "📱",
+            "desc": "Phantom anime phone cover.",
+            "sz": false,
+            "tag": "Accessories",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p118",
+            "name": "Anime Phantom Figurine",
+            "price": 1899,
+            "img": "🗿",
+            "desc": "Phantom anime figurine.",
+            "sz": false,
+            "tag": "Figurines",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p119",
+            "name": "Anime Galaxy Hoodie",
+            "price": 2099,
+            "img": "🎌",
+            "desc": "Galaxy anime hoodie.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        },
+        {
+            "id": "p120",
+            "name": "Anime Galaxy Tee",
+            "price": 799,
+            "img": "👕",
+            "desc": "Galaxy anime tee.",
+            "sz": true,
+            "tag": "Apparel",
+            "cat": [
+                "a"
+            ]
+        }
+    ]
+}
