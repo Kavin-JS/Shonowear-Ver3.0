@@ -83,18 +83,31 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function renderProductCard(product) {
+  // Derive an original/strikethrough price for visual hierarchy (15% markup)
+  const origPrice = Math.ceil(product.price * 1.15 / 100) * 100;
   return `
-    <div class="prd-card">
+    <div class="prd-card" data-type="${product.type || ''}" data-anime="${product.anime || ''}">
       <div class="prd-img">
         <div>${product.img}</div>
+        ${product.isNew ? '<span class="prd-badge">NEW</span>' : ''}
+        <button class="prd-wish" onclick="event.stopPropagation()" title="Save to wishlist">
+          <i class="far fa-heart"></i>
+        </button>
       </div>
       <div class="prd-ov">
-        <button class="prd-ov-btn" onclick="addToCart('${product.id}', '${product.name}', ${product.price})">ADD TO CART</button>
+        <button class="prd-ov-btn" onclick="addToCart('${product.id}', '${product.name}', ${product.price})">
+          <i class="fas fa-shopping-bag"></i> ADD TO CART
+        </button>
       </div>
-      ${product.isNew ? '<span class="prd-badge">NEW</span>' : ''}
       <div class="prd-info">
+        <div class="prd-tag-row">
+          <span class="prd-anime">${product.anime || product.tag || ''}</span>
+        </div>
         <div class="prd-name">${product.name}</div>
-        <div class="prd-price">₹${product.price.toLocaleString()}</div>
+        <div class="prd-price-row">
+          <span class="prd-price">₹${product.price.toLocaleString()}</span>
+          <span class="prd-price-orig">₹${origPrice.toLocaleString()}</span>
+        </div>
       </div>
     </div>
   `;
@@ -112,5 +125,13 @@ function addToCart(id, name, price) {
   
   localStorage.setItem('sw_cart', JSON.stringify(cart));
   updateCartBadge();
+  // Pulse the cart icon for feedback
+  const cartWrap = document.querySelector('.cart-wrap');
+  if (cartWrap) {
+    cartWrap.classList.remove('added');
+    void cartWrap.offsetWidth; // reflow
+    cartWrap.classList.add('added');
+    setTimeout(() => cartWrap.classList.remove('added'), 500);
+  }
   toast(`${name} added to cart!`, 'success');
 }

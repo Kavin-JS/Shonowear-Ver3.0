@@ -61,24 +61,57 @@
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
     <div class="hero-glow"></div>
+    <!-- Decorative corner accents -->
+    <div class="hero-corner hero-corner--tl"></div>
+    <div class="hero-corner hero-corner--br"></div>
+
     <div class="hero-content">
-      <div class="hero-pill"><span class="pill-dot"></span> NEW COLLECTION 2025</div>
+      <div class="hero-pill"><span class="pill-dot"></span> SS25 COLLECTION — NOW LIVE</div>
+
       <h1 class="hero-title">
-        <span class="line1">Shonowear</span>
-        <span class="line2">Minimal Streetwear</span>
-        <span class="line3">for the Modern Generation</span>
+        <span class="line1">Wear the</span>
+        <span class="line2">Culture.</span>
+        <span class="line3">Own the Street.</span>
       </h1>
-      <p class="hero-sub">Discover curated fashion collections designed for style and comfort.</p>
+
+      <p class="hero-sub">
+        Premium anime-inspired streetwear built for those who refuse to blend in.<br>
+        Quality fabric. Minimal design. Culture-first aesthetics.
+      </p>
+
       <div class="hero-btns">
-        <a href="collection.html" class="btn-primary">Shop Collection</a>
-        <a href="new-arrivals.html" class="btn-outline">Explore New Arrivals</a>
+        <a href="collection.html" class="btn-primary">
+          <i class="fas fa-shopping-bag"></i> Shop Collection
+        </a>
+        <a href="new-arrivals.html" class="btn-outline">
+          New Arrivals <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
-      <div class="hero-trust">
-        <span><i class="fas fa-shield-alt"></i> Secure Checkout</span>
-        <span><i class="fas fa-shipping-fast"></i> Free Shipping above 999</span>
-        <span><i class="fas fa-star"></i> 4.9/5 Rating</span>
+
+      <!-- Stats bar — adds social proof directly in hero -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-num">10K+</span>
+          <span class="stat-label">Orders Shipped</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num">4.9★</span>
+          <span class="stat-label">Avg. Rating</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num">80+</span>
+          <span class="stat-label">Unique Designs</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num">Free</span>
+          <span class="stat-label">Shipping ₹999+</span>
+        </div>
       </div>
     </div>
+
     <div class="hero-scroll"><span>SCROLL</span><i class="fas fa-chevron-down"></i></div>
   </section>
 
@@ -99,13 +132,24 @@
   </div>
 
   <!-- FEATURED PRODUCTS -->
-  <section class="section-block fade-in-section">
+  <section class="section-block fade-in-section" id="featured-section">
     <div class="section-header">
       <span class="section-tag">— FEATURED</span>
       <h2 class="section-title">Trending Now</h2>
-      <p class="section-sub">Hand-picked styles from our most-loved collection</p>
+      <p class="section-sub">Our most-loved pieces — worn by the community, built for the streets</p>
+    </div>
+    <!-- Quick filter tabs for the featured grid -->
+    <div class="feat-tabs">
+      <button class="feat-tab active" data-filter="all">All</button>
+      <button class="feat-tab" data-filter="hoodie">Hoodies</button>
+      <button class="feat-tab" data-filter="tee">Tees</button>
+      <button class="feat-tab" data-filter="figurine">Figurines</button>
+      <button class="feat-tab" data-filter="phone">Accessories</button>
     </div>
     <div class="prd-grid" id="featured-products"></div>
+    <div class="section-cta">
+      <a href="collection.html" class="btn-outline">View Full Collection <i class="fas fa-arrow-right"></i></a>
+    </div>
   </section>
 
   <!-- CATEGORIES -->
@@ -151,28 +195,44 @@
     <div class="section-header">
       <span class="section-tag">— OUR PROMISE</span>
       <h2 class="section-title">Why Shonowear</h2>
-      <p class="section-sub">Built for those who wear their passion</p>
+      <p class="section-sub">We don't just sell clothes. We build a culture.</p>
     </div>
     <div class="why-grid">
       <div class="why-card">
-        <div class="why-icon"><i class="fas fa-tshirt"></i></div>
+        <div class="why-card-top">
+          <div class="why-icon"><i class="fas fa-tshirt"></i></div>
+          <span class="why-num">01</span>
+        </div>
         <h4>Premium Fabric</h4>
-        <p>350 GSM heavyweight cotton blends that feel as good as they look — built to last season after season.</p>
+        <p>350 GSM heavyweight cotton that feels as good as it looks. Built to outlast every season, every wash.</p>
+        <div class="why-line"></div>
       </div>
       <div class="why-card">
-        <div class="why-icon"><i class="fas fa-paint-brush"></i></div>
-        <h4>Minimal Design</h4>
-        <p>Clean lines, intentional graphics. Every piece is designed with restraint and purpose — not noise.</p>
+        <div class="why-card-top">
+          <div class="why-icon"><i class="fas fa-drafting-compass"></i></div>
+          <span class="why-num">02</span>
+        </div>
+        <h4>Intentional Design</h4>
+        <p>Every graphic is drawn with purpose. Clean lines, tight compositions — no noise, no filler.</p>
+        <div class="why-line"></div>
       </div>
       <div class="why-card">
-        <div class="why-icon"><i class="fas fa-tag"></i></div>
-        <h4>Affordable Pricing</h4>
-        <p>Premium streetwear doesn't have to break the bank. We keep quality high and prices fair.</p>
+        <div class="why-card-top">
+          <div class="why-icon"><i class="fas fa-rupee-sign"></i></div>
+          <span class="why-num">03</span>
+        </div>
+        <h4>Fair Pricing</h4>
+        <p>Premium quality shouldn't come at a luxury price. We cut middlemen — not corners.</p>
+        <div class="why-line"></div>
       </div>
       <div class="why-card">
-        <div class="why-icon"><i class="fas fa-fire"></i></div>
-        <h4>Modern Streetwear</h4>
-        <p>Inspired by anime culture and global street fashion — pieces that connect community and style.</p>
+        <div class="why-card-top">
+          <div class="why-icon"><i class="fas fa-fire-alt"></i></div>
+          <span class="why-num">04</span>
+        </div>
+        <h4>Culture-First</h4>
+        <p>Born from anime, raised on the streets. Every drop connects fans across generations and genres.</p>
+        <div class="why-line"></div>
       </div>
     </div>
   </section>
@@ -193,40 +253,45 @@
   <!-- TESTIMONIALS -->
   <section class="section-block testimonials-section fade-in-section">
     <div class="section-header">
-      <span class="section-tag">— REVIEWS</span>
-      <h2 class="section-title">What People Say</h2>
+      <span class="section-tag">— COMMUNITY LOVE</span>
+      <h2 class="section-title">Real People. Real Style.</h2>
+      <p class="section-sub">Over 10,000 happy customers and counting</p>
     </div>
     <div class="testi-grid">
       <div class="testi-card">
+        <div class="testi-quote-icon">"</div>
         <div class="testi-stars">★★★★★</div>
-        <p>"Clean designs and amazing quality. My Naruto hoodie is hands-down the most comfortable piece I own."</p>
+        <p>Clean designs and amazing quality. My Naruto hoodie is hands-down the most comfortable piece I own.</p>
         <div class="testi-author">
           <div class="testi-avatar">AR</div>
-          <div><strong>Aryan R.</strong><span>Mumbai</span></div>
+          <div><strong>Aryan R.</strong><span>Mumbai · Verified Buyer</span></div>
         </div>
       </div>
       <div class="testi-card featured-testi">
+        <div class="testi-quote-icon">"</div>
         <div class="testi-stars">★★★★★</div>
-        <p>"Finally a streetwear brand that looks premium. The stitching, the fit, the graphics — nothing else compares."</p>
+        <p>Finally a streetwear brand that looks premium. The stitching, fit, and graphics — nothing else compares.</p>
         <div class="testi-author">
           <div class="testi-avatar">SK</div>
-          <div><strong>Simran K.</strong><span>Delhi</span></div>
+          <div><strong>Simran K.</strong><span>Delhi · Verified Buyer</span></div>
         </div>
       </div>
       <div class="testi-card">
+        <div class="testi-quote-icon">"</div>
         <div class="testi-stars">★★★★★</div>
-        <p>"Ordered twice already. Shipping was fast and the packaging is so premium. 10/10 would recommend."</p>
+        <p>Ordered twice already. Fast shipping, premium packaging. Would recommend to every anime fan I know.</p>
         <div class="testi-author">
           <div class="testi-avatar">RP</div>
-          <div><strong>Rohan P.</strong><span>Bangalore</span></div>
+          <div><strong>Rohan P.</strong><span>Bangalore · Verified Buyer</span></div>
         </div>
       </div>
       <div class="testi-card">
+        <div class="testi-quote-icon">"</div>
         <div class="testi-stars">★★★★☆</div>
-        <p>"The JJK Gojo hoodie is insane quality. Runs a bit big but that's the oversized aesthetic anyway."</p>
+        <p>The JJK Gojo hoodie is insane quality. Runs slightly big — but that's the oversized fit anyway.</p>
         <div class="testi-author">
           <div class="testi-avatar">NM</div>
-          <div><strong>Nisha M.</strong><span>Chennai</span></div>
+          <div><strong>Nisha M.</strong><span>Chennai · Verified Buyer</span></div>
         </div>
       </div>
     </div>
