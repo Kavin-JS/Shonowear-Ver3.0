@@ -1,329 +1,233 @@
 /**
- * app.js — Shonowear Pass 3: Startup Product Prototype
- *
- * Architecture:
- *   1. Navbar — scroll state, progress bar, live search with debounce
- *   2. Hero   — stat counter animation on load
- *   3. Lookbook — universe filter tabs
- *   4. Products — skeleton → grid with filter tabs, staggered entrance
- *   5. Collections reel — click to navigate to collection page
- *   6. Scroll fade-in — IntersectionObserver on all .fade-in-section
- *   7. Newsletter — loading state + success swap
- *   8. Wishlist heart toggle
- *   9. Mobile search forward to collection page
- *  10. Cart pulse on add
- *
- * All original functions (addToCart, updateNav, logout, toast,
- * showPop, closePop, openMob, closeMob, renderProductCard)
- * are preserved in main.js — DO NOT duplicate here.
+ * app.js — Shonowear Pass 4: Startup Visual Overhaul
+ * Clean architecture — no pitch-deck sections, image-first
  */
 
-/* ── DEBOUNCE UTILITY ────────────────────────────────────────── */
+/* ── UTILITIES ───────────────────────────────────────────────── */
 function debounce(fn, ms) {
   let t;
   return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
 }
 
-/* ── DOM READY ───────────────────────────────────────────────── */
+/* ── BOOT ────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-
   initNavbar();
-  initHeroCounters();
   initNavSearch();
-  initLookbook();
   initProducts();
+  initLookbook();
   initFadeIn();
-  initCollectionReel();
-
+  initProofCounters();
+  initCollReel();
 });
 
-/* ══════════════════════════════════════════════════════════════
-   1. NAVBAR
-   ══════════════════════════════════════════════════════════════ */
+/* ── 1. NAVBAR ───────────────────────────────────────────────── */
 function initNavbar() {
   const navbar   = document.getElementById('navbar');
   const progress = document.getElementById('nav-progress');
-
   if (!navbar) return;
-
   window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const docHeight = document.body.scrollHeight - window.innerHeight;
-
-    // Sticky state
-    navbar.classList.toggle('scrolled', scrolled > 60);
-
-    // Scroll progress bar
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
     if (progress) {
-      progress.style.width = Math.min((scrolled / docHeight) * 100, 100) + '%';
+      const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      progress.style.width = Math.min(pct, 100) + '%';
     }
   }, { passive: true });
 }
 
-/* ══════════════════════════════════════════════════════════════
-   2. HERO COUNTERS
-   ══════════════════════════════════════════════════════════════ */
-function initHeroCounters() {
-  const counters = document.querySelectorAll('.stat-num[data-target]');
-  if (!counters.length) return;
-
-  counters.forEach(el => {
-    const target  = parseFloat(el.dataset.target);
-    const decimal = parseInt(el.dataset.decimal || '0');
-    const dur     = 1800;
-    const start   = performance.now();
-
-    function tick(now) {
-      const p = Math.min((now - start) / dur, 1);
-      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
-      const val = eased * target;
-      el.textContent = decimal ? val.toFixed(decimal) : Math.floor(val);
-      if (p < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  });
-}
-
-/* ══════════════════════════════════════════════════════════════
-   3. NAVBAR LIVE SEARCH
-   ══════════════════════════════════════════════════════════════ */
+/* ── 2. LIVE SEARCH ──────────────────────────────────────────── */
 function initNavSearch() {
   const input   = document.getElementById('nav-search-input');
   const results = document.getElementById('nav-search-results');
   if (!input || !results) return;
 
-  const search = debounce((q) => {
+  const run = debounce((q) => {
     if (!q || q.length < 2) { results.classList.remove('open'); return; }
     if (typeof products === 'undefined') return;
-
-    const matches = products.filter(p =>
+    const hits = products.filter(p =>
       p.name.toLowerCase().includes(q.toLowerCase()) ||
-      (p.anime || '').toLowerCase().includes(q.toLowerCase()) ||
-      (p.tag  || '').toLowerCase().includes(q.toLowerCase())
-    ).slice(0, 8);
+      (p.anime||'').toLowerCase().includes(q.toLowerCase())
+    ).slice(0, 7);
 
-    if (!matches.length) {
-      results.innerHTML = `<div class="nsr-empty">No results for "${q}"</div>`;
-    } else {
-      results.innerHTML = matches.map(p => `
-        <div class="nsr-item" onclick="window.location='collection.html?q=${encodeURIComponent(p.name)}'">
-          <div class="nsr-emoji">${p.img}</div>
-          <div class="nsr-info">
-            <div class="nsr-name">${highlightMatch(p.name, q)}</div>
-            <div class="nsr-price">₹${p.price.toLocaleString()}</div>
-          </div>
-        </div>
-      `).join('');
-    }
+    results.innerHTML = hits.length
+      ? hits.map(p => `
+          <div class="nsr-item" onclick="window.location='collection.html?q=${encodeURIComponent(p.name)}'">
+            <div class="nsr-emoji">${p.img}</div>
+            <div>
+              <span class="nsr-name">${hl(p.name, q)}</span>
+              <span class="nsr-price">₹${p.price.toLocaleString()}</span>
+            </div>
+          </div>`).join('')
+      : `<div class="nsr-empty">No results for "${q}"</div>`;
     results.classList.add('open');
-  }, 200);
+  }, 180);
 
-  input.addEventListener('input', e => search(e.target.value.trim()));
+  input.addEventListener('input',   e => run(e.target.value.trim()));
   input.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      const q = input.value.trim();
-      if (q) window.location.href = `collection.html?q=${encodeURIComponent(q)}`;
-    }
+    if (e.key === 'Enter') { const v = input.value.trim(); if (v) window.location.href = `collection.html?q=${encodeURIComponent(v)}`; }
     if (e.key === 'Escape') results.classList.remove('open');
   });
-
   document.addEventListener('click', e => {
-    if (!input.contains(e.target) && !results.contains(e.target)) {
-      results.classList.remove('open');
-    }
+    if (!input.contains(e.target) && !results.contains(e.target)) results.classList.remove('open');
   });
 }
-
-function highlightMatch(text, q) {
-  const rx = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-  return text.replace(rx, '<mark style="background:rgba(232,21,58,0.3);color:#fff;">$1</mark>');
+function hl(text, q) {
+  return text.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),
+    '<mark>$1</mark>');
 }
 
 /* Mobile search */
 function doMobSearch() {
-  const val = document.getElementById('mob-search-input')?.value.trim();
-  if (val) window.location.href = `collection.html?q=${encodeURIComponent(val)}`;
+  const v = document.getElementById('mob-search-input')?.value.trim();
+  if (v) window.location.href = `collection.html?q=${encodeURIComponent(v)}`;
 }
-
-/* Kept for backward compat (old search dropdown) */
 function doSearch() {
-  const val = document.getElementById('search-input')?.value.trim();
-  if (val) window.location.href = `collection.html?q=${encodeURIComponent(val)}`;
+  const v = document.getElementById('search-input')?.value.trim();
+  if (v) window.location.href = `collection.html?q=${encodeURIComponent(v)}`;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   4. LOOKBOOK FILTER
-   ══════════════════════════════════════════════════════════════ */
-function initLookbook() {
-  const filters = document.querySelectorAll('.lb-filter');
-  const cards   = document.querySelectorAll('.lb-card');
-  if (!filters.length) return;
-
-  filters.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filters.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const universe = btn.dataset.lb;
-      cards.forEach(card => {
-        const match = universe === 'all' || card.dataset.universe === universe;
-        card.style.transition = 'opacity 0.3s, transform 0.3s';
-        card.style.opacity    = match ? '1' : '0.15';
-        card.style.transform  = match ? 'scale(1)' : 'scale(0.97)';
-        card.style.pointerEvents = match ? '' : 'none';
-      });
-    });
-  });
-}
-
-/* ══════════════════════════════════════════════════════════════
-   5. PRODUCT GRID — skeleton, filter tabs, staggered render
-   ══════════════════════════════════════════════════════════════ */
+/* ── 3. PRODUCTS ─────────────────────────────────────────────── */
 function initProducts() {
-  const skeleton  = document.getElementById('prd-skeleton');
-  const grid      = document.getElementById('featured-products');
-  const tabs      = document.querySelectorAll('#prod-tabs .feat-tab');
+  const skeleton = document.getElementById('prod-skeleton');
+  const grid     = document.getElementById('featured-products');
   if (!grid) return;
 
-  // Brief skeleton then render
+  // Show skeleton briefly, then reveal real grid
   setTimeout(() => {
-    skeleton && (skeleton.style.display = 'none');
+    if (skeleton) skeleton.style.display = 'none';
     grid.style.display = 'grid';
-    renderGrid('all');
-    animateCardsIn(grid);
-    initNewArrivals();
-  }, 600);
+    renderProdGrid('all');
+    stagger(grid);
+    renderNewArrivals();
+  }, 550);
 
   // Filter tabs
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const filter = tab.dataset.filter;
-      // Fade out
-      grid.style.opacity = '0';
-      grid.style.transform = 'translateY(8px)';
-      grid.style.transition = 'opacity 0.2s, transform 0.2s';
-
+  document.querySelectorAll('#prod-filters .pf-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#prod-filters .pf-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      grid.style.cssText = 'opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s;display:grid';
       setTimeout(() => {
-        renderGrid(filter);
+        renderProdGrid(btn.dataset.filter);
         grid.style.opacity = '1';
         grid.style.transform = 'translateY(0)';
-        animateCardsIn(grid);
-      }, 220);
+        stagger(grid);
+      }, 200);
     });
   });
 }
 
-function renderGrid(filter) {
+function renderProdGrid(filter) {
   const grid = document.getElementById('featured-products');
   if (!grid || typeof products === 'undefined') return;
-
-  let subset = filter === 'all'
+  const subset = filter === 'all'
     ? products.slice(0, 8)
     : products.filter(p => p.type === filter).slice(0, 8);
-
-  if (!subset.length) {
-    grid.innerHTML = `<div class="no-results"><i class="fas fa-box-open"></i><p>No items in this category yet.</p></div>`;
-    return;
-  }
-
-  grid.innerHTML = subset.map(p => renderProductCard(p)).join('');
-  attachWishlistListeners(grid);
+  grid.innerHTML = subset.length
+    ? subset.map(p => renderProductCard(p)).join('')
+    : `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)"><i class="fas fa-box-open" style="font-size:2.5rem;display:block;margin-bottom:14px;opacity:.3"></i>No items in this category yet.</div>`;
+  attachWish(grid);
 }
 
-function initNewArrivals() {
+function renderNewArrivals() {
   const el = document.getElementById('new-arrivals-preview');
   if (!el || typeof products === 'undefined') return;
-  const newItems = products.filter(p => p.isNew).slice(0, 4);
-  el.innerHTML = newItems.map(p => renderProductCard(p)).join('');
-  attachWishlistListeners(el);
+  const items = products.filter(p => p.isNew).slice(0, 4);
+  el.innerHTML = items.map(p => renderProductCard(p)).join('');
+  attachWish(el);
+  stagger(el);
 }
 
-function animateCardsIn(grid) {
-  const cards = grid.querySelectorAll('.prd-card');
-  cards.forEach((card, i) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = `opacity 0.4s ease ${i * 0.06}s, transform 0.4s ease ${i * 0.06}s`;
+function stagger(grid) {
+  grid.querySelectorAll('.prd-card').forEach((c, i) => {
+    c.style.cssText = `opacity:0;transform:translateY(18px);transition:opacity .4s ease ${i*.065}s,transform .4s ease ${i*.065}s`;
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0)';
+      c.style.opacity = '1'; c.style.transform = 'translateY(0)';
     }));
   });
 }
 
-function attachWishlistListeners(grid) {
+function attachWish(grid) {
   grid.querySelectorAll('.prd-wish').forEach(btn => {
     const fresh = btn.cloneNode(true);
     btn.parentNode.replaceChild(fresh, btn);
     fresh.addEventListener('click', e => {
       e.stopPropagation();
       const icon = fresh.querySelector('i');
-      const wished = icon.classList.contains('fas');
-      icon.className = wished ? 'far fa-heart' : 'fas fa-heart';
-      icon.style.color = wished ? '' : 'var(--red)';
-      if (typeof toast === 'function') toast(wished ? 'Removed from wishlist' : 'Saved to wishlist ❤️', 'info');
+      const on = icon.classList.contains('fas');
+      icon.className = on ? 'far fa-heart' : 'fas fa-heart';
+      icon.style.color = on ? '' : 'var(--red)';
+      if (typeof toast === 'function') toast(on ? 'Removed from wishlist' : 'Saved ❤️', 'info');
     });
   });
 }
 
-/* ══════════════════════════════════════════════════════════════
-   6. SCROLL FADE-IN
-   ══════════════════════════════════════════════════════════════ */
+/* ── 4. LOOKBOOK FILTER ──────────────────────────────────────── */
+function initLookbook() {
+  const tabs  = document.querySelectorAll('.lb-tab');
+  const cards = document.querySelectorAll('.lb-card');
+  if (!tabs.length) return;
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const u = tab.dataset.lb;
+      cards.forEach(card => {
+        const match = u === 'all' || card.dataset.universe === u;
+        card.style.transition = 'opacity .3s,transform .3s';
+        card.style.opacity    = match ? '1' : '0.12';
+        card.style.transform  = match ? 'scale(1)' : 'scale(.97)';
+        card.style.pointerEvents = match ? '' : 'none';
+      });
+    });
+  });
+}
+
+/* ── 5. FADE-IN ON SCROLL ────────────────────────────────────── */
 function initFadeIn() {
-  const sections = document.querySelectorAll('.fade-in-section');
-  if (!('IntersectionObserver' in window)) {
-    sections.forEach(s => s.classList.add('visible'));
-    return;
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
-    });
+  const els = document.querySelectorAll('.fade-in-section');
+  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('visible')); return; }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.07 });
-  sections.forEach(s => io.observe(s));
+  els.forEach(e => io.observe(e));
 }
 
-/* ══════════════════════════════════════════════════════════════
-   7. COLLECTIONS REEL — navigate with query param
-   ══════════════════════════════════════════════════════════════ */
-function initCollectionReel() {
-  // Touch/mouse drag scroll for collections reel
-  const reel = document.querySelector('.collections-reel');
-  if (!reel) return;
-
-  let isDown = false, startX = 0, scrollLeft = 0;
-  reel.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - reel.offsetLeft; scrollLeft = reel.scrollLeft; });
-  reel.addEventListener('mouseleave', () => isDown = false);
-  reel.addEventListener('mouseup', () => isDown = false);
-  reel.addEventListener('mousemove', e => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - reel.offsetLeft;
-    reel.scrollLeft = scrollLeft - (x - startX) * 1.5;
+/* ── 6. PROOF COUNTERS ───────────────────────────────────────── */
+function initProofCounters() {
+  document.querySelectorAll('.proof-num[data-target]').forEach(el => {
+    const target  = parseFloat(el.dataset.target);
+    const dec     = parseInt(el.dataset.decimal || '0');
+    const suffix  = el.dataset.suffix || '';
+    const dur     = 1600;
+    const start   = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = (dec ? (e * target).toFixed(dec) : Math.floor(e * target)) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
   });
 }
 
-function goCollection(style) {
-  window.location.href = `collection.html?style=${encodeURIComponent(style)}`;
+/* ── 7. COLLECTION REEL DRAG ─────────────────────────────────── */
+function initCollReel() {
+  const reel = document.querySelector('.coll-reel');
+  if (!reel) return;
+  // Keyboard-navigable collection clicks already handled via onclick in HTML
 }
 
-/* ══════════════════════════════════════════════════════════════
-   8. NEWSLETTER
-   ══════════════════════════════════════════════════════════════ */
+function goCollection(type) {
+  window.location.href = `collection.html?type=${encodeURIComponent(type)}`;
+}
+
+/* ── 8. NEWSLETTER ───────────────────────────────────────────── */
 function nlSubscribe() {
   const emailEl = document.getElementById('nl-email');
   const btn     = document.getElementById('nl-btn');
   if (!emailEl || !btn) return;
-
   const email = emailEl.value.trim();
   const rx    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
   if (!email || !rx.test(email)) {
     emailEl.style.borderColor = 'var(--red)';
     emailEl.focus();
@@ -331,19 +235,13 @@ function nlSubscribe() {
     if (typeof toast === 'function') toast('Please enter a valid email.', 'error');
     return;
   }
-
   btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
   btn.disabled = true;
-
   setTimeout(() => {
     emailEl.value = '';
     btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
     btn.style.background = '#10b981';
     if (typeof toast === 'function') toast("You're in! Welcome to the community 🎉", 'success');
-    setTimeout(() => {
-      btn.innerHTML = 'Subscribe <i class="fas fa-arrow-right"></i>';
-      btn.style.background = '';
-      btn.disabled = false;
-    }, 3500);
+    setTimeout(() => { btn.innerHTML = 'Subscribe <i class="fas fa-arrow-right"></i>'; btn.style.background = ''; btn.disabled = false; }, 3500);
   }, 1200);
 }

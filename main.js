@@ -82,12 +82,57 @@ document.addEventListener('DOMContentLoaded', () => {
   updateNav();
 });
 
+/* ─── Real Unsplash images keyed by product type ────────────────
+   Multiple URLs per type so the grid looks varied, not repeated.
+   Each product uses (hash of its id) % pool.length to pick one.   */
+const PRODUCT_IMAGES = {
+  hoodie: [
+    'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1509942774463-acf339cf87d5?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500&auto=format&fit=crop&q=80',
+  ],
+  tee: [
+    'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=500&auto=format&fit=crop&q=80',
+  ],
+  phone: [
+    'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=500&auto=format&fit=crop&q=80',
+  ],
+  figurine: [
+    'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1608889476561-6242cfdbf622?w=500&auto=format&fit=crop&q=80',
+  ],
+  jacket: [
+    'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=500&auto=format&fit=crop&q=80',
+  ],
+  oversized: [
+    'https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=80',
+  ],
+};
+const FALLBACK_IMG = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&auto=format&fit=crop&q=80';
+
+function getProductImage(product) {
+  const pool = PRODUCT_IMAGES[product.type] || PRODUCT_IMAGES.tee;
+  // Deterministic pick from pool using numeric part of id
+  const num = parseInt((product.id || '0').replace(/\D/g,'')) || 0;
+  return pool[num % pool.length];
+}
+
 function renderProductCard(product) {
   const origPrice = Math.ceil(product.price * 1.18 / 100) * 100;
+  const imgUrl    = getProductImage(product);
   return `
     <div class="prd-card" data-type="${product.type || ''}" data-anime="${product.anime || ''}">
       <div class="prd-img">
-        <div class="prd-img-inner">${product.img}</div>
+        <div class="prd-img-inner" style="background-image:url('${imgUrl}')"></div>
         ${product.isNew ? '<span class="prd-badge">NEW</span>' : ''}
         <button class="prd-wish" title="Save to wishlist"><i class="far fa-heart"></i></button>
       </div>
@@ -99,7 +144,6 @@ function renderProductCard(product) {
       <div class="prd-info">
         <div class="prd-tag-row">
           <span class="prd-anime">${product.anime || product.tag || ''}</span>
-          <span class="prd-type-icon">${typeIcon(product.type)}</span>
         </div>
         <div class="prd-name">${product.name}</div>
         <div class="prd-price-row">
@@ -109,11 +153,6 @@ function renderProductCard(product) {
       </div>
     </div>
   `;
-}
-
-function typeIcon(type) {
-  const map = { hoodie:'🧥', tee:'👕', phone:'📱', figurine:'🗿', jacket:'🧥', oversized:'👕' };
-  return map[type] || '';
 }
 
 function addToCart(id, name, price) {
