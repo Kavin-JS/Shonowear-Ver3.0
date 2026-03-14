@@ -4,34 +4,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About - ShonoWear</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
-      <ul class="nav-links">
-        <li><a href="collection.html">Collection</a></li>
-        <li><a href="new-arrivals.html">New Arrivals</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div class="nav-right">
+    <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="collection.html">Collection</a></li>
+      <li><a href="new-arrivals.html">New Arrivals</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
       <div class="cart-wrap">
-        <a href="cart.html" class="nav-links icon-link"><i class="fas fa-shopping-bag"></i></a>
+        <a href="cart.html" class="nav-icon-btn" title="Cart"><i class="fas fa-shopping-bag"></i></a>
         <div class="cart-badge">0</div>
+      </div>
+      <a id="nav-login" class="nav-login-btn" href="login.html">Login</a>
+      <div id="nav-user" class="nav-user" style="display:none;">
+        <span class="nav-uname" id="nav-uname"></span>
+        <button class="nav-logout" onclick="logout()">Logout</button>
       </div>
     </div>
     <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
   </nav>
+  <div class="nav-progress" id="nav-progress"></div>
 
-  <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
+    <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
   <div class="mob-menu" id="mob-menu">
-    <div class="mob-logo">SHONO<span style="color:#e8153a;">WEAR</span></div>
+    <div class="mob-head">
+      <span class="mob-logo">SHONO<em>WEAR</em></span>
+      <button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button>
+    </div>
+    <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
+    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
+    <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </div>
     <button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button>
     <a href="collection.html">Collection</a>
     <a href="new-arrivals.html">New Arrivals</a>
