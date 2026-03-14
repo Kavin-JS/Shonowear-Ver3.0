@@ -3,52 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShonoWear — Minimal Streetwear for the Modern Generation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Shonowear — Fashion Discovery Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- ═══════════════════════════════════════════
+       NAVBAR — glass morphism, sticky, search bar
+       ═══════════════════════════════════════════ -->
   <nav class="navbar" id="navbar">
     <div class="nav-left">
       <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+      <!-- Inline search bar (desktop) -->
+      <div class="nav-search">
+        <i class="fas fa-search nav-search-icon"></i>
+        <input type="text" id="nav-search-input" placeholder="Search styles, collections…" autocomplete="off" />
+        <div class="nav-search-results" id="nav-search-results"></div>
+      </div>
+    </div>
+    <div class="nav-center">
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="index.html" class="active">Discover</a></li>
         <li><a href="collection.html">Collection</a></li>
         <li><a href="new-arrivals.html">New Arrivals</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
     <div class="nav-right">
-      <button class="nav-icon-btn" id="search-toggle" title="Search"><i class="fas fa-search"></i></button>
       <div class="cart-wrap">
-        <a href="cart.html" class="nav-icon-btn"><i class="fas fa-shopping-bag"></i></a>
+        <a href="cart.html" class="nav-icon-btn" title="Cart"><i class="fas fa-shopping-bag"></i></a>
         <div class="cart-badge">0</div>
       </div>
-      <a id="nav-login" class="nav-icon-btn" href="login.html" title="Login"><i class="fas fa-user"></i></a>
+      <a id="nav-login" class="btn-nav-login" href="login.html">Login</a>
       <div id="nav-user" class="nav-user" style="display:none;">
         <span class="nav-uname" id="nav-uname"></span>
         <button class="nav-logout" onclick="logout()">Logout</button>
       </div>
     </div>
-    <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
   </nav>
+  <!-- Scroll progress -->
+  <div class="nav-progress" id="nav-progress"></div>
 
-  <div class="search-dropdown" id="search-dropdown">
-    <div class="search-inner">
-      <input type="text" placeholder="Search hoodies, tees, figurines..." id="search-input" />
-      <button onclick="doSearch()"><i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-
+  <!-- Mobile Menu -->
   <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
   <div class="mob-menu" id="mob-menu">
     <div class="mob-logo">SHONO<span>WEAR</span></div>
     <button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button>
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="collection.html"><i class="fas fa-shopping-bag"></i>Collection</a>
+    <div class="mob-search">
+      <input type="text" id="mob-search-input" placeholder="Search…" />
+      <button onclick="doMobSearch()"><i class="fas fa-search"></i></button>
+    </div>
+    <a href="index.html"><i class="fas fa-compass"></i>Discover</a>
+    <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
     <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
     <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
     <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
@@ -56,301 +65,617 @@
     <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
   </div>
 
-  <!-- HERO -->
+
+  <!-- ═══════════════════════════════════════════
+       1. HERO — image-first, full viewport
+       ═══════════════════════════════════════════ -->
   <section class="hero" id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
-    <!-- Decorative corner accents -->
-    <div class="hero-corner hero-corner--tl"></div>
-    <div class="hero-corner hero-corner--br"></div>
+    <!-- Ambient background layers -->
+    <div class="hero-visual">
+      <div class="hero-img hero-img-1"></div>
+      <div class="hero-img hero-img-2"></div>
+      <div class="hero-img hero-img-3"></div>
+      <div class="hero-reel-label">SS25 COLLECTION</div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grain"></div>
 
     <div class="hero-content">
-      <div class="hero-pill"><span class="pill-dot"></span> SS25 COLLECTION — NOW LIVE</div>
+      <div class="hero-eyebrow">
+        <span class="hero-dot"></span>
+        <span>Fashion Discovery Platform</span>
+        <span class="hero-dot"></span>
+        <span>Season 25</span>
+      </div>
 
-      <h1 class="hero-title">
-        <span class="line1">Wear the</span>
-        <span class="line2">Culture.</span>
-        <span class="line3">Own the Street.</span>
+      <h1 class="hero-headline">
+        <span class="hl-top">Wear the</span>
+        <span class="hl-mid">Culture</span>
+        <span class="hl-bot">Own the Street</span>
       </h1>
 
-      <p class="hero-sub">
-        Premium anime-inspired streetwear built for those who refuse to blend in.<br>
-        Quality fabric. Minimal design. Culture-first aesthetics.
+      <p class="hero-desc">
+        A curated fashion discovery platform for anime-inspired streetwear.<br>
+        Explore drops, browse styles, and find your aesthetic.
       </p>
 
-      <div class="hero-btns">
-        <a href="collection.html" class="btn-primary">
-          <i class="fas fa-shopping-bag"></i> Shop Collection
+      <div class="hero-actions">
+        <a href="collection.html" class="hero-btn-primary">
+          Explore Collection <i class="fas fa-arrow-right"></i>
         </a>
-        <a href="new-arrivals.html" class="btn-outline">
-          New Arrivals <i class="fas fa-arrow-right"></i>
+        <a href="#lookbook" class="hero-btn-ghost">
+          View Lookbook
         </a>
       </div>
 
-      <!-- Stats bar — adds social proof directly in hero -->
       <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="stat-num">10K+</span>
-          <span class="stat-label">Orders Shipped</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-num">4.9★</span>
-          <span class="stat-label">Avg. Rating</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-num">80+</span>
-          <span class="stat-label">Unique Designs</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-num">Free</span>
-          <span class="stat-label">Shipping ₹999+</span>
-        </div>
+        <div class="hero-stat"><span class="stat-num" data-target="10">0</span><span class="stat-suffix">K+</span><span class="stat-lbl">Orders</span></div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat"><span class="stat-num" data-target="80">0</span><span class="stat-suffix">+</span><span class="stat-lbl">Designs</span></div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat"><span class="stat-num" data-target="4" data-decimal="1">0</span><span class="stat-suffix">★</span><span class="stat-lbl">Rating</span></div>
       </div>
     </div>
 
-    <div class="hero-scroll"><span>SCROLL</span><i class="fas fa-chevron-down"></i></div>
+    <!-- Floating collection cards -->
+    <div class="hero-float-cards">
+      <div class="float-card fc-1">
+        <div class="fc-img fc-img-naruto"></div>
+        <div class="fc-info"><span>Naruto</span><span>Hoodie — ₹1,999</span></div>
+      </div>
+      <div class="float-card fc-2">
+        <div class="fc-img fc-img-aot"></div>
+        <div class="fc-info"><span>Attack on Titan</span><span>Tee — ₹749</span></div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span>SCROLL TO DISCOVER</span>
+      <div class="scroll-line"></div>
+    </div>
   </section>
 
-  <!-- SCROLLING STRIP -->
+
+  <!-- ═══════════════════════════════════════════
+       TICKER STRIP
+       ═══════════════════════════════════════════ -->
   <div class="strip">
     <div class="strip-track">
-      <div class="strip-item">ANIME FIGURES <span>★</span></div>
-      <div class="strip-item">EXCLUSIVE APPAREL <span>★</span></div>
-      <div class="strip-item">COLLECTIBLES <span>★</span></div>
-      <div class="strip-item">LIMITED EDITION <span>★</span></div>
-      <div class="strip-item">FREE RETURNS <span>★</span></div>
-      <div class="strip-item">PREMIUM QUALITY <span>★</span></div>
-      <div class="strip-item">ANIME FIGURES <span>★</span></div>
-      <div class="strip-item">EXCLUSIVE APPAREL <span>★</span></div>
-      <div class="strip-item">COLLECTIBLES <span>★</span></div>
-      <div class="strip-item">LIMITED EDITION <span>★</span></div>
+      <span class="strip-item">ANIME CULTURE <em>✦</em></span>
+      <span class="strip-item">STREETWEAR <em>✦</em></span>
+      <span class="strip-item">PREMIUM FABRIC <em>✦</em></span>
+      <span class="strip-item">LIMITED DROPS <em>✦</em></span>
+      <span class="strip-item">CURATED STYLES <em>✦</em></span>
+      <span class="strip-item">FREE SHIPPING ₹999+ <em>✦</em></span>
+      <span class="strip-item">ANIME CULTURE <em>✦</em></span>
+      <span class="strip-item">STREETWEAR <em>✦</em></span>
+      <span class="strip-item">PREMIUM FABRIC <em>✦</em></span>
+      <span class="strip-item">LIMITED DROPS <em>✦</em></span>
+      <span class="strip-item">CURATED STYLES <em>✦</em></span>
+      <span class="strip-item">FREE SHIPPING ₹999+ <em>✦</em></span>
     </div>
   </div>
 
-  <!-- FEATURED PRODUCTS -->
-  <section class="section-block fade-in-section" id="featured-section">
-    <div class="section-header">
-      <span class="section-tag">— FEATURED</span>
-      <h2 class="section-title">Trending Now</h2>
-      <p class="section-sub">Our most-loved pieces — worn by the community, built for the streets</p>
-    </div>
-    <!-- Quick filter tabs for the featured grid -->
-    <div class="feat-tabs">
-      <button class="feat-tab active" data-filter="all">All</button>
-      <button class="feat-tab" data-filter="hoodie">Hoodies</button>
-      <button class="feat-tab" data-filter="tee">Tees</button>
-      <button class="feat-tab" data-filter="figurine">Figurines</button>
-      <button class="feat-tab" data-filter="phone">Accessories</button>
-    </div>
-    <div class="prd-grid" id="featured-products"></div>
-    <div class="section-cta">
-      <a href="collection.html" class="btn-outline">View Full Collection <i class="fas fa-arrow-right"></i></a>
+
+  <!-- ═══════════════════════════════════════════
+       2. PROBLEM — why fashion discovery is broken
+       ═══════════════════════════════════════════ -->
+  <section class="problem-section fade-in-section" id="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-text">
+          <span class="eyebrow-tag">The Problem</span>
+          <h2 class="section-h2">Fashion discovery<br><em>is broken.</em></h2>
+          <p>Endless product grids, zero curation. You scroll for hours and still can't find your aesthetic. Generic storefronts don't understand culture — they just list SKUs.</p>
+          <div class="problem-points">
+            <div class="pp"><i class="fas fa-times-circle"></i><span>No cultural context behind products</span></div>
+            <div class="pp"><i class="fas fa-times-circle"></i><span>Cluttered feeds with no visual hierarchy</span></div>
+            <div class="pp"><i class="fas fa-times-circle"></i><span>Zero style discovery — just catalogs</span></div>
+          </div>
+        </div>
+        <div class="problem-visual">
+          <div class="pv-card pv-bad">
+            <div class="pv-bar"></div>
+            <div class="pv-bar short"></div>
+            <div class="pv-bar"></div>
+            <div class="pv-bar short"></div>
+            <div class="pv-label">Old way — just a catalog</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- CATEGORIES -->
-  <section class="section-block categories-section fade-in-section">
-    <div class="section-header">
-      <span class="section-tag">— SHOP BY</span>
-      <h2 class="section-title">Browse Categories</h2>
+
+  <!-- ═══════════════════════════════════════════
+       3. SOLUTION — what Shonowear does differently
+       ═══════════════════════════════════════════ -->
+  <section class="solution-section fade-in-section" id="solution">
+    <div class="container">
+      <div class="solution-header">
+        <span class="eyebrow-tag accent">The Solution</span>
+        <h2 class="section-h2">Style discovery,<br><em>not just shopping.</em></h2>
+        <p class="section-sub">Shonowear is a fashion discovery platform built for culture — not commerce. Every piece is curated with context, every collection tells a story.</p>
+      </div>
+      <div class="solution-grid">
+        <div class="sol-card">
+          <div class="sol-icon"><i class="fas fa-compass"></i></div>
+          <h4>Curated Discovery</h4>
+          <p>Hand-picked collections organized by anime universe, style aesthetic, and cultural moment.</p>
+        </div>
+        <div class="sol-card">
+          <div class="sol-icon"><i class="fas fa-images"></i></div>
+          <h4>Image-First Browsing</h4>
+          <p>Visual-first layouts inspired by editorial fashion — browse like a lookbook, not a spreadsheet.</p>
+        </div>
+        <div class="sol-card">
+          <div class="sol-icon"><i class="fas fa-sliders-h"></i></div>
+          <h4>Smart Filtering</h4>
+          <p>Filter by universe, style, price, and type. Find exactly what fits your aesthetic in seconds.</p>
+        </div>
+        <div class="sol-card">
+          <div class="sol-icon"><i class="fas fa-bolt"></i></div>
+          <h4>Drop Culture</h4>
+          <p>Limited edition releases, new arrivals, and exclusive drops — all surfaced before they sell out.</p>
+        </div>
+      </div>
     </div>
-    <div class="cat-grid">
-      <a href="collection.html" class="cat-card cat-streetwear">
-        <div class="cat-overlay">
-          <span class="cat-count">24 items</span>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       4. FEATURES — platform capabilities
+       ═══════════════════════════════════════════ -->
+  <section class="features-section fade-in-section" id="features">
+    <div class="container">
+      <div class="feat-header">
+        <span class="eyebrow-tag">Platform Features</span>
+        <h2 class="section-h2">Built different.<br><em>By design.</em></h2>
+      </div>
+      <div class="feat-bento">
+        <div class="bento-card bento-large">
+          <div class="bento-visual bv-grid"></div>
+          <div class="bento-text">
+            <h3>Dynamic Product Grid</h3>
+            <p>Live-filtered, search-driven, category-aware grid that rerenders instantly without a page load.</p>
+          </div>
+        </div>
+        <div class="bento-card bento-tall">
+          <div class="bento-visual bv-filter"></div>
+          <div class="bento-text">
+            <h3>Multi-Filter System</h3>
+            <p>Filter by type, price range, anime universe, and sort order — simultaneously.</p>
+          </div>
+        </div>
+        <div class="bento-card bento-wide">
+          <div class="bento-visual bv-cart"></div>
+          <div class="bento-text">
+            <h3>Persistent Cart</h3>
+            <p>localStorage-powered cart that survives page refreshes, with quantity management and live totals.</p>
+          </div>
+        </div>
+        <div class="bento-card bento-sm">
+          <div class="bento-visual bv-auth"></div>
+          <div class="bento-text">
+            <h3>Auth System</h3>
+            <p>Session-based login with protected user state across pages.</p>
+          </div>
+        </div>
+        <div class="bento-card bento-sm">
+          <div class="bento-visual bv-search"></div>
+          <div class="bento-text">
+            <h3>Live Search</h3>
+            <p>Instant search with debounce — finds products as you type.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       5. STYLE COLLECTIONS
+       ═══════════════════════════════════════════ -->
+  <section class="collections-section fade-in-section" id="collections">
+    <div class="container">
+      <div class="section-header-inline">
+        <div>
+          <span class="eyebrow-tag">Collections</span>
+          <h2 class="section-h2">Browse by Style</h2>
+        </div>
+        <a href="collection.html" class="link-arrow">View All <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- Full-bleed collection cards — no container constraint -->
+    <div class="collections-reel">
+      <div class="coll-card" data-style="streetwear" onclick="goCollection('streetwear')">
+        <div class="coll-bg coll-bg-street"></div>
+        <div class="coll-overlay"></div>
+        <div class="coll-body">
+          <span class="coll-count">24 pieces</span>
           <h3>Streetwear</h3>
-          <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-      <a href="collection.html" class="cat-card cat-casual">
-        <div class="cat-overlay">
-          <span class="cat-count">18 items</span>
-          <h3>Accessories</h3>
-          <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-      <a href="collection.html" class="cat-card cat-minimal">
-        <div class="cat-overlay">
-          <span class="cat-count">30 items</span>
-          <h3>Minimal Tees</h3>
-          <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-      <a href="collection.html" class="cat-card cat-essentials">
-        <div class="cat-overlay">
-          <span class="cat-count">16 items</span>
-          <h3>Figurines</h3>
-          <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- WHY SHONOWEAR -->
-  <section class="section-block why-section fade-in-section">
-    <div class="section-header">
-      <span class="section-tag">— OUR PROMISE</span>
-      <h2 class="section-title">Why Shonowear</h2>
-      <p class="section-sub">We don't just sell clothes. We build a culture.</p>
-    </div>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-card-top">
-          <div class="why-icon"><i class="fas fa-tshirt"></i></div>
-          <span class="why-num">01</span>
-        </div>
-        <h4>Premium Fabric</h4>
-        <p>350 GSM heavyweight cotton that feels as good as it looks. Built to outlast every season, every wash.</p>
-        <div class="why-line"></div>
-      </div>
-      <div class="why-card">
-        <div class="why-card-top">
-          <div class="why-icon"><i class="fas fa-drafting-compass"></i></div>
-          <span class="why-num">02</span>
-        </div>
-        <h4>Intentional Design</h4>
-        <p>Every graphic is drawn with purpose. Clean lines, tight compositions — no noise, no filler.</p>
-        <div class="why-line"></div>
-      </div>
-      <div class="why-card">
-        <div class="why-card-top">
-          <div class="why-icon"><i class="fas fa-rupee-sign"></i></div>
-          <span class="why-num">03</span>
-        </div>
-        <h4>Fair Pricing</h4>
-        <p>Premium quality shouldn't come at a luxury price. We cut middlemen — not corners.</p>
-        <div class="why-line"></div>
-      </div>
-      <div class="why-card">
-        <div class="why-card-top">
-          <div class="why-icon"><i class="fas fa-fire-alt"></i></div>
-          <span class="why-num">04</span>
-        </div>
-        <h4>Culture-First</h4>
-        <p>Born from anime, raised on the streets. Every drop connects fans across generations and genres.</p>
-        <div class="why-line"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEW ARRIVALS PREVIEW -->
-  <section class="section-block fade-in-section">
-    <div class="section-header">
-      <span class="section-tag">— JUST DROPPED</span>
-      <h2 class="section-title">New Arrivals</h2>
-      <p class="section-sub">Fresh pieces added to the roster</p>
-    </div>
-    <div class="prd-grid" id="new-arrivals-preview"></div>
-    <div class="section-cta">
-      <a href="new-arrivals.html" class="btn-primary">View All New Arrivals <i class="fas fa-arrow-right"></i></a>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="section-block testimonials-section fade-in-section">
-    <div class="section-header">
-      <span class="section-tag">— COMMUNITY LOVE</span>
-      <h2 class="section-title">Real People. Real Style.</h2>
-      <p class="section-sub">Over 10,000 happy customers and counting</p>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="testi-quote-icon">"</div>
-        <div class="testi-stars">★★★★★</div>
-        <p>Clean designs and amazing quality. My Naruto hoodie is hands-down the most comfortable piece I own.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">AR</div>
-          <div><strong>Aryan R.</strong><span>Mumbai · Verified Buyer</span></div>
+          <p>Bold fits for the urban grid</p>
+          <span class="coll-cta">Explore <i class="fas fa-arrow-right"></i></span>
         </div>
       </div>
-      <div class="testi-card featured-testi">
-        <div class="testi-quote-icon">"</div>
-        <div class="testi-stars">★★★★★</div>
-        <p>Finally a streetwear brand that looks premium. The stitching, fit, and graphics — nothing else compares.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">SK</div>
-          <div><strong>Simran K.</strong><span>Delhi · Verified Buyer</span></div>
+      <div class="coll-card" data-style="minimal" onclick="goCollection('minimal')">
+        <div class="coll-bg coll-bg-minimal"></div>
+        <div class="coll-overlay"></div>
+        <div class="coll-body">
+          <span class="coll-count">30 pieces</span>
+          <h3>Minimal</h3>
+          <p>Clean, restrained, intentional</p>
+          <span class="coll-cta">Explore <i class="fas fa-arrow-right"></i></span>
         </div>
       </div>
-      <div class="testi-card">
-        <div class="testi-quote-icon">"</div>
-        <div class="testi-stars">★★★★★</div>
-        <p>Ordered twice already. Fast shipping, premium packaging. Would recommend to every anime fan I know.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">RP</div>
-          <div><strong>Rohan P.</strong><span>Bangalore · Verified Buyer</span></div>
+      <div class="coll-card" data-style="oversized" onclick="goCollection('oversized')">
+        <div class="coll-bg coll-bg-over"></div>
+        <div class="coll-overlay"></div>
+        <div class="coll-body">
+          <span class="coll-count">18 pieces</span>
+          <h3>Oversized</h3>
+          <p>Loose silhouettes, heavy culture</p>
+          <span class="coll-cta">Explore <i class="fas fa-arrow-right"></i></span>
         </div>
       </div>
-      <div class="testi-card">
-        <div class="testi-quote-icon">"</div>
-        <div class="testi-stars">★★★★☆</div>
-        <p>The JJK Gojo hoodie is insane quality. Runs slightly big — but that's the oversized fit anyway.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">NM</div>
-          <div><strong>Nisha M.</strong><span>Chennai · Verified Buyer</span></div>
+      <div class="coll-card" data-style="figurine" onclick="goCollection('figurines')">
+        <div class="coll-bg coll-bg-fig"></div>
+        <div class="coll-overlay"></div>
+        <div class="coll-body">
+          <span class="coll-count">16 pieces</span>
+          <h3>Collectibles</h3>
+          <p>Shelf-worthy anime figures</p>
+          <span class="coll-cta">Explore <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+      <div class="coll-card" data-style="jacket" onclick="goCollection('jackets')">
+        <div class="coll-bg coll-bg-jacket"></div>
+        <div class="coll-overlay"></div>
+        <div class="coll-body">
+          <span class="coll-count">8 pieces</span>
+          <h3>Outerwear</h3>
+          <p>Layer up, stand out</p>
+          <span class="coll-cta">Explore <i class="fas fa-arrow-right"></i></span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- NEWSLETTER -->
+
+  <!-- ═══════════════════════════════════════════
+       6. LOOKBOOK — editorial / trending looks
+       ═══════════════════════════════════════════ -->
+  <section class="lookbook-section fade-in-section" id="lookbook">
+    <div class="container">
+      <div class="section-header-inline">
+        <div>
+          <span class="eyebrow-tag">Lookbook</span>
+          <h2 class="section-h2">Trending Looks</h2>
+        </div>
+        <div class="lb-filters">
+          <button class="lb-filter active" data-lb="all">All</button>
+          <button class="lb-filter" data-lb="naruto">Naruto</button>
+          <button class="lb-filter" data-lb="aot">AoT</button>
+          <button class="lb-filter" data-lb="jjk">JJK</button>
+        </div>
+      </div>
+    </div>
+    <div class="lookbook-masonry" id="lookbook-grid">
+      <!-- 8 editorial look cards — mix of tall/wide -->
+      <div class="lb-card lb-tall" data-universe="naruto">
+        <div class="lb-img lb-img-1"></div>
+        <div class="lb-info">
+          <span class="lb-universe">Naruto Universe</span>
+          <h4>Konoha Street Edit</h4>
+          <p>Naruto Hoodie + Cargo Pants</p>
+          <button class="lb-shop" onclick="window.location='collection.html'">Shop This Look</button>
+        </div>
+      </div>
+      <div class="lb-card lb-wide" data-universe="aot">
+        <div class="lb-img lb-img-2"></div>
+        <div class="lb-info">
+          <span class="lb-universe">Attack on Titan</span>
+          <h4>Scout Regiment Fit</h4>
+          <p>Wings Tee + Dark Wash Jeans</p>
+          <button class="lb-shop" onclick="window.location='collection.html'">Shop This Look</button>
+        </div>
+      </div>
+      <div class="lb-card" data-universe="jjk">
+        <div class="lb-img lb-img-3"></div>
+        <div class="lb-info">
+          <span class="lb-universe">Jujutsu Kaisen</span>
+          <h4>Domain Expansion Drop</h4>
+          <p>Gojo Hoodie — Limited</p>
+          <button class="lb-shop" onclick="window.location='collection.html'">Shop This Look</button>
+        </div>
+      </div>
+      <div class="lb-card lb-tall" data-universe="naruto">
+        <div class="lb-img lb-img-4"></div>
+        <div class="lb-info">
+          <span class="lb-universe">Naruto Universe</span>
+          <h4>Akatsuki Monochrome</h4>
+          <p>Oversized Tee + Figurine Bundle</p>
+          <button class="lb-shop" onclick="window.location='collection.html'">Shop This Look</button>
+        </div>
+      </div>
+      <div class="lb-card" data-universe="aot">
+        <div class="lb-img lb-img-5"></div>
+        <div class="lb-info">
+          <span class="lb-universe">Attack on Titan</span>
+          <h4>Eren's Titan Edit</h4>
+          <p>AoT Hoodie — Premium Fit</p>
+          <button class="lb-shop" onclick="window.location='collection.html'">Shop This Look</button>
+        </div>
+      </div>
+      <div class="lb-card lb-wide" data-universe="jjk">
+        <div class="lb-img lb-img-6"></div>
+        <div class="lb-info">
+          <span class="lb-universe">Jujutsu Kaisen</span>
+          <h4>Shibuya Incident Collab</h4>
+          <p>JJK Tee + Phone Cover Set</p>
+          <button class="lb-shop" onclick="window.location='collection.html'">Shop This Look</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       7. PRODUCT PREVIEW GRID
+       ═══════════════════════════════════════════ -->
+  <section class="products-section fade-in-section" id="products">
+    <div class="container">
+      <div class="section-header-inline">
+        <div>
+          <span class="eyebrow-tag">Featured Products</span>
+          <h2 class="section-h2">Trending Now</h2>
+        </div>
+        <a href="collection.html" class="link-arrow">Full Collection <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <!-- Filter tabs -->
+      <div class="feat-tabs" id="prod-tabs">
+        <button class="feat-tab active" data-filter="all">All</button>
+        <button class="feat-tab" data-filter="hoodie">Hoodies</button>
+        <button class="feat-tab" data-filter="tee">Tees</button>
+        <button class="feat-tab" data-filter="figurine">Figurines</button>
+        <button class="feat-tab" data-filter="phone">Accessories</button>
+      </div>
+      <!-- Loading skeleton -->
+      <div class="prd-skeleton" id="prd-skeleton">
+        <div class="skel-card"></div><div class="skel-card"></div>
+        <div class="skel-card"></div><div class="skel-card"></div>
+      </div>
+      <div class="prd-grid" id="featured-products" style="display:none;"></div>
+      <div class="section-cta">
+        <a href="collection.html" class="btn-outline-large">Browse All Products <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       8. PLATFORM PREVIEW — screenshot showcase
+       ═══════════════════════════════════════════ -->
+  <section class="platform-section fade-in-section" id="platform">
+    <div class="container">
+      <div class="platform-header">
+        <span class="eyebrow-tag">Platform Preview</span>
+        <h2 class="section-h2">See it in action.</h2>
+        <p class="section-sub">Every page built with intent — from collection browsing to checkout. Here's what the platform looks like across key journeys.</p>
+      </div>
+      <div class="platform-screens">
+        <div class="ps-main">
+          <div class="ps-window">
+            <div class="ps-bar"><span></span><span></span><span></span></div>
+            <div class="ps-content ps-collection">
+              <div class="ps-label">Collection Page</div>
+              <div class="ps-mock-grid">
+                <div class="ps-item"></div><div class="ps-item"></div>
+                <div class="ps-item"></div><div class="ps-item"></div>
+              </div>
+            </div>
+          </div>
+          <p class="ps-caption"><i class="fas fa-th-large"></i> Collection Page — filterable product grid with 80+ items</p>
+        </div>
+        <div class="ps-side">
+          <div class="ps-window ps-sm">
+            <div class="ps-bar"><span></span><span></span><span></span></div>
+            <div class="ps-content ps-cart">
+              <div class="ps-label">Cart</div>
+              <div class="ps-cart-rows">
+                <div class="ps-cart-row"><div class="ps-ci"></div><div class="ps-ct"><div></div><div></div></div></div>
+                <div class="ps-cart-row"><div class="ps-ci"></div><div class="ps-ct"><div></div><div></div></div></div>
+              </div>
+            </div>
+          </div>
+          <p class="ps-caption"><i class="fas fa-shopping-bag"></i> Cart — persistent, quantity-aware checkout</p>
+
+          <div class="ps-window ps-sm ps-mobile-frame">
+            <div class="ps-notch"></div>
+            <div class="ps-content ps-mobile">
+              <div class="ps-label">Mobile</div>
+              <div class="ps-mob-items">
+                <div class="ps-mob-item"></div>
+                <div class="ps-mob-item"></div>
+              </div>
+            </div>
+          </div>
+          <p class="ps-caption"><i class="fas fa-mobile-alt"></i> Fully responsive mobile layout</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       9. ROADMAP
+       ═══════════════════════════════════════════ -->
+  <section class="roadmap-section fade-in-section" id="roadmap">
+    <div class="container">
+      <div class="roadmap-header">
+        <span class="eyebrow-tag">Roadmap</span>
+        <h2 class="section-h2">What's coming next.</h2>
+        <p class="section-sub">Shonowear is a growing platform. Here's what's being built next.</p>
+      </div>
+      <div class="roadmap-track">
+        <div class="rm-item rm-done">
+          <div class="rm-dot"><i class="fas fa-check"></i></div>
+          <div class="rm-body">
+            <span class="rm-phase">Phase 1 — Live</span>
+            <h4>Core Platform</h4>
+            <p>Product catalog, cart system, auth, search, filters, responsive layout</p>
+          </div>
+        </div>
+        <div class="rm-item rm-active">
+          <div class="rm-dot"><i class="fas fa-bolt"></i></div>
+          <div class="rm-body">
+            <span class="rm-phase">Phase 2 — In Progress</span>
+            <h4>Discovery Engine</h4>
+            <p>Lookbook section, style collections, curated drops, editorial content</p>
+          </div>
+        </div>
+        <div class="rm-item">
+          <div class="rm-dot"><i class="fas fa-user-circle"></i></div>
+          <div class="rm-body">
+            <span class="rm-phase">Phase 3 — Planned</span>
+            <h4>User Profiles</h4>
+            <p>Wishlists, style preferences, order history, community reviews</p>
+          </div>
+        </div>
+        <div class="rm-item">
+          <div class="rm-dot"><i class="fas fa-robot"></i></div>
+          <div class="rm-body">
+            <span class="rm-phase">Phase 4 — Future</span>
+            <h4>AI Style Engine</h4>
+            <p>Outfit recommendations based on past browsing and stated preferences</p>
+          </div>
+        </div>
+        <div class="rm-item">
+          <div class="rm-dot"><i class="fas fa-mobile-alt"></i></div>
+          <div class="rm-body">
+            <span class="rm-phase">Phase 5 — Future</span>
+            <h4>Native Mobile App</h4>
+            <p>iOS and Android apps with push notifications for drops and restocks</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       10. CREATOR / FOUNDER
+       ═══════════════════════════════════════════ -->
+  <section class="creator-section fade-in-section" id="creator">
+    <div class="container">
+      <div class="creator-grid">
+        <div class="creator-visual">
+          <div class="creator-avatar">
+            <img class="ca-inner" src="profile.jpg" alt="Kavin J.S" style="object-fit: cover;" />
+            <div class="ca-ring"></div>
+          </div>
+          <div class="creator-badge">
+            <i class="fas fa-laptop-code"></i>
+            <span>Computer Science Engineering Student</span>
+          </div>
+        </div>
+        <div class="creator-text">
+          <span class="eyebrow-tag">The Builder</span>
+          <h2 class="section-h2">Built by<br><em>Kavin J.S</em></h2>
+          <p class="creator-bio">Computer Science Engineering student who loves anime, fashion, and building products that blend culture with clean code. Shonowear started as a personal project to solve a real problem — finding anime merch that actually looks good.</p>
+          <div class="creator-links">
+            <a href="https://kavin-js.github.io" class="creator-link">
+              <i class="fas fa-globe"></i> Portfolio
+            </a>
+            <a href="https://github.com/Kavin-JS" class="creator-link">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="contact.html" class="creator-link">
+              <i class="fas fa-envelope"></i> Contact
+            </a>
+          </div>
+          <div class="creator-stack">
+            <span class="stack-tag">HTML</span>
+            <span class="stack-tag">CSS</span>
+            <span class="stack-tag">JavaScript</span>
+            <span class="stack-tag">UI/UX Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       NEWSLETTER
+       ═══════════════════════════════════════════ -->
   <section class="newsletter-section fade-in-section">
-    <div class="newsletter-inner">
-      <div class="newsletter-text">
-        <span class="section-tag">— STAY CONNECTED</span>
-        <h2>Join the Shonowear Community</h2>
-        <p>Get updates on new collections and drops. No spam — only fire.</p>
-      </div>
-      <div class="newsletter-form">
-        <div class="nl-input-wrap">
-          <input type="email" placeholder="your@email.com" id="nl-email" />
-          <button onclick="nlSubscribe()">Subscribe <i class="fas fa-arrow-right"></i></button>
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <span class="eyebrow-tag">Stay Connected</span>
+          <h2>Join the Shonowear<br>Community</h2>
+          <p>New drops, exclusive collections, and culture updates — straight to your inbox.</p>
         </div>
-        <p class="nl-note"><i class="fas fa-lock"></i> No spam, unsubscribe anytime.</p>
+        <div class="newsletter-form">
+          <div class="nl-input-wrap">
+            <input type="email" placeholder="your@email.com" id="nl-email" />
+            <button id="nl-btn" onclick="nlSubscribe()">Subscribe <i class="fas fa-arrow-right"></i></button>
+          </div>
+          <p class="nl-note"><i class="fas fa-lock"></i> No spam, unsubscribe anytime.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+
+  <!-- ═══════════════════════════════════════════
+       11. FOOTER
+       ═══════════════════════════════════════════ -->
   <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="index.html" class="nav-logo footer-logo">SHONO<span>WEAR</span></a>
-        <p>Minimal streetwear for the modern generation. Designed with intent. Worn with purpose.</p>
-        <div class="footer-social">
-          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="contact.html" title="Email"><i class="fas fa-envelope"></i></a>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+          <p>A fashion discovery platform for anime-inspired streetwear. Built for culture, not commerce.</p>
+          <div class="footer-social">
+            <a href="#" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="Twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="Discord" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="contact.html" title="Email" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Discover</h5>
+          <a href="collection.html">Collection</a>
+          <a href="new-arrivals.html">New Arrivals</a>
+          <a href="#lookbook">Lookbook</a>
+          <a href="#collections">Style Guides</a>
+        </div>
+        <div class="footer-col">
+          <h5>Platform</h5>
+          <a href="cart.html">Cart</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Sign Up</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <a href="about.html">About</a>
+          <a href="#roadmap">Roadmap</a>
+          <a href="#creator">Creator</a>
+          <a href="#">Privacy Policy</a>
         </div>
       </div>
-      <div class="footer-links">
-        <h5>Shop</h5>
-        <a href="collection.html">Collection</a>
-        <a href="new-arrivals.html">New Arrivals</a>
-        <a href="cart.html">Cart</a>
+      <div class="footer-bottom">
+        <p>© 2025 Shonowear — Fashion Discovery Platform</p>
+        <p>Designed &amp; built by <strong>Kavin J.S</strong></p>
       </div>
-      <div class="footer-links">
-        <h5>Company</h5>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div class="footer-links">
-        <h5>Legal</h5>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
-        <a href="#">Shipping Policy</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>2025 Shonowear. All rights reserved.</p>
-      <p>Made with love for the community</p>
     </div>
   </footer>
 
+
+  <!-- Toast + Popup (preserved) -->
   <div id="toast" class="toast"></div>
   <div id="popup" class="popup">
     <div class="popup-content">

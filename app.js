@@ -1,264 +1,349 @@
 /**
- * app.js — REFINEMENT PASS 2 — Shonowear homepage logic
+ * app.js — Shonowear Pass 3: Startup Product Prototype
  *
- * Improvements over Pass 1:
- * ─ Product filter tabs (All / Hoodies / Tees / Figurines / Accessories)
- * ─ Staggered entrance animation for product cards
- * ─ Wishlist heart toggle (UI only — no persistence needed)
- * ─ Navbar scroll-state with progress indicator
- * ─ Hero number counter animation (10K+, 4.9★, 80+)
- * ─ Search dropdown with live keyword highlighting
- * ─ Newsletter with loading state + success swap
- * ─ All original functionality (addToCart, updateNav, toast) untouched
+ * Architecture:
+ *   1. Navbar — scroll state, progress bar, live search with debounce
+ *   2. Hero   — stat counter animation on load
+ *   3. Lookbook — universe filter tabs
+ *   4. Products — skeleton → grid with filter tabs, staggered entrance
+ *   5. Collections reel — click to navigate to collection page
+ *   6. Scroll fade-in — IntersectionObserver on all .fade-in-section
+ *   7. Newsletter — loading state + success swap
+ *   8. Wishlist heart toggle
+ *   9. Mobile search forward to collection page
+ *  10. Cart pulse on add
+ *
+ * All original functions (addToCart, updateNav, logout, toast,
+ * showPop, closePop, openMob, closeMob, renderProductCard)
+ * are preserved in main.js — DO NOT duplicate here.
  */
 
+/* ── DEBOUNCE UTILITY ────────────────────────────────────────── */
+function debounce(fn, ms) {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+}
+
+/* ── DOM READY ───────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── 1. RENDER FEATURED PRODUCTS (6 items) ─────────────────────
-  const featuredEl = document.getElementById('featured-products');
-  if (featuredEl && typeof products !== 'undefined') {
-    const featured = products.slice(0, 6);
-    featuredEl.innerHTML = featured.map(p => renderProductCard(p)).join('');
-    animateCardsIn(featuredEl);
-  }
-
-  // ── 2. RENDER NEW ARRIVALS PREVIEW (4 isNew items) ────────────
-  const newArrivalsEl = document.getElementById('new-arrivals-preview');
-  if (newArrivalsEl && typeof products !== 'undefined') {
-    const newItems = products.filter(p => p.isNew).slice(0, 4);
-    newArrivalsEl.innerHTML = newItems.map(p => renderProductCard(p)).join('');
-    animateCardsIn(newArrivalsEl);
-  }
-
-  // ── 3. PRODUCT FILTER TABS ────────────────────────────────────
-  const tabs = document.querySelectorAll('.feat-tab');
-  if (tabs.length && featuredEl && typeof products !== 'undefined') {
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        // Update active state
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        const filter = tab.dataset.filter;
-        let filtered;
-        if (filter === 'all') {
-          filtered = products.slice(0, 6);
-        } else {
-          // Filter by type, then pad to max 6 from general if fewer than 4 found
-          filtered = products.filter(p => p.type === filter).slice(0, 6);
-          if (filtered.length < 4) {
-            filtered = products.filter(p => p.type === filter);
-          }
-        }
-
-        // Fade out → swap → fade in
-        featuredEl.style.opacity = '0';
-        featuredEl.style.transform = 'translateY(10px)';
-        featuredEl.style.transition = 'opacity 0.2s, transform 0.2s';
-
-        setTimeout(() => {
-          featuredEl.innerHTML = filtered.length
-            ? filtered.map(p => renderProductCard(p)).join('')
-            : '<div class="no-res" style="display:block;"><i class="fas fa-box-open"></i>No items in this category yet.</div>';
-
-          // Re-attach wishlist listeners after DOM swap
-          attachWishlistListeners(featuredEl);
-
-          featuredEl.style.opacity = '1';
-          featuredEl.style.transform = 'translateY(0)';
-          animateCardsIn(featuredEl);
-        }, 200);
-      });
-    });
-  }
-
-  // ── 4. WISHLIST HEART TOGGLE ──────────────────────────────────
-  // Attach to both grids on load
-  if (featuredEl) attachWishlistListeners(featuredEl);
-  if (newArrivalsEl) attachWishlistListeners(newArrivalsEl);
-
-  // ── 5. STICKY NAVBAR + SCROLL PROGRESS BAR ────────────────────
-  const navbar = document.getElementById('navbar');
-  // Inject thin scroll-progress bar into navbar
-  const progressBar = document.createElement('div');
-  progressBar.className = 'nav-progress';
-  if (navbar) navbar.appendChild(progressBar);
-
-  window.addEventListener('scroll', () => {
-    if (!navbar) return;
-    // Sticky state
-    navbar.classList.toggle('scrolled', window.scrollY > 60);
-    // Scroll progress
-    const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    progressBar.style.width = Math.min(scrolled, 100) + '%';
-  }, { passive: true });
-
-  // ── 6. HERO COUNTER ANIMATION ─────────────────────────────────
-  animateHeroCounters();
-
-  // ── 7. SEARCH DROPDOWN ────────────────────────────────────────
-  const searchToggle = document.getElementById('search-toggle');
-  const searchDropdown = document.getElementById('search-dropdown');
-  const searchInput = document.getElementById('search-input');
-
-  if (searchToggle && searchDropdown) {
-    searchToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = searchDropdown.classList.toggle('open');
-      searchToggle.querySelector('i').className = isOpen ? 'fas fa-times' : 'fas fa-search';
-      if (isOpen && searchInput) setTimeout(() => searchInput.focus(), 300);
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!searchToggle.contains(e.target) && !searchDropdown.contains(e.target)) {
-        searchDropdown.classList.remove('open');
-        searchToggle.querySelector('i').className = 'fas fa-search';
-      }
-    });
-
-    if (searchInput) {
-      searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
-    }
-  }
-
-  // ── 8. SCROLL FADE-IN WITH INTERSECTION OBSERVER ─────────────
-  const fadeSections = document.querySelectorAll('.fade-in-section');
-  if ('IntersectionObserver' in window && fadeSections.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08 });
-    fadeSections.forEach(s => io.observe(s));
-  } else {
-    fadeSections.forEach(s => s.classList.add('visible'));
-  }
-
-  // ── 9. ACTIVE NAV LINK HIGHLIGHT ─────────────────────────────
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add('active');
-    }
-  });
+  initNavbar();
+  initHeroCounters();
+  initNavSearch();
+  initLookbook();
+  initProducts();
+  initFadeIn();
+  initCollectionReel();
 
 });
 
-// ── HELPERS ───────────────────────────────────────────────────
+/* ══════════════════════════════════════════════════════════════
+   1. NAVBAR
+   ══════════════════════════════════════════════════════════════ */
+function initNavbar() {
+  const navbar   = document.getElementById('navbar');
+  const progress = document.getElementById('nav-progress');
 
-/**
- * Stagger product card entrance with CSS animation-delay
- */
-function animateCardsIn(grid) {
-  const cards = grid.querySelectorAll('.prd-card');
-  cards.forEach((card, i) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(18px)';
-    card.style.transition = `opacity 0.4s ease ${i * 0.07}s, transform 0.4s ease ${i * 0.07}s`;
-    // Force reflow then animate in
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-      });
-    });
-  });
+  if (!navbar) return;
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+
+    // Sticky state
+    navbar.classList.toggle('scrolled', scrolled > 60);
+
+    // Scroll progress bar
+    if (progress) {
+      progress.style.width = Math.min((scrolled / docHeight) * 100, 100) + '%';
+    }
+  }, { passive: true });
 }
 
-/**
- * Wishlist heart toggle — purely visual, no persistence
- */
-function attachWishlistListeners(grid) {
-  grid.querySelectorAll('.prd-wish').forEach(btn => {
-    // Remove old listener by cloning
-    const fresh = btn.cloneNode(true);
-    btn.parentNode.replaceChild(fresh, btn);
-    fresh.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const icon = fresh.querySelector('i');
-      const isWished = icon.classList.contains('fas');
-      icon.className = isWished ? 'far fa-heart' : 'fas fa-heart';
-      icon.style.color = isWished ? '' : 'var(--red)';
-      if (typeof toast === 'function') {
-        toast(isWished ? 'Removed from wishlist' : 'Added to wishlist ❤️', 'info');
-      }
-    });
-  });
-}
+/* ══════════════════════════════════════════════════════════════
+   2. HERO COUNTERS
+   ══════════════════════════════════════════════════════════════ */
+function initHeroCounters() {
+  const counters = document.querySelectorAll('.stat-num[data-target]');
+  if (!counters.length) return;
 
-/**
- * Animate hero stat numbers counting up
- */
-function animateHeroCounters() {
-  const counters = document.querySelectorAll('.stat-num');
   counters.forEach(el => {
-    const text = el.textContent;
-    // Only animate numeric ones
-    const match = text.match(/^([\d.]+)/);
-    if (!match) return;
-
-    const target = parseFloat(match[1]);
-    const suffix = text.replace(match[1], '');
-    const isDecimal = text.includes('.');
-    const duration = 1400;
-    const start = performance.now();
+    const target  = parseFloat(el.dataset.target);
+    const decimal = parseInt(el.dataset.decimal || '0');
+    const dur     = 1800;
+    const start   = performance.now();
 
     function tick(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = eased * target;
-      el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
-      if (progress < 1) requestAnimationFrame(tick);
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      const val = eased * target;
+      el.textContent = decimal ? val.toFixed(decimal) : Math.floor(val);
+      if (p < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
   });
 }
 
-// ── SEARCH HANDLER ────────────────────────────────────────────
-function doSearch() {
-  const val = document.getElementById('search-input')?.value.trim();
-  if (val) {
-    window.location.href = `collection.html?q=${encodeURIComponent(val)}`;
-  }
+/* ══════════════════════════════════════════════════════════════
+   3. NAVBAR LIVE SEARCH
+   ══════════════════════════════════════════════════════════════ */
+function initNavSearch() {
+  const input   = document.getElementById('nav-search-input');
+  const results = document.getElementById('nav-search-results');
+  if (!input || !results) return;
+
+  const search = debounce((q) => {
+    if (!q || q.length < 2) { results.classList.remove('open'); return; }
+    if (typeof products === 'undefined') return;
+
+    const matches = products.filter(p =>
+      p.name.toLowerCase().includes(q.toLowerCase()) ||
+      (p.anime || '').toLowerCase().includes(q.toLowerCase()) ||
+      (p.tag  || '').toLowerCase().includes(q.toLowerCase())
+    ).slice(0, 8);
+
+    if (!matches.length) {
+      results.innerHTML = `<div class="nsr-empty">No results for "${q}"</div>`;
+    } else {
+      results.innerHTML = matches.map(p => `
+        <div class="nsr-item" onclick="window.location='collection.html?q=${encodeURIComponent(p.name)}'">
+          <div class="nsr-emoji">${p.img}</div>
+          <div class="nsr-info">
+            <div class="nsr-name">${highlightMatch(p.name, q)}</div>
+            <div class="nsr-price">₹${p.price.toLocaleString()}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+    results.classList.add('open');
+  }, 200);
+
+  input.addEventListener('input', e => search(e.target.value.trim()));
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const q = input.value.trim();
+      if (q) window.location.href = `collection.html?q=${encodeURIComponent(q)}`;
+    }
+    if (e.key === 'Escape') results.classList.remove('open');
+  });
+
+  document.addEventListener('click', e => {
+    if (!input.contains(e.target) && !results.contains(e.target)) {
+      results.classList.remove('open');
+    }
+  });
 }
 
-// ── NEWSLETTER SUBSCRIBE ──────────────────────────────────────
+function highlightMatch(text, q) {
+  const rx = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  return text.replace(rx, '<mark style="background:rgba(232,21,58,0.3);color:#fff;">$1</mark>');
+}
+
+/* Mobile search */
+function doMobSearch() {
+  const val = document.getElementById('mob-search-input')?.value.trim();
+  if (val) window.location.href = `collection.html?q=${encodeURIComponent(val)}`;
+}
+
+/* Kept for backward compat (old search dropdown) */
+function doSearch() {
+  const val = document.getElementById('search-input')?.value.trim();
+  if (val) window.location.href = `collection.html?q=${encodeURIComponent(val)}`;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   4. LOOKBOOK FILTER
+   ══════════════════════════════════════════════════════════════ */
+function initLookbook() {
+  const filters = document.querySelectorAll('.lb-filter');
+  const cards   = document.querySelectorAll('.lb-card');
+  if (!filters.length) return;
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const universe = btn.dataset.lb;
+      cards.forEach(card => {
+        const match = universe === 'all' || card.dataset.universe === universe;
+        card.style.transition = 'opacity 0.3s, transform 0.3s';
+        card.style.opacity    = match ? '1' : '0.15';
+        card.style.transform  = match ? 'scale(1)' : 'scale(0.97)';
+        card.style.pointerEvents = match ? '' : 'none';
+      });
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════
+   5. PRODUCT GRID — skeleton, filter tabs, staggered render
+   ══════════════════════════════════════════════════════════════ */
+function initProducts() {
+  const skeleton  = document.getElementById('prd-skeleton');
+  const grid      = document.getElementById('featured-products');
+  const tabs      = document.querySelectorAll('#prod-tabs .feat-tab');
+  if (!grid) return;
+
+  // Brief skeleton then render
+  setTimeout(() => {
+    skeleton && (skeleton.style.display = 'none');
+    grid.style.display = 'grid';
+    renderGrid('all');
+    animateCardsIn(grid);
+    initNewArrivals();
+  }, 600);
+
+  // Filter tabs
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const filter = tab.dataset.filter;
+      // Fade out
+      grid.style.opacity = '0';
+      grid.style.transform = 'translateY(8px)';
+      grid.style.transition = 'opacity 0.2s, transform 0.2s';
+
+      setTimeout(() => {
+        renderGrid(filter);
+        grid.style.opacity = '1';
+        grid.style.transform = 'translateY(0)';
+        animateCardsIn(grid);
+      }, 220);
+    });
+  });
+}
+
+function renderGrid(filter) {
+  const grid = document.getElementById('featured-products');
+  if (!grid || typeof products === 'undefined') return;
+
+  let subset = filter === 'all'
+    ? products.slice(0, 8)
+    : products.filter(p => p.type === filter).slice(0, 8);
+
+  if (!subset.length) {
+    grid.innerHTML = `<div class="no-results"><i class="fas fa-box-open"></i><p>No items in this category yet.</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = subset.map(p => renderProductCard(p)).join('');
+  attachWishlistListeners(grid);
+}
+
+function initNewArrivals() {
+  const el = document.getElementById('new-arrivals-preview');
+  if (!el || typeof products === 'undefined') return;
+  const newItems = products.filter(p => p.isNew).slice(0, 4);
+  el.innerHTML = newItems.map(p => renderProductCard(p)).join('');
+  attachWishlistListeners(el);
+}
+
+function animateCardsIn(grid) {
+  const cards = grid.querySelectorAll('.prd-card');
+  cards.forEach((card, i) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = `opacity 0.4s ease ${i * 0.06}s, transform 0.4s ease ${i * 0.06}s`;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }));
+  });
+}
+
+function attachWishlistListeners(grid) {
+  grid.querySelectorAll('.prd-wish').forEach(btn => {
+    const fresh = btn.cloneNode(true);
+    btn.parentNode.replaceChild(fresh, btn);
+    fresh.addEventListener('click', e => {
+      e.stopPropagation();
+      const icon = fresh.querySelector('i');
+      const wished = icon.classList.contains('fas');
+      icon.className = wished ? 'far fa-heart' : 'fas fa-heart';
+      icon.style.color = wished ? '' : 'var(--red)';
+      if (typeof toast === 'function') toast(wished ? 'Removed from wishlist' : 'Saved to wishlist ❤️', 'info');
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════
+   6. SCROLL FADE-IN
+   ══════════════════════════════════════════════════════════════ */
+function initFadeIn() {
+  const sections = document.querySelectorAll('.fade-in-section');
+  if (!('IntersectionObserver' in window)) {
+    sections.forEach(s => s.classList.add('visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  sections.forEach(s => io.observe(s));
+}
+
+/* ══════════════════════════════════════════════════════════════
+   7. COLLECTIONS REEL — navigate with query param
+   ══════════════════════════════════════════════════════════════ */
+function initCollectionReel() {
+  // Touch/mouse drag scroll for collections reel
+  const reel = document.querySelector('.collections-reel');
+  if (!reel) return;
+
+  let isDown = false, startX = 0, scrollLeft = 0;
+  reel.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - reel.offsetLeft; scrollLeft = reel.scrollLeft; });
+  reel.addEventListener('mouseleave', () => isDown = false);
+  reel.addEventListener('mouseup', () => isDown = false);
+  reel.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - reel.offsetLeft;
+    reel.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
+}
+
+function goCollection(style) {
+  window.location.href = `collection.html?style=${encodeURIComponent(style)}`;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   8. NEWSLETTER
+   ══════════════════════════════════════════════════════════════ */
 function nlSubscribe() {
   const emailEl = document.getElementById('nl-email');
-  const btn = emailEl?.closest('.nl-input-wrap')?.querySelector('button');
-  if (!emailEl) return;
+  const btn     = document.getElementById('nl-btn');
+  if (!emailEl || !btn) return;
 
   const email = emailEl.value.trim();
-  const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const rx    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!email || !emailRx.test(email)) {
+  if (!email || !rx.test(email)) {
     emailEl.style.borderColor = 'var(--red)';
-    setTimeout(() => emailEl.style.borderColor = '', 1500);
+    emailEl.focus();
+    setTimeout(() => emailEl.style.borderColor = '', 1600);
     if (typeof toast === 'function') toast('Please enter a valid email.', 'error');
     return;
   }
 
-  // Loading state
-  if (btn) {
-    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
-    btn.disabled = true;
-  }
+  btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+  btn.disabled = true;
 
   setTimeout(() => {
     emailEl.value = '';
-    if (btn) {
-      btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
-      btn.style.background = '#10b981';
-      setTimeout(() => {
-        btn.innerHTML = 'Subscribe <i class="fas fa-arrow-right"></i>';
-        btn.style.background = '';
-        btn.disabled = false;
-      }, 3000);
-    }
+    btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+    btn.style.background = '#10b981';
     if (typeof toast === 'function') toast("You're in! Welcome to the community 🎉", 'success');
+    setTimeout(() => {
+      btn.innerHTML = 'Subscribe <i class="fas fa-arrow-right"></i>';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3500);
   }, 1200);
 }

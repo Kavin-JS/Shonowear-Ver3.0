@@ -83,16 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function renderProductCard(product) {
-  // Derive an original/strikethrough price for visual hierarchy (15% markup)
-  const origPrice = Math.ceil(product.price * 1.15 / 100) * 100;
+  const origPrice = Math.ceil(product.price * 1.18 / 100) * 100;
   return `
     <div class="prd-card" data-type="${product.type || ''}" data-anime="${product.anime || ''}">
       <div class="prd-img">
-        <div>${product.img}</div>
+        <div class="prd-img-inner">${product.img}</div>
         ${product.isNew ? '<span class="prd-badge">NEW</span>' : ''}
-        <button class="prd-wish" onclick="event.stopPropagation()" title="Save to wishlist">
-          <i class="far fa-heart"></i>
-        </button>
+        <button class="prd-wish" title="Save to wishlist"><i class="far fa-heart"></i></button>
       </div>
       <div class="prd-ov">
         <button class="prd-ov-btn" onclick="addToCart('${product.id}', '${product.name}', ${product.price})">
@@ -102,6 +99,7 @@ function renderProductCard(product) {
       <div class="prd-info">
         <div class="prd-tag-row">
           <span class="prd-anime">${product.anime || product.tag || ''}</span>
+          <span class="prd-type-icon">${typeIcon(product.type)}</span>
         </div>
         <div class="prd-name">${product.name}</div>
         <div class="prd-price-row">
@@ -111,6 +109,11 @@ function renderProductCard(product) {
       </div>
     </div>
   `;
+}
+
+function typeIcon(type) {
+  const map = { hoodie:'🧥', tee:'👕', phone:'📱', figurine:'🗿', jacket:'🧥', oversized:'👕' };
+  return map[type] || '';
 }
 
 function addToCart(id, name, price) {
