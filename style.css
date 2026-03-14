@@ -115,7 +115,7 @@ button{cursor:pointer;font-family:var(--font-b);border:none;background:none}
 /* ── NAVBAR ──────────────────────────────────────────────────── */
 .navbar{
   position:fixed;top:0;left:0;right:0;z-index:1000;
-  height:64px;display:flex;align-items:center;gap:32px;padding:0 40px;
+  height:64px;display:flex;align-items:center;flex-wrap:nowrap;gap:24px;padding:0 40px;overflow:hidden;
   background:rgba(8,8,15,.75);backdrop-filter:blur(20px) saturate(1.4);
   border-bottom:1px solid var(--border);transition:height .3s,background .3s;
 }
@@ -133,10 +133,10 @@ button{cursor:pointer;font-family:var(--font-b);border:none;background:none}
 .nav-search-bar{
   position:relative;display:flex;align-items:center;gap:8px;
   background:rgba(255,255,255,.04);border:1px solid var(--border);
-  padding:0 14px;flex:1;max-width:320px;min-width:0;
+  padding:0 14px;width:240px;flex-shrink:1;min-width:0;
   transition:border-color .3s,max-width .3s;
 }
-.nav-search-bar:focus-within{border-color:var(--border-r);max-width:400px}
+.nav-search-bar:focus-within{border-color:var(--border-r);width:300px}
 .nav-search-bar i{color:var(--muted);font-size:12px;flex-shrink:0}
 .nav-search-bar input{
   flex:1;padding:9px 0;background:transparent;border:none;outline:none;
@@ -162,7 +162,7 @@ button{cursor:pointer;font-family:var(--font-b);border:none;background:none}
 .nsr-empty{padding:16px;text-align:center;color:var(--muted);font-size:12px}
 .nsr-item mark{background:rgba(232,21,58,.3);color:#fff;font-style:normal}
 
-.nav-links{display:flex;list-style:none;gap:2px}
+.nav-links{display:flex;list-style:none;gap:2px;flex-shrink:0}
 .nav-links a{
   font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;
   color:var(--muted);padding:8px 12px;position:relative;transition:color .2s;
@@ -171,7 +171,7 @@ button{cursor:pointer;font-family:var(--font-b);border:none;background:none}
 .nav-links a:hover,.nav-links a.active{color:var(--white)}
 .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
 
-.nav-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+.nav-actions{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
 .nav-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;color:var(--muted);font-size:15px;transition:color .2s}
 .nav-icon-btn:hover{color:var(--white)}
 .cart-wrap{position:relative;display:inline-flex}
