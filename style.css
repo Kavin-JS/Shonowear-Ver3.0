@@ -4329,7 +4329,7 @@ body {
 
 .founder-img {
   aspect-ratio: 3/4;
-  background-image: url('profile.jpg');
+  background-image: url('profile.jpg?v=2');
   background-size: cover;
   background-position: center top;
   position: relative;
