@@ -504,6 +504,7 @@
         <div class="pd-tabs">
           <button class="pd-tab active" onclick="switchTab('desc', this)">Description</button>
           <button class="pd-tab" onclick="switchTab('features', this)">Details</button>
+          <button class="pd-tab" onclick="switchTab('bodytypes', this)">Body Type Fit</button>
           <button class="pd-tab" onclick="switchTab('sizeguide', this)">Size Guide</button>
         </div>
 
@@ -519,6 +520,13 @@
             <div class="pd-feature"><i class="fas fa-check"></i>Double-stitched seams for durability</div>
             <div class="pd-feature"><i class="fas fa-check"></i>Screen-printed graphic — does not fade or crack</div>
             <div class="pd-feature"><i class="fas fa-check"></i>Wash cold, tumble dry low</div>
+          </div>
+        </div>
+
+        <div class="pd-tab-content" id="tab-bodytypes">
+          <div id="pd-bodytypes-panel" style="padding:8px 0;">
+            <!-- Injected by product.js renderBodyTypeSuitability -->
+            <p style="font-size:13px;color:var(--muted);font-weight:300;">Loading body type information…</p>
           </div>
         </div>
 
@@ -627,5 +635,18 @@
   <a href="https://wa.me/91YOUR_NUMBER?text=Hi%20Shonowear!%20I%20have%20a%20question." target="_blank" rel="noopener" class="wa-float" title="Chat on WhatsApp" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
+
+  <script>
+  (function(){
+    const navLinks = document.querySelector('.nav-links');
+    if (!navLinks) return;
+    const bt = localStorage.getItem('sw_bodyType');
+    const li = document.createElement('li');
+    li.innerHTML = bt
+      ? '<a href="recommendations.html" style="color:var(--red)!important;"><i class="fas fa-magic" style="margin-right:5px;font-size:10px;"></i>My Picks</a>'
+      : '<a href="body-profile.html"><i class="fas fa-magic" style="margin-right:5px;font-size:10px;"></i>Find My Style</a>';
+    navLinks.appendChild(li);
+  })();
+  </script>
 </body>
 </html>

@@ -2,7 +2,8 @@
 
 let filteredProducts = [...products];
 let activeFilters = {
-  category: '', type: '', anime: '', sort: 'newest', maxPrice: 5000, search: ''
+  category: '', type: '', anime: '', sort: 'newest', maxPrice: 5000, search: '',
+  style: '', bodyType: ''
 };
 
 // build anime list from products
@@ -46,11 +47,14 @@ function applyFilters() {
     const typeMatch  = !activeFilters.type     || p.type.toLowerCase().includes(activeFilters.type.toLowerCase());
     const animeMatch = !activeFilters.anime    || p.anime === activeFilters.anime;
     const priceMatch = p.price <= activeFilters.maxPrice;
+    const styleMatch = !activeFilters.style    || p.style === activeFilters.style;
+    const btMatch    = !activeFilters.bodyType || (p.bodyTypes && p.bodyTypes.includes(activeFilters.bodyType));
     const searchMatch = !activeFilters.search  ||
       p.name.toLowerCase().includes(activeFilters.search) ||
       (p.anime || '').toLowerCase().includes(activeFilters.search) ||
-      p.type.toLowerCase().includes(activeFilters.search);
-    return catMatch && typeMatch && animeMatch && priceMatch && searchMatch;
+      p.type.toLowerCase().includes(activeFilters.search) ||
+      (p.style || '').toLowerCase().includes(activeFilters.search);
+    return catMatch && typeMatch && animeMatch && priceMatch && styleMatch && btMatch && searchMatch;
   });
 
   switch (activeFilters.sort) {
@@ -152,7 +156,16 @@ function resetFilters() {
   document.getElementById('sort-filter').value     = 'newest';
   document.getElementById('price-filter').value    = '5000';
   document.getElementById('search-input').value    = '';
-  activeFilters = { category: '', type: '', anime: '', sort: 'newest', maxPrice: 5000, search: '' };
+  activeFilters = { category: '', type: '', anime: '', sort: 'newest', maxPrice: 5000, search: '', style: '', bodyType: '' };
+  applyFilters();
+}
+
+function clearStyleFilter() {
+  activeFilters.style = '';
+  const bar = document.getElementById('active-filters-bar');
+  if (bar) bar.innerHTML = '';
+  const sh = document.querySelector('.sh-title');
+  if (sh) sh.textContent = 'ALL PRODUCTS';
   applyFilters();
 }
 
@@ -176,19 +189,35 @@ document.addEventListener('DOMContentLoaded', () => {
     activeFilters.search = q.toLowerCase();
   }
   if (type) {
+    const typeMap = { streetwear: 'hoodie', minimal: 'tee', oversized: 'oversized', figurines: 'figurine', jackets: 'jacket' };
     const mapped = typeMap[type] || type;
     const el = document.getElementById('type-filter');
     if (el) { el.value = mapped; activeFilters.type = mapped; }
   }
   if (style) {
-    const mapped = typeMap[style] || style;
-    const el = document.getElementById('type-filter');
-    if (el) { el.value = mapped; activeFilters.type = mapped; }
+    // style = "Tokyo Street", "Cyberpunk", etc. — filter by p.style
+    activeFilters.style = decodeURIComponent(style);
+    // Add style chip to show it's active
+    const bar = document.getElementById('active-filters-bar');
+    if (bar) {
+      bar.style.display = 'flex';
+      bar.innerHTML = `<span class="afc-label">Style:</span>
+        <button class="afc-chip" onclick="clearStyleFilter()">
+          ${activeFilters.style} <i class="fas fa-times"></i>
+        </button>
+        <button class="afc-clear-all" onclick="resetFilters()">Clear all</button>`;
+    }
+    // Update page title hint
+    const sh = document.querySelector('.sh-title');
+    if (sh) sh.textContent = activeFilters.style.toUpperCase();
   }
   if (anime) {
     const el = document.getElementById('anime-filter');
     if (el) { el.value = anime; activeFilters.anime = anime; }
   }
+  // ?bodyType=Athletic from recommendations page
+  const btParam = params.get('bodyType');
+  if (btParam) { activeFilters.bodyType = btParam; }
 
   applyFilters();
 

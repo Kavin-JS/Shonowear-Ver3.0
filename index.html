@@ -73,7 +73,30 @@
     </div>
   </noscript>
 
-  <!-- NAVBAR -->
+  <!-- ONBOARDING BANNER — shown to new visitors who haven't set up a profile -->
+  <div class="onboard-banner" id="onboard-banner" style="display:none;">
+    <div class="ob-content">
+      <i class="fas fa-tshirt ob-icon"></i>
+      <div class="ob-text">
+        <strong>New here?</strong> Find clothes that are designed for your body type.
+      </div>
+      <a href="body-profile.html" class="ob-start-btn">Start <i class="fas fa-arrow-right"></i></a>
+      <button class="ob-close-btn" onclick="dismissOnboard()" aria-label="Dismiss"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+  <script>
+    (function(){
+      const done = localStorage.getItem('sw_profileDone');
+      const dismissed = sessionStorage.getItem('sw_onboard_dismissed');
+      if (!done && !dismissed) {
+        document.getElementById('onboard-banner').style.display = 'flex';
+      }
+    })();
+    function dismissOnboard() {
+      document.getElementById('onboard-banner').style.display = 'none';
+      sessionStorage.setItem('sw_onboard_dismissed', '1');
+    }
+  </script>
   <nav class="navbar" id="navbar">
     <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
     <div class="nav-search-bar">
@@ -150,17 +173,16 @@
     <div class="hero-vignette"></div>
     <div class="hero-grain"></div>
     <div class="hero-body">
-      <p class="hero-label"><span class="hero-dot"></span> SS25 Drop — Now Live</p>
+      <p class="hero-label"><span class="hero-dot"></span> Personalized Discovery — Now Live</p>
       <h1 class="hero-title">
-        <span class="ht-pre">Where Anime</span>
-        <span class="ht-2">Meets the</span>
-        <span class="ht-street">Street.</span>
+        <span class="ht-pre">Outfits Built</span>
+        <span class="ht-2">For Your</span>
+        <span class="ht-street">Body Type.</span>
       </h1>
-      <p class="hero-sub">Not just merch. A fashion discovery platform<br>for anime culture. Curated drops. Limited
-        editions.<br>Built for the culture.</p>
-      <div class="hero-ctas">
-        <a href="collection.html" class="cta-primary">Explore Drops <i class="fas fa-arrow-right"></i></a>
-        <a href="#how-it-works" class="cta-ghost">How It Works</a>
+      <p class="hero-sub" id="hero-sub-text">Anime streetwear that actually fits your silhouette — not just a mannequin. Tell us your body type, we'll find your look.</p>
+      <div class="hero-ctas" id="hero-ctas">
+        <a href="body-profile.html" class="cta-primary" id="hero-cta-primary"><i class="fas fa-magic"></i> Find My Style</a>
+        <a href="collection.html" class="cta-ghost">Browse All Drops</a>
       </div>
       <div class="hero-trust">
         <span><i class="fas fa-star"></i> 4.9 rated</span>
@@ -170,6 +192,18 @@
         <span>Free shipping ₹999+</span>
       </div>
     </div>
+    <script>
+      // If profile exists, change CTA to "See My Recommendations"
+      (function(){
+        const bt = localStorage.getItem('sw_bodyType');
+        if (bt) {
+          const cta = document.getElementById('hero-cta-primary');
+          const sub = document.getElementById('hero-sub-text');
+          if (cta) { cta.href = 'recommendations.html'; cta.innerHTML = '<i class="fas fa-th-large"></i> My ' + bt + ' Picks'; }
+          if (sub) sub.textContent = 'Welcome back. Your personalised ' + bt + ' build recommendations are ready.';
+        }
+      })();
+    </script>
     <div class="hero-spotlight">
       <div class="spotlight-img spotlight-img-1"></div>
       <div class="spotlight-info">
@@ -187,21 +221,7 @@
     </div>
   </section>
 
-  <!-- TICKER -->
-  <div class="ticker">
-    <div class="ticker-track">
-      <span>WHERE ANIME MEETS THE STREET</span><span class="tkr-sep">✦</span>
-      <span>PREMIUM 350 GSM FABRIC</span><span class="tkr-sep">✦</span>
-      <span>LIMITED DROPS EVERY SEASON</span><span class="tkr-sep">✦</span>
-      <span>CULTURE FIRST · PRODUCT SECOND</span><span class="tkr-sep">✦</span>
-      <span>13 ANIME UNIVERSES</span><span class="tkr-sep">✦</span>
-      <span>WHERE ANIME MEETS THE STREET</span><span class="tkr-sep">✦</span>
-      <span>PREMIUM 350 GSM FABRIC</span><span class="tkr-sep">✦</span>
-      <span>LIMITED DROPS EVERY SEASON</span><span class="tkr-sep">✦</span>
-      <span>CULTURE FIRST · PRODUCT SECOND</span><span class="tkr-sep">✦</span>
-      <span>FREE SHIPPING ABOVE ₹999</span><span class="tkr-sep">✦</span>
-    </div>
-  </div>
+  <!-- TICKER -->\n  <div class="ticker">\n    <div class="ticker-track">\n      <span>WHERE ANIME MEETS THE STREET</span><span class="tkr-sep">✦</span>\n      <span>OUTFITS FOR YOUR BODY TYPE</span><span class="tkr-sep">✦</span>\n      <span>PREMIUM 350 GSM FABRIC</span><span class="tkr-sep">✦</span>\n      <span>LIMITED DROPS EVERY SEASON</span><span class="tkr-sep">✦</span>\n      <span>SLIM · ATHLETIC · AVERAGE · BROAD</span><span class="tkr-sep">✦</span>\n      <span>PERSONALISED DISCOVERY</span><span class="tkr-sep">✦</span>\n      <span>WHERE ANIME MEETS THE STREET</span><span class="tkr-sep">✦</span>\n      <span>OUTFITS FOR YOUR BODY TYPE</span><span class="tkr-sep">✦</span>\n      <span>PREMIUM 350 GSM FABRIC</span><span class="tkr-sep">✦</span>\n      <span>CULTURE FIRST · PRODUCT SECOND</span><span class="tkr-sep">✦</span>\n    </div>\n  </div>
 
   <!-- SOCIAL PROOF -->
   <div class="proof-bar fade-in-section">
@@ -227,16 +247,16 @@
   </div>
 
 
-  <!-- 2. MANIFESTO — punchy brand statement, replaces pitch-deck problem/solution -->
+  <!-- 2. MANIFESTO — punchy brand statement -->
   <section class="manifesto-strip fade-in-section" id="manifesto">
     <div class="manifesto-inner">
-      <h2>NOT MERCH.<br>A MOVEMENT.</h2>
-      <p>The market is full of generic prints on thin fabric sold without context or soul. Shonowear is built differently — every drop is curated, every piece earns its place, every design connects to the culture it comes from.</p>
+      <h2>BUILT FOR YOUR<br>BODY TYPE.</h2>
+      <p>Every body is different. Every silhouette deserves clothes designed for it. Shonowear matches anime streetwear to your build — not the other way around.</p>
       <div class="manifesto-pills">
-        <span>350 GSM Heavyweight Cotton</span>
-        <span>Culture-First Curation</span>
-        <span>Editorial Drops Only</span>
-        <span>Fair Pricing</span>
+        <span>Slim · Athletic · Average · Broad</span>
+        <span>4 Body Types Covered</span>
+        <span>Personalised Every Visit</span>
+        <span>350 GSM Premium Fabric</span>
       </div>
     </div>
   </section>
@@ -248,31 +268,30 @@
       <div class="sec-head centered">
         <p class="sec-eyebrow">The Platform</p>
         <h2 class="sec-title">How Shonowear Works</h2>
-        <p class="sec-sub">Not a store. A discovery experience.</p>
+        <p class="sec-sub">Not a generic store. A personalised discovery experience.</p>
       </div>
       <div class="hiw-grid">
         <div class="hiw-step">
           <div class="hiw-num">01</div>
-          <div class="hiw-icon"><i class="fas fa-compass"></i></div>
-          <h4>Explore Styles</h4>
-          <p>Browse curated collections by anime universe, aesthetic vibe, or drop season. Every collection has a story.
-          </p>
-          <a href="#collections" class="hiw-link">Browse styles <i class="fas fa-arrow-right"></i></a>
+          <div class="hiw-icon"><i class="fas fa-user-circle"></i></div>
+          <h4>Set Your Profile</h4>
+          <p>Enter your height, weight, and style preferences. Takes 30 seconds. No account needed.</p>
+          <a href="body-profile.html" class="hiw-link">Build profile <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="hiw-connector"><i class="fas fa-arrow-right"></i></div>
         <div class="hiw-step">
           <div class="hiw-num">02</div>
-          <div class="hiw-icon"><i class="fas fa-fire"></i></div>
-          <h4>Discover Drops</h4>
-          <p>Limited edition releases tied to anime arcs and cultural moments. Miss it and it's gone.</p>
-          <a href="new-arrivals.html" class="hiw-link">See latest drops <i class="fas fa-arrow-right"></i></a>
+          <div class="hiw-icon"><i class="fas fa-magic"></i></div>
+          <h4>Get Matched</h4>
+          <p>We estimate your body type and show only outfits curated for your silhouette — Slim, Athletic, Average, or Broad.</p>
+          <a href="recommendations.html" class="hiw-link">See matches <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="hiw-connector"><i class="fas fa-arrow-right"></i></div>
         <div class="hiw-step">
           <div class="hiw-num">03</div>
           <div class="hiw-icon"><i class="fas fa-tshirt"></i></div>
-          <h4>Build Your Look</h4>
-          <p>Use the outfit builder to get a complete curated look for your universe. One click adds all pieces.</p>
+          <h4>Explore &amp; Build</h4>
+          <p>Browse by anime universe or aesthetic. Use the outfit builder to put together a complete look in one click.</p>
           <a href="#outfit-builder" class="hiw-link">Open builder <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="hiw-connector"><i class="fas fa-arrow-right"></i></div>
@@ -280,7 +299,7 @@
           <div class="hiw-num">04</div>
           <div class="hiw-icon"><i class="fas fa-shipping-fast"></i></div>
           <h4>Wear the Culture</h4>
-          <p>Premium fabric, clean prints, free shipping above ₹999. Delivered across India in 3–7 days.</p>
+          <p>350 GSM premium fabric, free shipping above ₹999. Delivered across India in 3–7 days.</p>
           <a href="shipping.html" class="hiw-link">Shipping info <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
@@ -288,7 +307,60 @@
   </section>
 
 
-  <!-- 4. TODAY'S DROP -->
+  <!-- 4. STYLE COLLECTIONS — anime-inspired aesthetic universes -->
+  <section class="section style-collections-section fade-in-section" id="style-collections" style="background:var(--ink2);border-top:1px solid var(--border);">
+    <div class="container">
+      <div class="sec-head centered">
+        <p class="sec-eyebrow">Aesthetic Universes</p>
+        <h2 class="sec-title">Find Your Style</h2>
+        <p class="sec-sub">Four distinct aesthetics. Each curated for a different kind of energy.</p>
+      </div>
+      <div class="sc-grid">
+        <a href="collection.html?style=Tokyo+Street" class="sc-card">
+          <div class="sc-img sc-tokyo"></div>
+          <div class="sc-overlay"></div>
+          <div class="sc-label">
+            <span class="sc-tag">東京</span>
+            <h3>Tokyo Street</h3>
+            <p>Bold graphics. Dark silhouettes. Oversized energy.</p>
+            <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="collection.html?style=Cyberpunk" class="sc-card">
+          <div class="sc-img sc-cyber"></div>
+          <div class="sc-overlay"></div>
+          <div class="sc-label">
+            <span class="sc-tag">サイバー</span>
+            <h3>Cyberpunk</h3>
+            <p>Neon accents. Futuristic. High-contrast cuts.</p>
+            <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="collection.html?style=Minimal+Anime" class="sc-card">
+          <div class="sc-img sc-minimal"></div>
+          <div class="sc-overlay"></div>
+          <div class="sc-label">
+            <span class="sc-tag">ミニマル</span>
+            <h3>Minimal Anime</h3>
+            <p>Clean lines. Subtle references. Everyday wear.</p>
+            <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="collection.html?style=Shibuya+Casual" class="sc-card">
+          <div class="sc-img sc-shibuya"></div>
+          <div class="sc-overlay"></div>
+          <div class="sc-label">
+            <span class="sc-tag">渋谷</span>
+            <h3>Shibuya Casual</h3>
+            <p>Relaxed fits. Street cool. Effortless wear.</p>
+            <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. TODAY'S DROP -->
   <section class="section drop-section fade-in-section" id="drop">
     <div class="container">
       <div class="drop-grid">
@@ -389,6 +461,25 @@
     </div>
   </section>
 
+
+  <!-- RECOMMENDED FOR YOU — shows if bodyType exists in localStorage -->
+  <section class="section rfy-section fade-in-section" id="recommended-for-you" style="display:none;background:var(--ink2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <p class="sec-eyebrow" id="rfy-eyebrow">Personalised for You</p>
+          <h2 class="sec-title" id="rfy-title">Recommended for You</h2>
+        </div>
+        <a href="recommendations.html" class="sec-link">See all picks <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="rfy-profile-strip" id="rfy-profile-strip"></div>
+      <div class="prd-grid" id="rfy-grid"></div>
+      <div class="sec-cta">
+        <a href="recommendations.html" class="cta-primary">See All My Recommendations <i class="fas fa-arrow-right"></i></a>
+        <a href="body-profile.html" class="btn-secondary" style="margin-left:12px;">Update Profile <i class="fas fa-edit"></i></a>
+      </div>
+    </div>
+  </section>
 
   <!-- 6. FEATURED PRODUCTS -->
   <section class="section products-section fade-in-section" id="products">
@@ -874,6 +965,76 @@
     class="wa-float" title="Chat on WhatsApp" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
+  <script>
+  // ── RECOMMENDED FOR YOU — homepage section ───────────────────
+  (function initRFY() {
+    const bodyType = localStorage.getItem('sw_bodyType');
+    if (!bodyType || typeof products === 'undefined') return;
+
+    const section = document.getElementById('recommended-for-you');
+    if (!section) return;
+    section.style.display = 'block';
+
+    const stylePrefs = JSON.parse(localStorage.getItem('sw_stylePrefs') || '[]');
+    const bmi = localStorage.getItem('sw_bmi');
+
+    // Update titles
+    document.getElementById('rfy-eyebrow').textContent = bodyType + ' Build — Your Picks';
+    document.getElementById('rfy-title').textContent   = 'Recommended for You';
+
+    // Profile strip
+    const strip = document.getElementById('rfy-profile-strip');
+    if (strip) {
+      strip.innerHTML = `
+        <div class="rfy-strip">
+          <span class="rfy-bt-chip"><i class="fas fa-user"></i> ${bodyType} Build${bmi ? ' · BMI ' + bmi : ''}</span>
+          ${stylePrefs.map(s => `<span class="rfy-style-chip">${s}</span>`).join('')}
+          <a href="body-profile.html" class="rfy-edit"><i class="fas fa-edit"></i> Update</a>
+        </div>`;
+    }
+
+    // Filter products
+    let recs = products.filter(p =>
+      p.bodyTypes && p.bodyTypes.includes(bodyType) && p.category === 'Apparel'
+    );
+
+    // Sort: preferred styles first, then new items, then rest
+    recs.sort((a, b) => {
+      const aP = stylePrefs.includes(a.style) ? 0 : 1;
+      const bP = stylePrefs.includes(b.style) ? 0 : 1;
+      if (aP !== bP) return aP - bP;
+      if (a.isNew !== b.isNew) return a.isNew ? -1 : 1;
+      return 0;
+    });
+
+    recs = recs.slice(0, 8);
+
+    const grid = document.getElementById('rfy-grid');
+    if (grid && recs.length) {
+      grid.innerHTML = recs.map(p => renderProductCard(p)).join('');
+      if (typeof updateWishBadge === 'function') updateWishBadge();
+      // Stagger
+      grid.querySelectorAll('.prd-card').forEach((c, i) => {
+        c.style.cssText = `opacity:0;transform:translateY(16px);transition:opacity .4s ease ${i * .06}s,transform .4s ease ${i * .06}s`;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          c.style.opacity = '1'; c.style.transform = 'translateY(0)';
+        }));
+      });
+    }
+  })();
+
+  // ── Add "Find My Style" to nav links ──────────────────────────
+  (function addNavStyleLink() {
+    const navLinks = document.querySelector('.nav-links');
+    if (!navLinks) return;
+    const bt = localStorage.getItem('sw_bodyType');
+    const li = document.createElement('li');
+    li.innerHTML = bt
+      ? `<a href="recommendations.html" style="color:var(--red)!important;"><i class="fas fa-magic" style="margin-right:5px;font-size:10px;"></i>My Picks</a>`
+      : `<a href="body-profile.html"><i class="fas fa-magic" style="margin-right:5px;font-size:10px;"></i>Find My Style</a>`;
+    navLinks.appendChild(li);
+  })();
+  </script>
 </body>
 
 </html>

@@ -344,5 +344,18 @@
   <a href="https://wa.me/91YOUR_NUMBER?text=Hi%20Shonowear!%20I%20have%20a%20question." target="_blank" rel="noopener" class="wa-float" title="Chat on WhatsApp" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
+
+  <script>
+  (function(){
+    const navLinks = document.querySelector('.nav-links');
+    if (!navLinks) return;
+    const bt = localStorage.getItem('sw_bodyType');
+    const li = document.createElement('li');
+    li.innerHTML = bt
+      ? '<a href="recommendations.html" style="color:var(--red)!important;"><i class="fas fa-magic" style="margin-right:5px;font-size:10px;"></i>My Picks</a>'
+      : '<a href="body-profile.html"><i class="fas fa-magic" style="margin-right:5px;font-size:10px;"></i>Find My Style</a>';
+    navLinks.appendChild(li);
+  })();
+  </script>
 </body>
 </html>

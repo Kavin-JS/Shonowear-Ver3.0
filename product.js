@@ -161,6 +161,91 @@ function renderProduct(p) {
 
   // Description
   document.getElementById('pd-desc').textContent = p.desc || 'Premium quality anime-inspired streetwear. Built for culture, designed for comfort.';
+
+  // Body type suitability
+  renderBodyTypeSuitability(p);
+}
+
+function renderBodyTypeSuitability(p) {
+  // Find or create the suitability container
+  let el = document.getElementById('pd-body-suitability');
+  if (!el) {
+    // Insert after the description paragraph
+    const descEl = document.getElementById('pd-desc');
+    if (!descEl) return;
+    el = document.createElement('div');
+    el.id = 'pd-body-suitability';
+    descEl.parentNode.insertBefore(el, descEl.nextSibling);
+  }
+
+  const bodyTypes  = p.bodyTypes  || [];
+  const style      = p.style      || '';
+  const userType   = localStorage.getItem('sw_bodyType');
+  const isMatch    = userType && bodyTypes.includes(userType);
+
+  const ALL_TYPES  = ['Slim', 'Athletic', 'Average', 'Broad'];
+  const pillsHTML  = ALL_TYPES.map(bt => {
+    const active = bodyTypes.includes(bt);
+    const isUser = bt === userType;
+    return `<span class="pd-bt-pill ${active ? 'active' : 'inactive'} ${isUser ? 'user-match' : ''}">${active ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>'} ${bt}</span>`;
+  }).join('');
+
+  const matchBanner = userType
+    ? `<div class="pd-match-banner ${isMatch ? 'match' : 'no-match'}">
+        <i class="fas ${isMatch ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+        <span>${isMatch
+          ? `<strong>Great match</strong> for your ${userType} build.`
+          : `<strong>Not optimised</strong> for your ${userType} build — <a href="recommendations.html">see better fits</a>.`
+        }</span>
+       </div>`
+    : `<div class="pd-match-banner setup">
+        <i class="fas fa-magic"></i>
+        <span><a href="body-profile.html">Set up your style profile</a> to see if this fits your build.</span>
+       </div>`;
+
+  el.innerHTML = `
+    <div class="pd-suitability">
+      <div class="pd-suit-head">
+        <span class="pd-suit-label">Body Type Fit</span>
+        ${style ? `<span class="pd-style-chip">${style}</span>` : ''}
+      </div>
+      <div class="pd-bt-pills">${pillsHTML}</div>
+      ${matchBanner}
+    </div>`;
+
+  // Also populate the dedicated tab panel
+  const tabPanel = document.getElementById('pd-bodytypes-panel');
+  if (tabPanel) {
+    const ALL_BODY_META = {
+      Slim:     { icon: 'fas fa-feather-alt', tip: 'Structured and fitted cuts look sharp. Drop-shoulder tees and slim hoodies are ideal.' },
+      Average:  { icon: 'fas fa-user',         tip: 'Wide range of cuts work. Most hoodies, oversized tees, and layered fits suit you.' },
+      Athletic: { icon: 'fas fa-dumbbell',     tip: 'Boxy and structured silhouettes complement your build. Oversized hoodies are your zone.' },
+      Broad:    { icon: 'fas fa-expand-arrows-alt', tip: 'Relaxed oversized silhouettes create clean lines. Avoid very slim cuts.' },
+    };
+
+    tabPanel.innerHTML = `
+      <div style="margin-bottom:16px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">This item works best for</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          ${bodyTypes.map(bt => {
+            const m = ALL_BODY_META[bt] || {};
+            return `<div style="display:flex;gap:12px;padding:14px;background:var(--ink3);border:1px solid var(--border);">
+              <i class="${m.icon || 'fas fa-user'}" style="color:var(--gold);font-size:16px;flex-shrink:0;margin-top:2px;"></i>
+              <div>
+                <div style="font-family:var(--font-d);font-size:1rem;letter-spacing:1.5px;color:var(--white);margin-bottom:4px;">${bt}</div>
+                <div style="font-size:12px;color:var(--muted);font-weight:300;line-height:1.6;">${m.tip || ''}</div>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      ${matchBanner}
+      <div style="margin-top:14px;">
+        <a href="recommendations.html" style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:6px;transition:gap .2s;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+          <i class="fas fa-magic"></i> See all picks for your body type
+        </a>
+      </div>`;
+  }
 }
 
 function renderSizes(p) {
