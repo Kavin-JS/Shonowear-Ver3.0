@@ -32,7 +32,7 @@ const GALLERY_IMAGES = {
     'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1509942774463-acf339cf87d5?w=800&auto=format&fit=crop&q=85',
-    'https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=800&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&auto=format&fit=crop&q=85',
   ],
   tee: [
     'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=85',
@@ -182,10 +182,22 @@ function renderSizes(p) {
   container.innerHTML = sizes.map((sz, i) => `
     <button class="pd-size ${i === oosIdx ? 'unavailable' : ''}"
             data-size="${sz}"
-            ${i === oosIdx ? 'disabled' : `onclick="selectSize('${sz}', this)"`}>
-      ${sz}
+            ${i === oosIdx ? `onclick="notifyRestock('${p.id}','${sz}')"` : `onclick="selectSize('${sz}', this)"`}>
+      ${sz}${i === oosIdx ? ' <span style="font-size:8px;opacity:.6">· NOTIFY</span>' : ''}
     </button>
   `).join('');
+}
+
+function notifyRestock(productId, size) {
+  const email = prompt('🔔 Get notified when this size is back!\\nEnter your email:');
+  if (!email || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email.trim())) {
+    if (email !== null && typeof toast === 'function') toast('Please enter a valid email.', 'error');
+    return;
+  }
+  const notifs = JSON.parse(localStorage.getItem('sw_restock_notifs') || '[]');
+  notifs.push({ productId, size, email: email.trim().toLowerCase(), ts: Date.now() });
+  localStorage.setItem('sw_restock_notifs', JSON.stringify(notifs));
+  if (typeof toast === 'function') toast(`We'll notify you when size ${size} is back! 📬`, 'success');
 }
 
 function selectSize(size, el) {

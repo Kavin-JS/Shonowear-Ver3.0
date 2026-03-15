@@ -245,9 +245,17 @@ function nlSubscribe() {
     if (typeof toast === 'function') toast('Please enter a valid email.', 'error');
     return;
   }
+  // Already subscribed check
+  const subs = JSON.parse(localStorage.getItem('sw_newsletter') || '[]');
+  if (subs.includes(email.toLowerCase())) {
+    if (typeof toast === 'function') toast('You\'re already subscribed! 🎉', 'info');
+    return;
+  }
   btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
   btn.disabled = true;
   setTimeout(() => {
+    subs.push(email.toLowerCase());
+    localStorage.setItem('sw_newsletter', JSON.stringify(subs));
     emailEl.value = '';
     btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
     btn.style.background = '#10b981';

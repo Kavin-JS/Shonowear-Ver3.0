@@ -22,7 +22,7 @@
       font-family: var(--font-d); font-size: clamp(6rem, 20vw, 14rem);
       line-height: 1; letter-spacing: 4px;
       background: linear-gradient(135deg, var(--red) 0%, rgba(232,21,58,.3) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
       margin-bottom: 8px;
     }
     .err-title {
@@ -41,10 +41,13 @@
       background-size: 60px 60px;
     }
   </style>
-  <meta property="og:image" content="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1200&auto=format&fit=crop&q=80">
+  <meta property="og:image" content="https://shonowear.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://shonowear.com/404.html">
   <meta property="og:description" content="Page not found — Shonowear anime streetwear.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
   <div class="err-grid"></div>
@@ -94,8 +97,6 @@
 
   <script src="data.js"></script>
   <script src="wishlist.js"></script>
-  <script src="data.js"></script>
-  <script src="wishlist.js"></script>
   <script src="main.js"></script>
   <div id="toast" class="toast"></div>
   <button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top"><i class="fas fa-chevron-up"></i></button>
@@ -110,6 +111,18 @@
       const nb=document.getElementById('navbar'),pr=document.getElementById('nav-progress');
       if(pr) window.addEventListener('scroll',()=>{ nb?.classList.toggle('scrolled',window.scrollY>60); pr.style.width=Math.min((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100,100)+'%'; document.getElementById('scroll-top')?.classList.toggle('visible',window.scrollY>400); },{passive:true});
     });
+  </script>
+  <!-- Cookie Consent -->
+  <div class="cookie-banner" id="cookie-banner">
+    <p>We use cookies to improve your experience. By continuing, you agree to our <a href="privacy.html">Privacy Policy</a>.</p>
+    <div class="cookie-btns">
+      <button onclick="acceptCookies()">Accept All</button>
+      <button onclick="acceptCookies()" class="cookie-ghost">Necessary Only</button>
+    </div>
+  </div>
+  <script>
+    function acceptCookies(){document.getElementById('cookie-banner').style.display='none';localStorage.setItem('sw_cookies_accepted','1')}
+    if(localStorage.getItem('sw_cookies_accepted'))document.getElementById('cookie-banner').style.display='none';
   </script>
 </body>
 </html>
