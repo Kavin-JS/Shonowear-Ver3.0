@@ -359,19 +359,144 @@
   <button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></button>
 
   <script src="data.js"></script>
+  <script src="js/utils.js"></script>
   <script src="main.js"></script>
   <script src="wishlist.js"></script>
+  <script src="js/outfitRenderer.js"></script>
+  <script src="js/recommendationEngine.js"></script>
   <script>
-  (function() {
+  // ── Use RecommendationEngine module (recommendationEngine.js) ──────
+  // This page now delegates to js/recommendationEngine.js + js/outfitRenderer.js
+  // for outfit-based recommendations, and falls back to product-level filtering
+  // for the product grid view (legacy behaviour preserved).
 
-    // ── Body type meta ───────────────────────────────
-    const BODY_META = {
-      Slim:     { icon: 'fas fa-feather-alt', desc: 'Lean silhouette — structured and fitted cuts accentuate your frame. Slim-fit tees, structured jackets, and drop-shoulder hoodies are your zone.' },
-      Average:  { icon: 'fas fa-user',         desc: 'Versatile build — the widest range of cuts look good on you. Hoodies, oversized tees, and layered fits all work well.' },
-      Athletic: { icon: 'fas fa-dumbbell',     desc: 'Defined build — boxy and structured silhouettes complement your proportions. Oversized hoodies and drop-shoulder tees highlight your physique.' },
-      Broad:    { icon: 'fas fa-expand-arrows-alt', desc: 'Powerful build — oversized and relaxed silhouettes create clean lines. Avoid overly slim cuts; opt for volume and flow.' },
+  (async function initRecPage() {
+
+    // ── Navbar scroll ─────────────────────────────────────────────
+    const nb = document.getElementById('navbar');
+    const pr = document.getElementById('nav-progress');
+    window.addEventListener('scroll', () => {
+      nb?.classList.toggle('scrolled', window.scrollY > 60);
+      if (pr) pr.style.width = Math.min((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100, 100) + '%';
+      document.getElementById('scroll-top')?.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    document.getElementById('nav-toggle')?.addEventListener('click', () => {
+      document.getElementById('mob-ov')?.classList.add('on');
+      document.getElementById('mob-menu')?.classList.add('on');
+    });
+
+    // ── Find My Style nav link ────────────────────────────────────
+    (function() {
+      const navLinks = document.getElementById('navbar-links');
+      if (!navLinks) return;
+      const bt = localStorage.getItem('bodyType');
+      const li = document.createElement('li');
+      li.innerHTML = bt
+        ? `<a href="recommendations.html" style="color:var(--red)!important;"><i class="fas fa-magic" style="margin-right:5px;font-size:10px;"></i>My Picks</a>`
+        : `<a href="body-profile.html"><i class="fas fa-magic" style="margin-right:5px;font-size:10px;"></i>Find My Style</a>`;
+      navLinks.appendChild(li);
+    })();
+
+    // ── Auth ──────────────────────────────────────────────────────
+    if (typeof updateNav === 'function') updateNav();
+    if (typeof updateWishBadge === 'function') updateWishBadge();
+
+    // ── Read profile using utils.js helpers ───────────────────────
+    // bodyType is stored as 'bodyType' (no prefix) by bodyProfile.js
+    const bodyType   = localStorage.getItem('bodyType');
+    const bmi        = localStorage.getItem('sw_bmi');
+    const height     = localStorage.getItem('sw_height');
+    const weight     = localStorage.getItem('sw_weight');
+    const stylePrefs = JSON.parse(localStorage.getItem('sw_stylePrefs') || '[]');
+
+    const container = document.getElementById('rec-container');
+    const h1El      = document.getElementById('rec-h1');
+    const subEl     = document.getElementById('rec-sub');
+
+    // ── No profile state ──────────────────────────────────────────
+    if (!bodyType) {
+      if (h1El) h1El.textContent  = 'NO PROFILE YET.';
+      if (subEl) subEl.textContent = 'Set up your style profile to get personalised recommendations.';
+      if (container) container.innerHTML = `
+        <div class="rec-no-profile fade-in-section visible">
+          <i class="fas fa-user-circle"></i>
+          <h2>FIND YOUR FIT</h2>
+          <p>Enter your body details and we'll match you with anime streetwear designed for your silhouette.</p>
+          <a href="body-profile.html" class="cta-primary">Set Up My Profile <i class="fas fa-arrow-right"></i></a>
+        </div>`;
+      return;
+    }
+
+    // ── Profile bar (uses utils.js getBodyTypeMeta) ───────────────
+    const meta = (typeof getBodyTypeMeta === 'function')
+      ? getBodyTypeMeta(bodyType)
+      : { icon: 'fas fa-user', desc: 'Your personalised picks are ready.' };
+
+    const profileBar = document.getElementById('rec-profile-bar');
+    if (profileBar) {
+      profileBar.innerHTML = `
+        <div class="rec-body-badge">
+          <i class="${meta.icon}"></i>
+          <span>Body Type</span>
+          <strong>${bodyType}</strong>
+        </div>
+        ${bmi ? `<span class="rec-bmi-chip">BMI ${parseFloat(bmi).toFixed(1)}</span>` : ''}
+        ${height && weight ? `<span class="rec-bmi-chip">${height}cm · ${weight}kg</span>` : ''}
+        <a href="body-profile.html" class="rec-edit-link"><i class="fas fa-edit"></i> Edit Profile</a>`;
+    }
+
+    if (h1El) h1El.textContent  = `PICKS FOR ${bodyType.toUpperCase()} BUILDS.`;
+    if (subEl) subEl.textContent = meta.desc;
+
+    // ── Tab filter state ──────────────────────────────────────────
+    let currentStyleFilter = 'all';
+
+    window.setStyleFilter = function(btn, style) {
+      document.querySelectorAll('.rec-ftab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      currentStyleFilter = style;
+      renderRecSection();
     };
 
+    // ── OUTFIT-BASED VIEW (uses RecommendationEngine) ─────────────
+    // Load outfits and try to render them via outfitRenderer.js
+    let outfitsRendered = false;
+    const outfitContainerId = 'rec-outfit-container';
+
+    if (container && typeof RecommendationEngine !== 'undefined') {
+      // Create two-part layout: outfit section + product section
+      container.insertAdjacentHTML('beforebegin', `
+        <div class="rec-outfit-section fade-in-section" id="rec-outfit-section">
+          <div class="rec-section-head" style="margin-bottom:24px;">
+            <div>
+              <div class="sec-eyebrow">Curated Outfits</div>
+              <h2 class="sec-title" style="font-size:clamp(1.5rem,3vw,2.2rem);">Complete Looks for Your Build</h2>
+            </div>
+            <a href="outfit.html" class="sec-link">All outfits <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div id="${outfitContainerId}"><div style="text-align:center;padding:40px;color:var(--muted);"><i class="fas fa-circle-notch fa-spin" style="font-size:1.5rem;"></i></div></div>
+        </div>
+        <div class="rec-section-divider" style="height:1px;background:var(--border);margin:40px 0;"></div>
+        <div class="rec-product-section-head" style="margin-bottom:8px;">
+          <div class="sec-eyebrow">Individual Pieces</div>
+          <h2 class="sec-title" style="font-size:clamp(1.5rem,3vw,2.2rem);">Products for Your Body Type</h2>
+        </div>`);
+
+      try {
+        const outfits = await RecommendationEngine.getRecommendations('all', 6);
+        const outfitEl = document.getElementById(outfitContainerId);
+        if (outfitEl && outfits.length && typeof renderOutfitGrid === 'function') {
+          renderOutfitGrid(outfits, outfitEl, bodyType);
+          outfitsRendered = true;
+        } else if (outfitEl) {
+          outfitEl.innerHTML = '<p style="color:var(--muted);font-size:13px;padding:20px 0;">No curated outfits yet for your build — check back soon.</p>';
+        }
+      } catch(e) {
+        console.warn('[Rec] Outfit load failed:', e);
+      }
+    }
+
+    // ── PRODUCT-BASED VIEW (filtered product grid) ────────────────
     const STYLE_LABELS = {
       'Tokyo Street':   '東京 — bold graphics, dark palette, oversized energy',
       'Cyberpunk':      'サイバーパンク — neon accents, futuristic, high-contrast',
@@ -379,172 +504,90 @@
       'Shibuya Casual': '渋谷 — relaxed, modern, effortless street cool',
     };
 
-    let currentStyle = 'all';
-    const bodyType   = localStorage.getItem('sw_bodyType');
-    const bmi        = localStorage.getItem('sw_bmi');
-    const height     = localStorage.getItem('sw_height');
-    const weight     = localStorage.getItem('sw_weight');
-    const stylePrefs = JSON.parse(localStorage.getItem('sw_stylePrefs') || '[]');
-
-    // ── No profile state ─────────────────────────────
-    if (!bodyType) {
-      document.getElementById('rec-h1').textContent  = 'NO PROFILE YET.';
-      document.getElementById('rec-sub').textContent = 'Set up your style profile to get personalised recommendations.';
-      document.getElementById('rec-container').innerHTML = `
-        <div class="rec-no-profile fade-in-section">
-          <i class="fas fa-user-circle"></i>
-          <h2>FIND YOUR FIT</h2>
-          <p>Enter your body details and we'll match you with anime streetwear designed for your silhouette.</p>
-          <a href="body-profile.html" class="cta-primary">Set Up My Profile <i class="fas fa-arrow-right"></i></a>
-        </div>`;
-      document.querySelectorAll('.fade-in-section').forEach(e => e.classList.add('visible'));
-      return;
-    }
-
-    // ── Render profile bar ───────────────────────────
-    const meta = BODY_META[bodyType] || BODY_META.Average;
-    document.getElementById('rec-profile-bar').innerHTML = `
-      <div class="rec-body-badge">
-        <i class="${meta.icon}"></i>
-        <span>Body Type</span>
-        <strong>${bodyType}</strong>
-      </div>
-      ${bmi ? `<span class="rec-bmi-chip">BMI ${bmi}</span>` : ''}
-      ${height && weight ? `<span class="rec-bmi-chip">${height}cm · ${weight}kg</span>` : ''}
-      <a href="body-profile.html" class="rec-edit-link"><i class="fas fa-edit"></i> Edit Profile</a>
-    `;
-
-    document.getElementById('rec-h1').textContent  = `PICKS FOR ${bodyType.toUpperCase()} BUILDS.`;
-    document.getElementById('rec-sub').textContent = `${meta.desc}`;
-
-    // ── Filter & render ──────────────────────────────
-    window.setStyleFilter = function(btn, style) {
-      document.querySelectorAll('.rec-ftab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-      currentStyle = style;
-      renderRecs();
-    };
-
-    function getFiltered() {
+    function getFilteredProducts() {
       if (!window.products) return [];
       return products.filter(p => {
         if (!p.bodyTypes || !p.bodyTypes.includes(bodyType)) return false;
-        if (currentStyle !== 'all' && p.style !== currentStyle) return false;
+        if (currentStyleFilter !== 'all' && p.style !== currentStyleFilter) return false;
         return true;
       });
     }
 
-    function renderRecs() {
-      const container = document.getElementById('rec-container');
-      const filtered  = getFiltered();
-
-      if (!filtered.length) {
-        container.innerHTML = `
-          <div style="text-align:center;padding:60px;color:var(--muted)">
-            <i class="fas fa-box-open" style="font-size:2.5rem;display:block;margin-bottom:16px;opacity:.3"></i>
-            <p>No items in this style yet. Try a different filter.</p>
-          </div>`;
-        return;
-      }
-
-      // Body info card
-      const recCount = filtered.filter(p => p.category === 'Apparel').length;
-      let html = `
-        <div class="rec-body-info fade-in-section">
-          <div class="rbi-icon"><i class="${meta.icon}"></i></div>
-          <div class="rbi-text">
-            <h3>${bodyType} Build</h3>
-            <p>${meta.desc}</p>
-          </div>
-          <div class="rbi-stats">
-            <span class="rbi-count">${recCount}</span>
-            <span class="rbi-count-label">Apparel Matches</span>
-          </div>
-        </div>`;
-
-      // Group by style
-      const STYLES = currentStyle === 'all'
-        ? ['Tokyo Street', 'Cyberpunk', 'Minimal Anime', 'Shibuya Casual']
-        : [currentStyle];
-
-      STYLES.forEach(style => {
-        const items = filtered.filter(p => p.style === style && p.category === 'Apparel');
-        if (!items.length) return;
-
-        // Prefer style prefs at top
-        const sorted = [...items].sort((a, b) => {
-          const aMatch = stylePrefs.includes(a.style) ? -1 : 0;
-          const bMatch = stylePrefs.includes(b.style) ? -1 : 0;
-          return aMatch - bMatch;
-        });
-
-        const preferred = stylePrefs.includes(style);
-        html += `
-          <div class="rec-section fade-in-section">
-            <div class="rec-section-head">
-              <div>
-                <div class="rec-section-title">${style} ${preferred ? '<span style="color:var(--gold);font-size:.7em;letter-spacing:1px;">★ YOUR STYLE</span>' : ''}</div>
-                <div class="rec-section-sub">${STYLE_LABELS[style] || ''}</div>
-              </div>
-              <a href="collection.html?style=${encodeURIComponent(style)}" class="sec-link">View all <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="prd-grid">${sorted.slice(0, 8).map(p => renderMatchCard(p)).join('')}</div>
-          </div>`;
-      });
-
-      // Accessories section
-      const acc = filtered.filter(p => p.category !== 'Apparel');
-      if (acc.length && currentStyle === 'all') {
-        html += `
-          <div class="rec-section fade-in-section">
-            <div class="rec-section-head">
-              <div>
-                <div class="rec-section-title">Complete the Look</div>
-                <div class="rec-section-sub">Accessories & collectibles that pair with your outfits</div>
-              </div>
-            </div>
-            <div class="prd-grid">${acc.slice(0, 4).map(p => renderMatchCard(p)).join('')}</div>
-          </div>`;
-      }
-
-      container.innerHTML = html;
-
-      // Fade-in
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-      }, { threshold: 0.05 });
-      container.querySelectorAll('.fade-in-section').forEach(e => io.observe(e));
-
-      // Wire wishlist
-      if (typeof updateWishBadge === 'function') updateWishBadge();
-    }
-
     function renderMatchCard(p) {
-      // Use renderProductCard from main.js but with a "Match" badge added
-      const base = renderProductCard(p);
-      // Inject match badge into prd-img div
+      const base = (typeof renderProductCard === 'function') ? renderProductCard(p) : '';
       return base.replace(
         '<div class="prd-ov">',
         `<div class="prd-match-badge"><i class="fas fa-check-circle"></i> ${bodyType} Match</div><div class="prd-ov">`
       );
     }
 
-    // ── Navbar & scroll ──────────────────────────────
-    const nb = document.getElementById('navbar');
-    const pr = document.getElementById('nav-progress');
-    window.addEventListener('scroll', () => {
-      nb?.classList.toggle('scrolled', window.scrollY > 60);
-      if (pr) pr.style.width = Math.min((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100, 100) + '%';
-      const st = document.getElementById('scroll-top');
-      if (st) st.classList.toggle('visible', window.scrollY > 400);
-    }, { passive: true });
+    function renderRecSection() {
+      if (!container) return;
+      const filtered = getFilteredProducts();
 
-    document.getElementById('nav-toggle')?.addEventListener('click', () => {});
+      if (!filtered.length) {
+        container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--muted)"><i class="fas fa-box-open" style="font-size:2.5rem;display:block;margin-bottom:16px;opacity:.3"></i><p>No items in this style. Try a different filter.</p></div>`;
+        return;
+      }
 
-    // ── Init ─────────────────────────────────────────
-    if (typeof updateNav === 'function') updateNav();
-    if (typeof updateWishBadge === 'function') updateWishBadge();
-    renderRecs();
+      const recCount = filtered.filter(p => p.category === 'Apparel').length;
+      let html = `
+        <div class="rec-body-info fade-in-section">
+          <div class="rbi-icon"><i class="${meta.icon}"></i></div>
+          <div class="rbi-text"><h3>${bodyType} Build</h3><p>${meta.desc}</p></div>
+          <div class="rbi-stats"><span class="rbi-count">${recCount}</span><span class="rbi-count-label">Apparel Matches</span></div>
+        </div>`;
+
+      const STYLES = currentStyleFilter === 'all'
+        ? ['Tokyo Street', 'Cyberpunk', 'Minimal Anime', 'Shibuya Casual']
+        : [currentStyleFilter];
+
+      STYLES.forEach(style => {
+        const items = filtered.filter(p => p.style === style && p.category === 'Apparel');
+        if (!items.length) return;
+        const sorted = [...items].sort((a, b) =>
+          (stylePrefs.includes(a.style) ? -1 : 0) - (stylePrefs.includes(b.style) ? -1 : 0)
+        );
+        const preferred = stylePrefs.includes(style);
+        html += `
+          <div class="rec-section fade-in-section">
+            <div class="rec-section-head">
+              <div>
+                <div class="rec-section-title">${style}${preferred ? ' <span style="color:var(--gold);font-size:.7em;">★ YOUR STYLE</span>' : ''}</div>
+                <div class="rec-section-sub">${STYLE_LABELS[style] || ''}</div>
+              </div>
+              <a href="collection.html?style=${encodeURIComponent(style)}" class="sec-link">View all <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="prd-grid">${sorted.slice(0, 8).map(renderMatchCard).join('')}</div>
+          </div>`;
+      });
+
+      const acc = filtered.filter(p => p.category !== 'Apparel');
+      if (acc.length && currentStyleFilter === 'all') {
+        html += `
+          <div class="rec-section fade-in-section">
+            <div class="rec-section-head"><div><div class="rec-section-title">Complete the Look</div><div class="rec-section-sub">Accessories &amp; collectibles</div></div></div>
+            <div class="prd-grid">${acc.slice(0, 4).map(renderMatchCard).join('')}</div>
+          </div>`;
+      }
+
+      container.innerHTML = html;
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.05 });
+      container.querySelectorAll('.fade-in-section').forEach(e => io.observe(e));
+
+      if (typeof updateWishBadge === 'function') updateWishBadge();
+    }
+
+    renderRecSection();
+
+    // ── Fade-in observer ──────────────────────────────────────────
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.fade-in-section').forEach(e => io.observe(e));
 
   })();
   </script>

@@ -451,7 +451,10 @@
 
   <div id="toast" class="toast"></div>
 
+  <!-- JS modules — utils first, then bodyProfile module -->
+  <script src="js/utils.js"></script>
   <script src="main.js"></script>
+  <script src="js/bodyProfile.js"></script>
   <script>
     // ── Navbar scroll ─────────────────────────────────
     const nb = document.getElementById('navbar');
@@ -533,8 +536,9 @@
       const gender   = document.getElementById('bp-gender').value;
       const styles   = [...document.querySelectorAll('.bp-style-pill.selected')].map(b => b.dataset.style);
 
-      // Save to localStorage
-      localStorage.setItem('sw_bodyType',    bt.type);
+      // Save to localStorage (both keys for compatibility)
+      localStorage.setItem('bodyType',       bt.type);   // primary key for recommendation engine
+      localStorage.setItem('sw_bodyType',    bt.type);   // alias
       localStorage.setItem('sw_bmi',         bmi.toFixed(1));
       localStorage.setItem('sw_height',      h);
       localStorage.setItem('sw_weight',      w);

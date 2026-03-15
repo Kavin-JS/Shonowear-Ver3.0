@@ -462,18 +462,21 @@
   </section>
 
 
-  <!-- RECOMMENDED FOR YOU — shows if bodyType exists in localStorage -->
+  <!-- RECOMMENDED FOR YOU — shows outfit cards if bodyType exists -->
   <section class="section rfy-section fade-in-section" id="recommended-for-you" style="display:none;background:var(--ink2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="container">
       <div class="sec-head">
         <div>
           <p class="sec-eyebrow" id="rfy-eyebrow">Personalised for You</p>
-          <h2 class="sec-title" id="rfy-title">Recommended for You</h2>
+          <h2 class="sec-title" id="rfy-title">Recommended Outfits</h2>
         </div>
-        <a href="recommendations.html" class="sec-link">See all picks <i class="fas fa-arrow-right"></i></a>
+        <a href="recommendations.html" class="sec-link">See all outfits <i class="fas fa-arrow-right"></i></a>
       </div>
       <div class="rfy-profile-strip" id="rfy-profile-strip"></div>
-      <div class="prd-grid" id="rfy-grid"></div>
+      <!-- Outfit cards rendered by recommendationEngine.js -->
+      <div id="rfy-outfit-grid"></div>
+      <!-- Fallback product grid (shown if outfits fail to load) -->
+      <div class="prd-grid" id="rfy-grid" style="display:none;"></div>
       <div class="sec-cta">
         <a href="recommendations.html" class="cta-primary">See All My Recommendations <i class="fas fa-arrow-right"></i></a>
         <a href="body-profile.html" class="btn-secondary" style="margin-left:12px;">Update Profile <i class="fas fa-edit"></i></a>
@@ -945,6 +948,9 @@
   <script src="data-patch.js"></script>
   <script src="wishlist.js"></script>
   <script src="shared-ui.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/outfitRenderer.js"></script>
+  <script src="js/recommendationEngine.js"></script>
   <script src="main.js"></script>
   <script src="app.js"></script>
   <!-- Cookie Consent -->
@@ -967,59 +973,75 @@
   </a>
   <script>
   // ── RECOMMENDED FOR YOU — homepage section ───────────────────
-  (function initRFY() {
-    const bodyType = localStorage.getItem('sw_bodyType');
-    if (!bodyType || typeof products === 'undefined') return;
+  (async function initRFY() {
+    // Read from both key variants (bodyType = primary, sw_bodyType = legacy)
+    const bodyType = localStorage.getItem('bodyType') || localStorage.getItem('sw_bodyType');
+    if (!bodyType) return;
 
     const section = document.getElementById('recommended-for-you');
     if (!section) return;
     section.style.display = 'block';
 
     const stylePrefs = JSON.parse(localStorage.getItem('sw_stylePrefs') || '[]');
-    const bmi = localStorage.getItem('sw_bmi');
+    const bmi        = localStorage.getItem('sw_bmi');
+    const meta       = (typeof getBodyTypeMeta === 'function') ? getBodyTypeMeta(bodyType) : { icon:'fas fa-user', desc:'' };
 
     // Update titles
-    document.getElementById('rfy-eyebrow').textContent = bodyType + ' Build — Your Picks';
-    document.getElementById('rfy-title').textContent   = 'Recommended for You';
+    const eyebrow = document.getElementById('rfy-eyebrow');
+    const title   = document.getElementById('rfy-title');
+    if (eyebrow) eyebrow.textContent = bodyType + ' Build — Your Picks';
+    if (title)   title.textContent   = 'Recommended for You';
 
     // Profile strip
     const strip = document.getElementById('rfy-profile-strip');
     if (strip) {
       strip.innerHTML = `
         <div class="rfy-strip">
-          <span class="rfy-bt-chip"><i class="fas fa-user"></i> ${bodyType} Build${bmi ? ' · BMI ' + bmi : ''}</span>
+          <span class="rfy-bt-chip"><i class="${meta.icon}"></i> ${bodyType} Build${bmi ? ' · BMI ' + parseFloat(bmi).toFixed(1) : ''}</span>
           ${stylePrefs.map(s => `<span class="rfy-style-chip">${s}</span>`).join('')}
           <a href="body-profile.html" class="rfy-edit"><i class="fas fa-edit"></i> Update</a>
         </div>`;
     }
 
-    // Filter products
-    let recs = products.filter(p =>
-      p.bodyTypes && p.bodyTypes.includes(bodyType) && p.category === 'Apparel'
-    );
+    // ── Try to load outfit cards via RecommendationEngine ────────
+    const outfitEl = document.getElementById('rfy-outfit-grid');
+    let outfitsShown = false;
 
-    // Sort: preferred styles first, then new items, then rest
-    recs.sort((a, b) => {
-      const aP = stylePrefs.includes(a.style) ? 0 : 1;
-      const bP = stylePrefs.includes(b.style) ? 0 : 1;
-      if (aP !== bP) return aP - bP;
-      if (a.isNew !== b.isNew) return a.isNew ? -1 : 1;
-      return 0;
-    });
+    if (outfitEl && typeof RecommendationEngine !== 'undefined' && typeof renderOutfitGrid !== 'undefined') {
+      try {
+        const outfits = await RecommendationEngine.getRecommendations('all', 4);
+        if (outfits && outfits.length) {
+          renderOutfitGrid(outfits, outfitEl, bodyType);
+          outfitsShown = true;
+        }
+      } catch(e) {
+        console.warn('[RFY] Outfit load failed, falling back to products:', e);
+      }
+    }
 
-    recs = recs.slice(0, 8);
-
-    const grid = document.getElementById('rfy-grid');
-    if (grid && recs.length) {
-      grid.innerHTML = recs.map(p => renderProductCard(p)).join('');
-      if (typeof updateWishBadge === 'function') updateWishBadge();
-      // Stagger
-      grid.querySelectorAll('.prd-card').forEach((c, i) => {
-        c.style.cssText = `opacity:0;transform:translateY(16px);transition:opacity .4s ease ${i * .06}s,transform .4s ease ${i * .06}s`;
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          c.style.opacity = '1'; c.style.transform = 'translateY(0)';
-        }));
-      });
+    // ── Fallback: product cards ───────────────────────────────────
+    if (!outfitsShown && typeof products !== 'undefined') {
+      const productEl = document.getElementById('rfy-grid');
+      if (productEl) {
+        let recs = products.filter(p => p.bodyTypes && p.bodyTypes.includes(bodyType) && p.category === 'Apparel');
+        recs.sort((a, b) => {
+          const aP = stylePrefs.includes(a.style) ? 0 : 1;
+          const bP = stylePrefs.includes(b.style) ? 0 : 1;
+          if (aP !== bP) return aP - bP;
+          if (a.isNew !== b.isNew) return a.isNew ? -1 : 1;
+          return 0;
+        });
+        recs = recs.slice(0, 8);
+        if (recs.length && typeof renderProductCard === 'function') {
+          productEl.style.display = 'grid';
+          productEl.innerHTML = recs.map(p => renderProductCard(p)).join('');
+          if (typeof updateWishBadge === 'function') updateWishBadge();
+          productEl.querySelectorAll('.prd-card').forEach((c, i) => {
+            c.style.cssText = `opacity:0;transform:translateY(16px);transition:opacity .4s ease ${i*.06}s,transform .4s ease ${i*.06}s`;
+            requestAnimationFrame(() => requestAnimationFrame(() => { c.style.opacity='1'; c.style.transform='translateY(0)'; }));
+          });
+        }
+      }
     }
   })();
 

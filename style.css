@@ -1981,3 +1981,270 @@ html { scroll-padding-top: 80px; } /* accounts for fixed navbar */
   75%      { transform: translateX(6px); }
 }
 
+
+/* ═══════════════════════════════════════════════════════
+   SHONOWEAR — OUTFIT SYSTEM STYLES
+   outfit cards, outfit detail, recommendations page
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Outfit grid ─────────────────────────────────────────── */
+
+.outfit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ── Outfit card ─────────────────────────────────────────── */
+
+.outfit-card {
+  background: var(--ink2);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: border-color .25s, transform .2s;
+  position: relative;
+  overflow: hidden;
+}
+.outfit-card:hover {
+  border-color: var(--border-r);
+  transform: translateY(-4px);
+}
+.outfit-card:focus { outline: 2px solid var(--red); outline-offset: 2px; }
+
+.oc-img-wrap {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.oc-img {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+}
+.outfit-card:hover .oc-img { transform: scale(1.06); }
+
+.oc-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,15,.85) 0%, transparent 60%);
+}
+
+.oc-match-badge {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  background: rgba(8,8,15,.9);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 4px 10px; display: flex; align-items: center; gap: 5px;
+}
+.oc-match-badge i { font-size: 9px; }
+
+.oc-trend {
+  position: absolute; bottom: 12px; left: 12px; z-index: 2;
+  font-size: 9px; color: var(--gold); letter-spacing: 1px;
+}
+
+.oc-body {
+  padding: 16px; flex: 1;
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+.oc-meta {
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.oc-style {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--red);
+}
+
+.oc-anime {
+  font-size: 9px; color: var(--muted);
+  font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+}
+
+.oc-name {
+  font-family: var(--font-d);
+  font-size: 1.3rem; letter-spacing: 2px;
+  color: var(--white); line-height: 1.1;
+}
+
+.oc-desc {
+  font-size: 12px; color: var(--muted);
+  font-weight: 300; line-height: 1.6; flex: 1;
+}
+
+.oc-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto; padding-top: 12px;
+  border-top: 1px solid var(--border);
+  gap: 10px;
+}
+
+.oc-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+
+.oc-items {
+  font-size: 10px; color: var(--muted);
+  font-weight: 600; letter-spacing: .5px;
+  display: flex; align-items: center; gap: 5px;
+}
+
+.oc-price {
+  font-family: var(--font-d); font-size: 1.1rem; color: var(--gold);
+}
+
+.oc-btn {
+  padding: 8px 14px;
+  background: var(--red); color: #fff;
+  font-family: var(--font-b); font-size: 10px;
+  font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 5px;
+  transition: background .2s; white-space: nowrap; flex-shrink: 0;
+}
+.oc-btn:hover { background: var(--red2); }
+
+/* ── Outfit empty state ──────────────────────────────────── */
+
+.outfit-empty {
+  text-align: center; padding: 80px 40px;
+  grid-column: 1 / -1;
+}
+.outfit-empty i { font-size: 3rem; color: var(--border); display: block; margin-bottom: 16px; }
+.outfit-empty p { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+
+/* ── Recommendation page profile bar ────────────────────── */
+
+.rec-profile-bar {
+  display: flex; align-items: center; gap: 12px;
+  flex-wrap: wrap; margin-bottom: 20px;
+}
+
+.rec-body-badge {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 18px;
+  background: var(--red-lo); border: 1px solid var(--border-r);
+  font-size: 11px;
+}
+.rec-body-badge i    { color: var(--red); font-size: 14px; }
+.rec-body-badge span { color: var(--muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.rec-body-badge strong { color: var(--white); font-weight: 700; margin-left: 4px; font-size: 13px; }
+
+.rec-bmi-chip {
+  font-size: 11px; color: var(--muted);
+  padding: 6px 14px; border: 1px solid var(--border);
+  background: var(--ink3); font-weight: 600; letter-spacing: .5px;
+}
+
+.rec-edit-link {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border: 1px solid var(--border);
+  transition: all .2s;
+}
+.rec-edit-link:hover { border-color: var(--muted); color: var(--white); }
+
+/* ── Recommendations hero ────────────────────────────────── */
+
+.rec-hero {
+  background: var(--ink2); border-bottom: 1px solid var(--border);
+  padding: 100px 40px 60px; position: relative; overflow: hidden;
+}
+.rec-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 50% 80% at 80% 50%, rgba(232,21,58,.05) 0%, transparent 70%);
+}
+.rec-hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+
+.rec-h1 {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, var(--white), var(--gold));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px; line-height: 1;
+}
+
+.rec-sub {
+  font-size: 14px; color: var(--muted);
+  font-weight: 300; max-width: 600px; line-height: 1.75;
+}
+
+/* ── Recommendations filter tabs ─────────────────────────── */
+
+.rec-filters {
+  background: var(--ink); border-bottom: 1px solid var(--border);
+  padding: 0 40px; position: sticky; top: 56px; z-index: 50;
+}
+.rec-filters-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; gap: 0; overflow-x: auto;
+}
+.rec-ftab {
+  padding: 14px 20px; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
+  background: none; border: none; border-bottom: 2px solid transparent;
+  cursor: pointer; white-space: nowrap; transition: all .2s; margin-bottom: -1px;
+}
+.rec-ftab:hover { color: var(--white); }
+.rec-ftab.active { color: var(--white); border-bottom-color: var(--red); }
+
+/* ── Recommendations no-profile state ───────────────────── */
+
+.rec-no-profile {
+  text-align: center; padding: 100px 40px;
+}
+.rec-no-profile i { font-size: 3.5rem; color: var(--border); display: block; margin-bottom: 24px; }
+.rec-no-profile h2 { font-family: var(--font-d); font-size: 2.5rem; letter-spacing: 3px; color: var(--white); margin-bottom: 14px; }
+.rec-no-profile p { font-size: 14px; color: var(--muted); font-weight: 300; max-width: 440px; margin: 0 auto 32px; line-height: 1.8; }
+
+/* ── Body type info card (recommendations page) ──────────── */
+
+.rec-body-info {
+  background: var(--ink2); border: 1px solid var(--border);
+  padding: 28px 32px; margin-bottom: 40px;
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 28px;
+}
+.rbi-icon {
+  width: 56px; height: 56px;
+  background: var(--red-lo); border: 1px solid var(--border-r);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; color: var(--red); flex-shrink: 0;
+}
+.rbi-text h3 { font-family: var(--font-d); font-size: 1.4rem; letter-spacing: 2px; color: var(--white); margin-bottom: 4px; }
+.rbi-text p  { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.7; }
+.rbi-stats   { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.rbi-count   { font-family: var(--font-d); font-size: 2.2rem; color: var(--gold); line-height: 1; letter-spacing: 1px; }
+.rbi-count-label { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+
+/* ── Outfit section headings (within recommendations) ────── */
+
+.rec-section       { margin-bottom: 56px; }
+.rec-section-head  { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 24px; gap: 16px; }
+.rec-section-title { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 2.5px; color: var(--white); }
+.rec-section-sub   { font-size: 11px; color: var(--muted); font-weight: 300; margin-top: 4px; }
+
+/* ── Responsive for outfit grid ──────────────────────────── */
+
+@media (max-width: 1100px) {
+  .outfit-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .outfit-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .rec-body-info { grid-template-columns: 1fr; gap: 16px; }
+  .rbi-stats { align-items: flex-start; flex-direction: row; gap: 16px; }
+}
+@media (max-width: 600px) {
+  .outfit-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .oc-name { font-size: 1rem; }
+  .oc-desc { display: none; }
+  .oc-btn { font-size: 9px; padding: 6px 10px; }
+  .rec-hero { padding: 90px 16px 40px; }
+  .rec-filters { padding: 0 16px; }
+}
+
