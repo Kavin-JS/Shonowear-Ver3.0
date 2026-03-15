@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initFadeIn();
   initProofCounters();
   initCollReel();
+  initOutfitBuilder();
+  initDropCountdown();
+  initAnalytics();
 });
 
 /* ── 1. NAVBAR ───────────────────────────────────────────────── */
@@ -267,12 +270,7 @@ function nlSubscribe() {
    STARTUP UPGRADE — New features
    ══════════════════════════════════════════════════════ */
 
-// Add new inits to DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-  initOutfitBuilder();
-  initDropCountdown();
-  initAnalytics();
-});
+
 
 /* ── OUTFIT BUILDER ─────────────────────────────────── */
 

@@ -60,6 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRelated(product);
   checkWishState(product.id);
   updateWishBadge();
+  renderCompleteTheLook(product);
+
+  // Wire image zoom lightbox
+  const galleryImgs = GALLERY_IMAGES[product.type] || GALLERY_IMAGES.tee;
+  _lbImages = galleryImgs.map(u => u.replace('w=800', 'w=1200'));
+  const mainImg = document.getElementById('pd-main-img');
+  if (mainImg) {
+    mainImg.style.cursor = 'zoom-in';
+    mainImg.addEventListener('click', () => {
+      const currentBg = mainImg.style.backgroundImage.replace(/url\(['""]?|['""]?\)/g, '');
+      const hi = currentBg.replace('w=800', 'w=1200');
+      openLightbox(Math.max(0, _lbImages.indexOf(hi)));
+    });
+  }
 
   // Navbar scroll
   const nb = document.getElementById('navbar');
@@ -310,24 +324,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Wire zoom on main image after render
-const _origRenderProduct = renderProduct;
-function renderProduct(p) {
-  _origRenderProduct(p);
-  // Store images for lightbox
-  const imgs = GALLERY_IMAGES[p.type] || GALLERY_IMAGES.tee;
-  _lbImages = imgs.map(u => u.replace('w=800', 'w=1200'));
-  // Wire click on main image
-  const mainImg = document.getElementById('pd-main-img');
-  if (mainImg) {
-    mainImg.style.cursor = 'zoom-in';
-    mainImg.addEventListener('click', () => openLightbox(_lbImages.indexOf(
-      mainImg.style.backgroundImage.replace(/url\(['"]?|['"]?\)/g,'').replace('w=800','w=1200')
-    ) || 0));
-  }
-  // Render Complete the Look
-  renderCompleteTheLook(p);
-}
 
 /* ── Complete the Look ─────────────────────────────────── */
 function renderCompleteTheLook(p) {
