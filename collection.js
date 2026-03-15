@@ -2,7 +2,7 @@
 
 let filteredProducts = [...products];
 let activeFilters = {
-  category: '', type: '', anime: '', sort: 'newest', maxPrice: 10000, search: ''
+  category: '', type: '', anime: '', sort: 'newest', maxPrice: 5000, search: ''
 };
 
 // build anime list from products
@@ -150,9 +150,9 @@ function resetFilters() {
   document.getElementById('type-filter').value     = '';
   if (document.getElementById('anime-filter')) document.getElementById('anime-filter').value = '';
   document.getElementById('sort-filter').value     = 'newest';
-  document.getElementById('price-filter').value    = '10000';
+  document.getElementById('price-filter').value    = '5000';
   document.getElementById('search-input').value    = '';
-  activeFilters = { category: '', type: '', anime: '', sort: 'newest', maxPrice: 10000, search: '' };
+  activeFilters = { category: '', type: '', anime: '', sort: 'newest', maxPrice: 5000, search: '' };
   applyFilters();
 }
 

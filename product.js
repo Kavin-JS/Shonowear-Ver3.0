@@ -1,3 +1,24 @@
+
+function updateBreadcrumb(p) {
+  const bcName = document.getElementById('pd-bc-name');
+  const bcLink = document.querySelector('#pd-breadcrumb a[href="collection.html"]');
+  if (bcName) bcName.textContent = p.name;
+  // Preserve collection URL context if user came from collection
+  if (bcLink && document.referrer) {
+    try {
+      const ref = new URL(document.referrer);
+      if (ref.pathname.includes('collection')) {
+        bcLink.href = ref.pathname + ref.search;
+        // Show filter label if present
+        const anime = ref.searchParams.get('anime');
+        const type  = ref.searchParams.get('type');
+        if (anime) bcLink.textContent = anime;
+        else if (type) bcLink.textContent = type.charAt(0).toUpperCase() + type.slice(1) + 's';
+      }
+    } catch(e) {}
+  }
+}
+
 // product.js — product detail page logic
 
 let currentProduct = null;
@@ -88,9 +109,18 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderProduct(p) {
   // Page title + meta
   document.title = `${p.name} — Shonowear`;
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.content = `${p.name} — Shonowear`;
+
+  const desc = p.desc || 'Premium quality anime-inspired streetwear. Built for culture, designed for comfort.';
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.content = desc;
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.content = desc;
 
   // Breadcrumb
-  document.getElementById('pd-bc-name').textContent = p.name;
+  const bcName = document.getElementById('pd-bc-name');
+  if (bcName) bcName.textContent = p.name;
 
   // Gallery
   const images = GALLERY_IMAGES[p.type] || GALLERY_IMAGES.tee;

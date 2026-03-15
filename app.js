@@ -432,7 +432,7 @@ function trackEvent(event, data = {}) {
   const entry = { event, data, ts: Date.now() };
   _analytics.push(entry);
   // In production this would be: fetch('/api/track', { method:'POST', body: JSON.stringify(entry) })
-  console.debug('[SW Analytics]', event, data);
+  // Analytics logged (console.debug removed for production)
 }
 
 function initAnalytics() {

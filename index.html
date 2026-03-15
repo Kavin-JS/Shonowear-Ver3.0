@@ -1,30 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Shonowear — Where anime meets street fashion. Discover curated drops, limited editions, and culture-first streetwear inspired by the greatest anime of all time.">
+  <meta name="description"
+    content="Shonowear — Where anime meets street fashion. Discover curated drops, limited editions, and culture-first streetwear inspired by the greatest anime of all time.">
   <meta property="og:title" content="Shonowear — Where Anime Meets Street Fashion">
-  <meta property="og:description" content="Discover curated anime-inspired streetwear. Limited drops. Premium fabric. Culture-first fashion.">
+  <meta property="og:description"
+    content="Discover curated anime-inspired streetwear. Limited drops. Premium fabric. Culture-first fashion.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="profile.jpg">
+  <meta property="og:image"
+    content="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1200&auto=format&fit=crop&q=80">
   <meta name="theme-color" content="#e8153a">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shonowear — Where Anime Meets Street Fashion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080810'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='13' font-weight='900' fill='%23e8153a'%3ESW%3C/text%3E%3C/svg%3E">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    crossorigin="anonymous" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080810'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='13' font-weight='900' fill='%23e8153a'%3ESW%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://shonowear.com/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Shonowear",
+    "url": "https://shonowear.com",
+    "logo": "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1200&auto=format&fit=crop&q=80",
+    "founder": {
+      "@type": "Person",
+      "name": "Kavin J.S"
+    }
+  }
+  </script>
 </head>
+
 <body>
+  <noscript>
+    <style>
+      .fade-in-section {
+        opacity: 1;
+        transform: none;
+      }
+
+      .prod-skeleton {
+        display: none;
+      }
+    </style>
+    <div
+      style="background:var(--ink2);border:1px solid rgba(232,21,58,.2);color:#f0ede6;font-family:sans-serif;padding:20px 24px;text-align:center;font-size:14px;margin-top:64px;">
+      ⚠️ JavaScript is required for the full Shonowear experience — product grids, search, filters, and the outfit
+      builder all need JS enabled.
+    </div>
+  </noscript>
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
     <div class="nav-search-bar">
       <i class="fas fa-search"></i>
-      <input type="text" id="nav-search-input" placeholder="Search styles, anime, drops…" autocomplete="off"/>
+      <input type="text" id="nav-search-input" placeholder="Search styles, anime, drops…" autocomplete="off" />
       <div class="nav-search-results" id="nav-search-results"></div>
     </div>
     <ul class="nav-links">
@@ -39,7 +80,8 @@
         <a href="cart.html" class="nav-icon-btn" title="Cart"><i class="fas fa-shopping-bag"></i></a>
         <div class="cart-badge">0</div>
       </div>
-      <button class="nav-icon-btn" id="wish-toggle" title="Wishlist" onclick="openWishlist()" style="position:relative;">
+      <button class="nav-icon-btn" id="wish-toggle" title="Wishlist" onclick="openWishlist()"
+        style="position:relative;">
         <i class="far fa-heart"></i>
         <div class="wish-badge" id="wish-badge" style="display:none;">0</div>
       </button>
@@ -61,7 +103,7 @@
       <button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button>
     </div>
     <div class="mob-search">
-      <input type="text" id="mob-search-input" placeholder="Search styles…"/>
+      <input type="text" id="mob-search-input" placeholder="Search styles…" />
       <button onclick="doMobSearch()"><i class="fas fa-arrow-right"></i></button>
     </div>
     <a href="index.html"><i class="fas fa-home"></i>Home</a>
@@ -101,7 +143,8 @@
         <span class="ht-2">Meets the</span>
         <span class="ht-street">Street.</span>
       </h1>
-      <p class="hero-sub">Not just merch. A fashion discovery platform<br>for anime culture. Curated drops. Limited editions.<br>Built for the culture.</p>
+      <p class="hero-sub">Not just merch. A fashion discovery platform<br>for anime culture. Curated drops. Limited
+        editions.<br>Built for the culture.</p>
       <div class="hero-ctas">
         <a href="collection.html" class="cta-primary">Explore Drops <i class="fas fa-arrow-right"></i></a>
         <a href="#how-it-works" class="cta-ghost">How It Works</a>
@@ -124,7 +167,9 @@
       </div>
     </div>
     <div class="hero-scroll">
-      <div class="scroll-track"><div class="scroll-thumb"></div></div>
+      <div class="scroll-track">
+        <div class="scroll-thumb"></div>
+      </div>
       <span>Scroll</span>
     </div>
   </section>
@@ -217,7 +262,9 @@
         <h2 class="sol-title">
           Shonowear is a <em>fashion discovery platform</em><br>built for anime culture.
         </h2>
-        <p class="sol-desc">We don't list products. We curate drops. Every piece ships with cultural context — the arc it was inspired by, the character it draws from, the aesthetic it belongs to. We're not selling merch. We're building a wardrobe for people who live the culture.</p>
+        <p class="sol-desc">We don't list products. We curate drops. Every piece ships with cultural context — the arc
+          it was inspired by, the character it draws from, the aesthetic it belongs to. We're not selling merch. We're
+          building a wardrobe for people who live the culture.</p>
         <div class="sol-pills">
           <span><i class="fas fa-check"></i> Culture-first curation</span>
           <span><i class="fas fa-check"></i> Editorial drops</span>
@@ -243,7 +290,8 @@
           <div class="hiw-num">01</div>
           <div class="hiw-icon"><i class="fas fa-compass"></i></div>
           <h4>Explore Styles</h4>
-          <p>Browse curated collections by anime universe, aesthetic vibe, or drop season. Every collection has a story.</p>
+          <p>Browse curated collections by anime universe, aesthetic vibe, or drop season. Every collection has a story.
+          </p>
           <a href="#collections" class="hiw-link">Browse styles <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="hiw-connector"><i class="fas fa-arrow-right"></i></div>
@@ -282,7 +330,8 @@
         <div class="drop-editorial">
           <p class="sec-eyebrow"><span class="drop-live-dot"></span> Live Now</p>
           <h2 class="drop-title">The Konoha<br>Street Edit</h2>
-          <p class="drop-desc">This week's drop draws from Naruto's Konoha arc — the tension between identity and belonging rendered in heavyweight cotton and purposeful graphics. Every piece is a conversation starter.</p>
+          <p class="drop-desc">This week's drop draws from Naruto's Konoha arc — the tension between identity and
+            belonging rendered in heavyweight cotton and purposeful graphics. Every piece is a conversation starter.</p>
           <div class="drop-tags">
             <span>Naruto Universe</span>
             <span>SS25</span>
@@ -295,7 +344,8 @@
             <div class="dc-sep">:</div>
             <div class="dc-unit"><span id="dc-s">00</span><label>SEC</label></div>
           </div>
-          <a href="collection.html?anime=Naruto" class="cta-primary" style="display:inline-flex;margin-top:28px;">Shop This Drop <i class="fas fa-arrow-right"></i></a>
+          <a href="collection.html?anime=Naruto" class="cta-primary" style="display:inline-flex;margin-top:28px;">Shop
+            This Drop <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="drop-images">
           <div class="drop-img drop-img-main"></div>
@@ -393,10 +443,14 @@
         <button class="pf-btn" data-filter="phone">Accessories</button>
       </div>
       <div class="prod-skeleton" id="prod-skeleton">
-        <div class="skel"></div><div class="skel"></div>
-        <div class="skel"></div><div class="skel"></div>
-        <div class="skel"></div><div class="skel"></div>
-        <div class="skel"></div><div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
       </div>
       <div class="prd-grid" id="featured-products" style="display:none;"></div>
       <div class="sec-cta">
@@ -431,7 +485,8 @@
           <h4>Konoha Street Edit</h4>
           <p>Naruto Hoodie + Cargo Pants</p>
           <div class="lb-items-row">
-            <span class="lb-item-chip" onclick="window.location='product.html?id=p1';event.stopPropagation()">Hoodie ₹1,999</span>
+            <span class="lb-item-chip" onclick="window.location='product.html?id=p1';event.stopPropagation()">Hoodie
+              ₹1,999</span>
           </div>
           <button class="lb-cta" onclick="window.location='collection.html?anime=Naruto'">Shop Look</button>
         </div>
@@ -456,7 +511,8 @@
           <h4>Domain Expansion Drop</h4>
           <p>Gojo Hoodie — Limited</p>
           <div class="lb-items-row">
-            <span class="lb-item-chip" onclick="window.location='product.html?id=p9';event.stopPropagation()">Hoodie ₹2,199</span>
+            <span class="lb-item-chip" onclick="window.location='product.html?id=p9';event.stopPropagation()">Hoodie
+              ₹2,199</span>
           </div>
           <button class="lb-cta" onclick="window.location='collection.html?anime=Jujutsu+Kaisen'">Shop Look</button>
         </div>
@@ -481,8 +537,10 @@
           <h4>Akatsuki Monochrome</h4>
           <p>Oversized Tee + Figurine Bundle</p>
           <div class="lb-items-row">
-            <span class="lb-item-chip" onclick="window.location='product.html?id=p2';event.stopPropagation()">Tee ₹799</span>
-            <span class="lb-item-chip" onclick="window.location='product.html?id=p4';event.stopPropagation()">Figurine ₹1,899</span>
+            <span class="lb-item-chip" onclick="window.location='product.html?id=p2';event.stopPropagation()">Tee
+              ₹799</span>
+            <span class="lb-item-chip" onclick="window.location='product.html?id=p4';event.stopPropagation()">Figurine
+              ₹1,899</span>
           </div>
           <button class="lb-cta" onclick="window.location='collection.html?anime=Naruto'">Shop Look</button>
         </div>
@@ -531,7 +589,10 @@
         <div class="platform-text">
           <p class="sec-eyebrow">Why Shonowear</p>
           <h2 class="sec-title" style="font-family:var(--font-s);">Not a store.<br><em>A movement.</em></h2>
-          <p style="font-size:15px;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:32px;">Shonowear is building the definitive fashion layer for anime culture. Every drop is curated, every collection has context, and every product is chosen because it actually looks good — not just because it has a character on it.</p>
+          <p style="font-size:15px;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:32px;">Shonowear is
+            building the definitive fashion layer for anime culture. Every drop is curated, every collection has
+            context, and every product is chosen because it actually looks good — not just because it has a character on
+            it.</p>
           <div class="platform-stats">
             <div class="plat-stat"><strong>13</strong><span>Anime Universes</span></div>
             <div class="plat-stat"><strong>120+</strong><span>Curated Products</span></div>
@@ -541,19 +602,31 @@
         <div class="platform-features">
           <div class="pf-feature">
             <div class="pf-icon"><i class="fas fa-layer-group"></i></div>
-            <div><h5>Style-first discovery</h5><p>Browse by aesthetic, not just category. Find your vibe before you find your product.</p></div>
+            <div>
+              <h5>Style-first discovery</h5>
+              <p>Browse by aesthetic, not just category. Find your vibe before you find your product.</p>
+            </div>
           </div>
           <div class="pf-feature">
             <div class="pf-icon"><i class="fas fa-book-open"></i></div>
-            <div><h5>Editorial lookbook</h5><p>Complete outfit context with item-level deep links. See the full look, shop individual pieces.</p></div>
+            <div>
+              <h5>Editorial lookbook</h5>
+              <p>Complete outfit context with item-level deep links. See the full look, shop individual pieces.</p>
+            </div>
           </div>
           <div class="pf-feature">
             <div class="pf-icon"><i class="fas fa-magic"></i></div>
-            <div><h5>Outfit builder</h5><p>Pick a universe, get a complete curated outfit, add all pieces to cart in one click.</p></div>
+            <div>
+              <h5>Outfit builder</h5>
+              <p>Pick a universe, get a complete curated outfit, add all pieces to cart in one click.</p>
+            </div>
           </div>
           <div class="pf-feature">
             <div class="pf-icon"><i class="fas fa-heart"></i></div>
-            <div><h5>Persistent wishlist</h5><p>Save pieces across universes, come back for drops, build your wardrobe over time.</p></div>
+            <div>
+              <h5>Persistent wishlist</h5>
+              <p>Save pieces across universes, come back for drops, build your wardrobe over time.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -626,12 +699,14 @@
           <i class="fab fa-instagram comm-icon"></i>
           <strong class="proof-num" data-target="8" data-suffix="K+">0</strong>
           <span>Instagram Followers</span>
-          <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" class="comm-link">Follow us <i class="fas fa-arrow-right"></i></a>
+          <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" class="comm-link">Follow us <i
+              class="fas fa-arrow-right"></i></a>
         </div>
         <div class="comm-testi-col">
           <div class="testi-card testi-featured">
             <div class="testi-stars">★★★★★</div>
-            <p>"Finally a streetwear brand that looks premium. The stitching, fit, and graphics — nothing else compares."</p>
+            <p>"Finally a streetwear brand that looks premium. The stitching, fit, and graphics — nothing else
+              compares."</p>
             <div class="testi-who">
               <div class="testi-av">SK</div>
               <div><strong>Simran K.</strong><span>Delhi · Verified Buyer</span></div>
@@ -748,7 +823,8 @@
           <h2 class="founder-name">Kavin J.S</h2>
           <p class="founder-title">Computer Science · Anime Fan · Builder</p>
           <blockquote class="founder-quote">
-            "I couldn't find streetwear that actually respected anime culture — so I built it. Shonowear isn't a side project. It's the platform I always wished existed."
+            "I couldn't find streetwear that actually respected anime culture — so I built it. Shonowear isn't a side
+            project. It's the platform I always wished existed."
           </blockquote>
           <div class="founder-stack">
             <span>Naruto</span>
@@ -758,7 +834,8 @@
             <span>One Piece</span>
           </div>
           <div class="founder-links">
-            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> @kavin.j.s</a>
+            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener"><i
+                class="fab fa-instagram"></i> @kavin.j.s</a>
             <a href="mailto:kavin.js@outlook.com"><i class="fas fa-envelope"></i> kavin.js@outlook.com</a>
           </div>
         </div>
@@ -783,7 +860,7 @@
       </div>
       <div class="nl-form">
         <div class="nl-row">
-          <input type="email" id="nl-email" placeholder="your@email.com"/>
+          <input type="email" id="nl-email" placeholder="your@email.com" />
           <button id="nl-btn" onclick="nlSubscribe()">Join Drop List <i class="fas fa-arrow-right"></i></button>
         </div>
         <p class="nl-note"><i class="fas fa-lock"></i> No spam. Unsubscribe anytime.</p>
@@ -800,9 +877,12 @@
           <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
           <p>Where anime meets street fashion. Curated drops. Premium fabric. Culture first.</p>
           <div class="footer-socials">
-            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i
+                class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Twitter"><i
+                class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Discord"><i
+                class="fab fa-discord"></i></a>
             <a href="contact.html" aria-label="Email"><i class="fas fa-envelope"></i></a>
           </div>
         </div>
@@ -848,11 +928,13 @@
     </div>
   </div>
 
-  <button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top"><i class="fas fa-chevron-up"></i></button>
+  <button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top"><i
+      class="fas fa-chevron-up"></i></button>
 
   <script src="data.js"></script>
   <script src="wishlist.js"></script>
   <script src="main.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>
