@@ -2,21 +2,89 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="description" content="The latest drops from Shonowear. Fresh anime streetwear added every week. Premium quality, fair pricing.">
+  <meta property="og:title" content="New Arrivals — Shonowear">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#e8153a">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Arrivals - ShonoWear</title>
+  <title>New Arrivals — Shonowear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080810'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='13' font-weight='900' fill='%23e8153a'%3ESW%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* New Arrivals page hero */
+    .na-hero {
+      padding-top: 64px;
+      background: var(--ink2);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .na-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1400&auto=format&fit=crop&q=40');
+      background-size: cover; background-position: center;
+      opacity: .05;
+    }
+    .na-hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1280px; margin: 0 auto;
+      padding: 56px 40px;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; flex-wrap: wrap;
+    }
+    .na-hero-text {}
+    .na-hero h1 {
+      font-family: var(--font-d); font-size: clamp(2.5rem, 6vw, 5rem);
+      letter-spacing: 3px; color: var(--white); line-height: 1;
+      margin-bottom: 12px;
+    }
+    .na-hero h1 span { background: linear-gradient(135deg, var(--red), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .na-hero p { font-size: 15px; color: var(--muted); font-weight: 300; }
+    .na-hero-meta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .na-meta-pill {
+      padding: 8px 18px; border: 1px solid var(--border);
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .na-meta-pill.live { border-color: var(--border-r); color: var(--red); background: var(--red-lo); }
+    /* Controls bar */
+    .na-controls {
+      max-width: 1280px; margin: 0 auto; padding: 24px 40px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .na-filter-btn {
+      padding: 9px 18px; border: 1px solid var(--border);
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      background: var(--ink2); transition: all .2s; cursor: pointer;
+    }
+    .na-filter-btn:hover, .na-filter-btn.active {
+      border-color: var(--border-r); color: var(--white); background: var(--red-lo);
+    }
+    .na-sort {
+      margin-left: auto; padding: 9px 16px;
+      background: var(--ink2); border: 1px solid var(--border);
+      color: var(--white); font-family: var(--font-b); font-size: 12px;
+      outline: none; cursor: pointer;
+    }
+    .na-sort option { background: var(--ink2); }
+    .na-count { font-size: 12px; color: var(--muted); margin-left: 8px; }
+    @media (max-width: 600px) {
+      .na-hero-inner { padding: 40px 20px; }
+      .na-controls { padding: 16px 20px; }
+      .na-hero h1 { font-size: clamp(2rem, 10vw, 3.5rem); }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
+  <nav class="navbar" id="navbar">
     <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="collection.html">Collection</a></li>
-      <li><a href="new-arrivals.html">New Arrivals</a></li>
+      <li><a href="new-arrivals.html" class="active">New Arrivals</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -25,6 +93,10 @@
         <a href="cart.html" class="nav-icon-btn" title="Cart"><i class="fas fa-shopping-bag"></i></a>
         <div class="cart-badge">0</div>
       </div>
+      <button class="nav-icon-btn" id="wish-toggle" title="Wishlist" onclick="openWishlist()" style="position:relative;">
+        <i class="far fa-heart"></i>
+        <div class="wish-badge" id="wish-badge" style="display:none;">0</div>
+      </button>
       <a id="nav-login" class="nav-login-btn" href="login.html">Login</a>
       <div id="nav-user" class="nav-user" style="display:none;">
         <span class="nav-uname" id="nav-uname"></span>
@@ -35,7 +107,7 @@
   </nav>
   <div class="nav-progress" id="nav-progress"></div>
 
-      <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
+  <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
   <div class="mob-menu" id="mob-menu">
     <div class="mob-head">
       <span class="mob-logo">SHONO<em>WEAR</em></span>
@@ -49,33 +121,73 @@
     <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
     <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
   </div>
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
-    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
-    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
-    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
-    <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
-    <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+
+  <div class="wish-overlay" id="wish-overlay" onclick="closeWishlist()"></div>
+  <div class="wish-sidebar" id="wish-sidebar">
+    <div class="wish-head"><h3>Saved Items</h3><button onclick="closeWishlist()"><i class="fas fa-times"></i></button></div>
+    <div class="wish-items" id="wish-items"></div>
+    <div class="wish-empty" id="wish-empty"><i class="far fa-heart"></i><p>No saved items yet.</p><a href="collection.html">Browse Collection</a></div>
   </div>
 
-  <!-- NEW ARRIVALS PAGE -->
-  <div class="pw">
-    <section class="prd-sec">
-      <div class="sh">
-        <span class="sh-tag">— LATEST</span>
-        <h2 class="sh-title">NEW ARRIVALS</h2>
-        <div class="sh-line"></div>
+  <!-- Page hero -->
+  <div class="na-hero">
+    <div class="na-hero-inner">
+      <div class="na-hero-text">
+        <p class="sec-eyebrow" style="margin-bottom:10px;"><span style="display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-right:8px;animation:pulseDot 1.5s ease-in-out infinite;"></span>Updated Weekly</p>
+        <h1>New <span>Arrivals</span></h1>
+        <p>Fresh drops, new universes, limited runs — added every week.</p>
       </div>
-
-      <p style="color:var(--muted);margin-bottom:30px;text-align:center;">Discover our latest and most exclusive anime merchandise. Fresh stock every week!</p>
-
-      <!-- PRODUCTS GRID -->
-      <div class="prd-grid" id="new-products-grid"></div>
-      <div class="no-res" id="no-res"><i class="fas fa-inbox"></i>No new products found</div>
-    </section>
+      <div class="na-hero-meta">
+        <span class="na-meta-pill live"><i class="fas fa-fire" style="margin-right:6px;"></i>SS25 Live</span>
+        <span class="na-meta-pill" id="na-count-pill">Loading…</span>
+        <a href="collection.html" class="na-meta-pill" style="cursor:pointer;">View All →</a>
+      </div>
+    </div>
   </div>
 
-  <!-- TOAST & POPUP -->
+  <!-- Controls -->
+  <div class="na-controls">
+    <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Filter:</span>
+    <button class="na-filter-btn active" data-type="all">All</button>
+    <button class="na-filter-btn" data-type="hoodie">Hoodies</button>
+    <button class="na-filter-btn" data-type="tee">Tees</button>
+    <button class="na-filter-btn" data-type="oversized">Oversized</button>
+    <button class="na-filter-btn" data-type="figurine">Figurines</button>
+    <button class="na-filter-btn" data-type="phone">Accessories</button>
+    <select class="na-sort" id="na-sort" onchange="naSort()">
+      <option value="newest">Newest First</option>
+      <option value="price-low">Price: Low to High</option>
+      <option value="price-high">Price: High to Low</option>
+    </select>
+    <span class="na-count" id="na-count"></span>
+  </div>
+
+  <!-- Grid -->
+  <div style="max-width:1280px;margin:0 auto;padding:0 40px 80px;">
+    <div class="no-res" id="no-res" style="display:none;"><i class="fas fa-box-open"></i> No new arrivals in this category.</div>
+    <div class="prd-grid" id="new-products-grid"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+          <p>Where anime meets street fashion. Curated drops. Premium fabric.</p>
+          <div class="footer-socials">
+            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="contact.html" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="footer-col"><h5>Discover</h5><a href="collection.html">All Products</a><a href="new-arrivals.html">New Arrivals</a><a href="index.html#lookbook">Lookbook</a></div>
+        <div class="footer-col"><h5>Help</h5><a href="contact.html">Contact Us</a><a href="returns.html">Returns</a><a href="shipping.html">Shipping</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="about.html">About</a><a href="privacy.html">Privacy</a></div>
+      </div>
+      <div class="footer-base"><p>© 2025 Shonowear. All rights reserved.</p></div>
+    </div>
+  </footer>
+
   <div id="toast" class="toast"></div>
   <div id="popup" class="popup">
     <div class="popup-content">
@@ -87,9 +199,66 @@
       </div>
     </div>
   </div>
+  <button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top"><i class="fas fa-chevron-up"></i></button>
 
   <script src="data.js"></script>
+  <script src="wishlist.js"></script>
   <script src="main.js"></script>
   <script src="new-arrivals.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const nb = document.getElementById('navbar');
+      const pr = document.getElementById('nav-progress');
+      window.addEventListener('scroll', () => {
+        nb?.classList.toggle('scrolled', window.scrollY > 60);
+        if (pr) pr.style.width = Math.min((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100, 100) + '%';
+        document.getElementById('scroll-top')?.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
+      // Wire filter buttons
+      document.querySelectorAll('.na-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.na-filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          naFilter(btn.dataset.type);
+        });
+      });
+    });
+
+    let _naAll = [];
+    function naFilter(type) {
+      const grid  = document.getElementById('new-products-grid');
+      const noRes = document.getElementById('no-res');
+      const count = document.getElementById('na-count');
+      const sort  = document.getElementById('na-sort').value;
+      let items = type === 'all' ? [..._naAll] : _naAll.filter(p => p.type === type);
+      items = naApplySort(items, sort);
+      if (!items.length) { grid.style.display = 'none'; noRes.style.display = 'block'; count.textContent = ''; return; }
+      noRes.style.display = 'none'; grid.style.display = 'grid';
+      count.textContent = `${items.length} items`;
+      grid.innerHTML = items.map(p => renderProductCard(p)).join('');
+      grid.querySelectorAll('.prd-card').forEach((c,i) => {
+        c.style.cssText = `opacity:0;transform:translateY(14px);transition:opacity .3s ease ${i*.04}s,transform .3s ease ${i*.04}s`;
+        requestAnimationFrame(() => requestAnimationFrame(() => { c.style.opacity='1'; c.style.transform='translateY(0)'; }));
+      });
+    }
+    function naSort() {
+      const activeBtn = document.querySelector('.na-filter-btn.active');
+      naFilter(activeBtn ? activeBtn.dataset.type : 'all');
+    }
+    function naApplySort(items, sort) {
+      if (sort === 'price-low')  return [...items].sort((a,b) => a.price - b.price);
+      if (sort === 'price-high') return [...items].sort((a,b) => b.price - a.price);
+      return items;
+    }
+    // Override renderNewProducts to store data for filtering
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if (typeof products === 'undefined') return;
+        _naAll = products.filter(p => p.isNew === true);
+        document.getElementById('na-count-pill').textContent = `${_naAll.length} new pieces`;
+        naFilter('all');
+      }, 100);
+    });
+  </script>
 </body>
 </html>

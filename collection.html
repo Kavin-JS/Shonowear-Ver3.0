@@ -2,20 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="description" content="Browse 80+ anime streetwear products. Filter by type, anime universe, and price. Free shipping above ₹999.">
+  <meta property="og:title" content="Collection — Shonowear">
+  <meta property="og:description" content="Browse 80+ anime streetwear products. Filter by type, anime universe, and price. Free shipping above ₹999.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#e8153a">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Collection - ShonoWear</title>
+  <title>Collection — Shonowear</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080810'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='13' font-weight='900' fill='%23e8153a'%3ESW%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
+  <nav class="navbar" id="navbar">
     <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="collection.html">Collection</a></li>
+      <li><a href="collection.html" class="active">Collection</a></li>
       <li><a href="new-arrivals.html">New Arrivals</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
@@ -25,6 +30,7 @@
         <a href="cart.html" class="nav-icon-btn" title="Cart"><i class="fas fa-shopping-bag"></i></a>
         <div class="cart-badge">0</div>
       </div>
+      <button class="nav-icon-btn" id="wish-toggle" title="Wishlist" style="position:relative;" onclick="openWishlist()"><i class="far fa-heart"></i><div class="wish-badge" id="wish-badge" style="display:none;">0</div></button>
       <a id="nav-login" class="nav-login-btn" href="login.html">Login</a>
       <div id="nav-user" class="nav-user" style="display:none;">
         <span class="nav-uname" id="nav-uname"></span>
@@ -35,7 +41,7 @@
   </nav>
   <div class="nav-progress" id="nav-progress"></div>
 
-      <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
+  <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
   <div class="mob-menu" id="mob-menu">
     <div class="mob-head">
       <span class="mob-logo">SHONO<em>WEAR</em></span>
@@ -49,16 +55,7 @@
     <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
     <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
   </div>
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
-    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
-    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
-    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
-    <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
-    <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
-  </div>
 
-  <!-- COLLECTION PAGE -->
   <div class="pw">
     <section class="prd-sec">
       <div class="sh">
@@ -67,7 +64,6 @@
         <div class="sh-line"></div>
       </div>
 
-      <!-- SEARCH BAR -->
       <div class="search-wrap">
         <div class="search-bar">
           <input type="text" placeholder="Search products..." id="search-input">
@@ -75,7 +71,6 @@
         </div>
       </div>
 
-      <!-- FILTERS & SORTING -->
       <div class="filters-section">
         <div class="filter-group">
           <label>CATEGORY</label>
@@ -84,12 +79,8 @@
             <option value="Apparel">Apparel</option>
             <option value="Figurines">Figurines</option>
             <option value="Accessories">Accessories</option>
-            <option value="Posters">Posters</option>
-            <option value="Books">Books</option>
-            <option value="Decor">Decor</option>
           </select>
         </div>
-
         <div class="filter-group">
           <label>TYPE</label>
           <select id="type-filter" onchange="filterProducts()">
@@ -99,13 +90,9 @@
             <option value="phone">Phone Case</option>
             <option value="figurine">Figurine</option>
             <option value="oversized">Oversized</option>
-            <option value="statue">Statue</option>
-            <option value="poster">Poster</option>
             <option value="jacket">Jacket</option>
-            <option value="cap">Cap</option>
           </select>
         </div>
-
         <div class="filter-group">
           <label>SORT BY</label>
           <select id="sort-filter" onchange="filterProducts()">
@@ -116,23 +103,68 @@
             <option value="name-z">Name: Z to A</option>
           </select>
         </div>
-
         <div class="filter-group">
-          <label>PRICE RANGE</label>
-          <input type="range" id="price-filter" min="0" max="10000" value="10000" onchange="filterProducts()">
-          <span id="price-value">₹10,000</span>
+          <label>ANIME</label>
+          <select id="anime-filter" onchange="filterProducts()">
+            <option value="">All Universes</option>
+          </select>
         </div>
-
-        <button class="btn-reset" onclick="resetFilters()">RESET ALL</button>
+        <div class="filter-group">
+          <label>MAX PRICE: <span id="price-value">₹10,000</span></label>
+          <input type="range" id="price-filter" min="299" max="10000" value="10000" oninput="filterProducts()">
+        </div>
+        <div class="filter-group">
+          <label>&nbsp;</label>
+          <button class="btn-reset" onclick="resetFilters()">RESET</button>
+        </div>
       </div>
 
-      <!-- PRODUCTS GRID -->
+      <div id="active-filters-bar" class="active-filters-bar" style="display:none;"></div>
+      <div class="result-bar">
+        <span id="result-count" class="result-count"></span>
+      </div>
+      <div class="no-res" id="no-res"><i class="fas fa-search"></i> No products found</div>
       <div class="prd-grid" id="products-grid"></div>
-      <div class="no-res" id="no-res"><i class="fas fa-inbox"></i>No products found</div>
     </section>
   </div>
 
-  <!-- TOAST & POPUP -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+          <p>Anime-inspired streetwear for the modern generation.</p>
+          <div class="footer-socials">
+                      <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+          <a href="contact.html" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="footer-col"><h5>Shop</h5><a href="collection.html">All Products</a><a href="new-arrivals.html">New Arrivals</a></div>
+        <div class="footer-col"><h5>Help</h5><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="login.html">Login</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="about.html">About</a><a href="privacy.html">Privacy Policy</a></div>
+      </div>
+      <div class="footer-base"><p>© 2025 Shonowear. All rights reserved.</p><p>Made for the community, by the community.</p></div>
+    </div>
+  </footer>
+
+
+  <!-- Wishlist sidebar -->
+  <div class="wish-overlay" id="wish-overlay" onclick="closeWishlist()"></div>
+  <div class="wish-sidebar" id="wish-sidebar">
+    <div class="wish-head">
+      <h3>Saved Items</h3>
+      <button onclick="closeWishlist()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="wish-items" id="wish-items"></div>
+    <div class="wish-empty" id="wish-empty">
+      <i class="far fa-heart"></i>
+      <p>No saved items yet.</p>
+      <a href="collection.html">Browse Collection</a>
+    </div>
+  </div>
+
   <div id="toast" class="toast"></div>
   <div id="popup" class="popup">
     <div class="popup-content">
@@ -146,7 +178,20 @@
   </div>
 
   <script src="data.js"></script>
+  <script src="wishlist.js"></script>
   <script src="main.js"></script>
   <script src="collection.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const nb = document.getElementById('navbar');
+      const pr = document.getElementById('nav-progress');
+      window.addEventListener('scroll', () => {
+        nb?.classList.toggle('scrolled', window.scrollY > 60);
+        if (pr) pr.style.width = Math.min((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100, 100) + '%';
+      }, { passive: true });
+    });
+  </script>
+
+  <button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top"><i class="fas fa-chevron-up"></i></button>
 </body>
 </html>

@@ -1,67 +1,72 @@
-// Cart page logic
+// cart.js
+
+function getProductImg(name) {
+  const n = name.toLowerCase();
+  if (n.includes('hoodie'))                      return 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=200&auto=format&fit=crop&q=80';
+  if (n.includes('tee') || n.includes('shirt'))  return 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=200&auto=format&fit=crop&q=80';
+  if (n.includes('jacket'))                      return 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=200&auto=format&fit=crop&q=80';
+  if (n.includes('figurine'))                    return 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=200&auto=format&fit=crop&q=80';
+  if (n.includes('phone'))                       return 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=200&auto=format&fit=crop&q=80';
+  return 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&auto=format&fit=crop&q=80';
+}
 
 function loadCart() {
-  const cart = JSON.parse(localStorage.getItem('sw_cart') || '[]');
-  const cartItems = document.getElementById('cart-items');
-  const emptCart = document.getElementById('empty-cart');
+  const cart        = JSON.parse(localStorage.getItem('sw_cart') || '[]');
+  const cartItems   = document.getElementById('cart-items');
+  const emptyCart   = document.getElementById('empty-cart');
   const cartSummary = document.getElementById('cart-summary');
-  
   if (!cartItems) return;
-  
+
   cartItems.innerHTML = '';
-  
+
   if (cart.length === 0) {
-    emptCart.style.display = 'block';
+    emptyCart.style.display   = 'block';
     cartSummary.style.display = 'none';
     return;
   }
-  
-  emptCart.style.display = 'none';
+
+  emptyCart.style.display   = 'none';
   cartSummary.style.display = 'block';
-  
+
   let total = 0;
-  
+
   cart.forEach((item, idx) => {
     const itemTotal = item.price * item.qty;
     total += itemTotal;
-    
+    const imgUrl  = getProductImg(item.name);
+    const sizeTag = item.size && item.size !== 'One Size' ? `<span class="ci-size">${item.size}</span>` : '';
+
     cartItems.innerHTML += `
       <div class="ci">
-        <div style="width:100px;height:100px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:var(--bg2);">
-          🎌
-        </div>
+        <a href="product.html?id=${item.id}" class="ci-thumb" style="background-image:url('${imgUrl}');display:block;"></a>
         <div class="ci-info">
-          <div class="ci-name">${item.name}</div>
+          <div class="ci-name"><a href="product.html?id=${item.id}" style="color:inherit;">${item.name}</a></div>
+          ${sizeTag}
           <div class="ci-price">₹${item.price.toLocaleString()}</div>
           <div class="qty-row">
-            <button class="qb" onclick="changeQty(${idx}, -1)">-</button>
+            <button class="qb" onclick="changeQty(${idx}, -1)">−</button>
             <span class="qn">${item.qty}</span>
             <button class="qb" onclick="changeQty(${idx}, 1)">+</button>
-            <button class="rm-btn" onclick="removeItem(${idx})">REMOVE</button>
+            <button class="rm-btn" onclick="removeItem(${idx})">Remove</button>
           </div>
         </div>
-        <div style="text-align:right;font-weight:700;">
-          ₹${itemTotal.toLocaleString()}
-        </div>
+        <div class="ci-total">₹${itemTotal.toLocaleString()}</div>
       </div>
     `;
   });
-  
+
   document.getElementById('subtotal').textContent = '₹' + total.toLocaleString();
-  document.getElementById('total').textContent = '₹' + total.toLocaleString();
+  document.getElementById('total').textContent    = '₹' + total.toLocaleString();
 }
 
-function changeQty(idx, change) {
+function changeQty(idx, delta) {
   const cart = JSON.parse(localStorage.getItem('sw_cart') || '[]');
-  if (cart[idx]) {
-    cart[idx].qty += change;
-    if (cart[idx].qty <= 0) {
-      cart.splice(idx, 1);
-    }
-    localStorage.setItem('sw_cart', JSON.stringify(cart));
-    loadCart();
-    updateCartBadge();
-  }
+  if (!cart[idx]) return;
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx, 1);
+  localStorage.setItem('sw_cart', JSON.stringify(cart));
+  loadCart();
+  updateCartBadge();
 }
 
 function removeItem(idx) {
@@ -70,27 +75,23 @@ function removeItem(idx) {
   localStorage.setItem('sw_cart', JSON.stringify(cart));
   loadCart();
   updateCartBadge();
-  toast('Item removed', 'success');
+  toast('Item removed from cart.', 'success');
 }
 
 function checkout() {
   const user = localStorage.getItem('sw_user');
   if (!user) {
-    showPop('⚠️', 'Login Required', 'Please login to proceed with checkout');
-    setTimeout(() => {
-      window.location.href = 'login.html';
-    }, 2000);
+    showPop('⚠️', 'Login Required', 'Please login to proceed with checkout.');
+    setTimeout(() => window.location.href = 'login.html', 2000);
     return;
   }
-  
-  showPop('✅', 'Order Placed!', 'Thank you for your purchase! Your order has been confirmed.');
+  showPop('✅', 'Order Placed!', 'Thank you! Your order has been confirmed and will be shipped soon.');
   setTimeout(() => {
     localStorage.setItem('sw_cart', '[]');
     closePop();
     loadCart();
     updateCartBadge();
-  }, 2000);
+  }, 2500);
 }
 
-// Load cart when page loads
 document.addEventListener('DOMContentLoaded', loadCart);
