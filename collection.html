@@ -20,10 +20,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
   <!-- Meta Pixel -->
-  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','XXXXXXXXXX');fbq('track','PageView');</script>
 </head>
 <body>
   <!-- Announcement Bar -->
@@ -75,6 +72,17 @@
 
   <div class="pw">
     <section class="prd-sec">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="bc-sep">›</span>
+        <span class="bc-current">Collection</span>
+        <span style="flex:1"></span>
+        <button onclick="openSizeGuide()" style="background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--font-b);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s;" onmouseover="this.style.borderColor='var(--border-r)';this.style.color='var(--white)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+          <i class="fas fa-ruler"></i> Size Guide
+        </button>
+      </nav>
+
       <div class="sh">
         <span class="sh-tag">— COLLECTION</span>
         <h2 class="sh-title">ALL PRODUCTS</h2>
@@ -153,8 +161,6 @@
           <p>Anime-inspired streetwear for the modern generation.</p>
           <div class="footer-socials">
                       <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
           <a href="contact.html" aria-label="Email"><i class="fas fa-envelope"></i></a>
           </div>
         </div>
@@ -196,6 +202,7 @@
 
   <script src="data.js"></script>
   <script src="wishlist.js"></script>
+  <script src="shared-ui.js"></script>
   <script src="main.js"></script>
   <script src="collection.js"></script>
   <script>
@@ -223,7 +230,7 @@
     if(localStorage.getItem('sw_cookies_accepted'))document.getElementById('cookie-banner').style.display='none';
   </script>
   <!-- WhatsApp Widget -->
-  <a href="https://wa.me/919876543210?text=Hi%20Shonowear!%20I%20have%20a%20question." target="_blank" rel="noopener" class="wa-float" title="Chat on WhatsApp" aria-label="WhatsApp">
+  <a href="https://wa.me/91YOUR_NUMBER?text=Hi%20Shonowear!%20I%20have%20a%20question." target="_blank" rel="noopener" class="wa-float" title="Chat on WhatsApp" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
 </body>

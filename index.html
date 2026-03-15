@@ -41,11 +41,9 @@
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-XXXXXXXXXX');</script>
-  <!-- Meta Pixel -->
-  <script>!function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s) }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', 'XXXXXXXXXX'); fbq('track', 'PageView');</script>
+  
+  <!-- TODO: Replace with real GA4 ID: <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_ID"></script> -->
+  
 </head>
 
 <body>
@@ -167,7 +165,7 @@
       <div class="hero-trust">
         <span><i class="fas fa-star"></i> 4.9 rated</span>
         <span class="ht-sep">·</span>
-        <span>10K+ orders</span>
+        <span>500+ happy customers</span>
         <span class="ht-sep">·</span>
         <span>Free shipping ₹999+</span>
       </div>
@@ -208,8 +206,8 @@
   <!-- SOCIAL PROOF -->
   <div class="proof-bar fade-in-section">
     <div class="proof-item">
-      <strong class="proof-num" data-target="10" data-suffix="K+">0</strong>
-      <span>Orders Shipped</span>
+      <strong class="proof-num" data-target="500" data-suffix="+">0</strong>
+      <span>Happy Customers</span>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-item">
@@ -229,70 +227,22 @@
   </div>
 
 
-  <!-- 2. PROBLEM -->
-  <section class="section problem-section fade-in-section" id="problem">
-    <div class="container">
-      <div class="problem-grid">
-        <div class="prob-left">
-          <p class="sec-eyebrow">The Problem</p>
-          <h2 class="prob-title">Anime merch<br>is <span>broken.</span></h2>
-          <p class="prob-intro">The market is flooded. The quality is terrible. The culture is missing.</p>
-        </div>
-        <div class="prob-right">
-          <div class="prob-item">
-            <span class="prob-x">✗</span>
-            <div>
-              <h5>Generic catalogs</h5>
-              <p>Thousands of products with no editorial context, no curation, no story, no soul.</p>
-            </div>
-          </div>
-          <div class="prob-item">
-            <span class="prob-x">✗</span>
-            <div>
-              <h5>Bad quality at high prices</h5>
-              <p>Thin fabric, faded prints, and inflated prices passing off fandom as fashion.</p>
-            </div>
-          </div>
-          <div class="prob-item">
-            <span class="prob-x">✗</span>
-            <div>
-              <h5>Zero style perspective</h5>
-              <p>Products sold in isolation — no outfit context, no aesthetic direction, no culture.</p>
-            </div>
-          </div>
-        </div>
+  <!-- 2. MANIFESTO — punchy brand statement, replaces pitch-deck problem/solution -->
+  <section class="manifesto-strip fade-in-section" id="manifesto">
+    <div class="manifesto-inner">
+      <h2>NOT MERCH.<br>A MOVEMENT.</h2>
+      <p>The market is full of generic prints on thin fabric sold without context or soul. Shonowear is built differently — every drop is curated, every piece earns its place, every design connects to the culture it comes from.</p>
+      <div class="manifesto-pills">
+        <span>350 GSM Heavyweight Cotton</span>
+        <span>Culture-First Curation</span>
+        <span>Editorial Drops Only</span>
+        <span>Fair Pricing</span>
       </div>
     </div>
   </section>
 
 
-  <!-- 3. SOLUTION -->
-  <section class="section solution-section fade-in-section" id="solution">
-    <div class="container">
-      <div class="solution-inner">
-        <div class="sol-eyebrow-row">
-          <span class="sol-badge">The Fix</span>
-          <span class="sol-line"></span>
-        </div>
-        <h2 class="sol-title">
-          Shonowear is a <em>fashion discovery platform</em><br>built for anime culture.
-        </h2>
-        <p class="sol-desc">We don't list products. We curate drops. Every piece ships with cultural context — the arc
-          it was inspired by, the character it draws from, the aesthetic it belongs to. We're not selling merch. We're
-          building a wardrobe for people who live the culture.</p>
-        <div class="sol-pills">
-          <span><i class="fas fa-check"></i> Culture-first curation</span>
-          <span><i class="fas fa-check"></i> Editorial drops</span>
-          <span><i class="fas fa-check"></i> Style discovery</span>
-          <span><i class="fas fa-check"></i> 350 GSM premium fabric</span>
-          <span><i class="fas fa-check"></i> Fair pricing</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- 4. HOW IT WORKS -->
+  <!-- 3. HOW IT WORKS -->
   <section class="section hiw-section fade-in-section" id="how-it-works">
     <div class="container">
       <div class="sec-head centered">
@@ -338,7 +288,7 @@
   </section>
 
 
-  <!-- 5. TODAY'S DROP -->
+  <!-- 4. TODAY'S DROP -->
   <section class="section drop-section fade-in-section" id="drop">
     <div class="container">
       <div class="drop-grid">
@@ -374,7 +324,7 @@
   </section>
 
 
-  <!-- 6. STYLE COLLECTIONS -->
+  <!-- 5. STYLE COLLECTIONS -->
   <section class="section collections-section fade-in-section" id="collections">
     <div class="container">
       <div class="sec-head">
@@ -440,7 +390,7 @@
   </section>
 
 
-  <!-- 7. FEATURED PRODUCTS -->
+  <!-- 6. FEATURED PRODUCTS -->
   <section class="section products-section fade-in-section" id="products">
     <div class="container">
       <div class="sec-head">
@@ -475,7 +425,7 @@
   </section>
 
 
-  <!-- 8. LOOKBOOK -->
+  <!-- 7. LOOKBOOK -->
   <section class="section lookbook-section fade-in-section" id="lookbook">
     <div class="container">
       <div class="sec-head">
@@ -577,7 +527,7 @@
   </section>
 
 
-  <!-- 9. OUTFIT BUILDER -->
+  <!-- 8. OUTFIT BUILDER -->
   <section class="section outfit-section fade-in-section" id="outfit-builder">
     <div class="container">
       <div class="sec-head centered">
@@ -597,7 +547,7 @@
   </section>
 
 
-  <!-- 10. PLATFORM PREVIEW -->
+  <!-- 9. PLATFORM PREVIEW -->
   <section class="section platform-section fade-in-section" id="platform">
     <div class="container">
       <div class="platform-grid">
@@ -649,7 +599,7 @@
   </section>
 
 
-  <!-- 11. WHY SHONOWEAR -->
+  <!-- 10. WHY SHONOWEAR -->
   <section class="section why-section fade-in-section">
     <div class="container">
       <div class="sec-head centered">
@@ -686,7 +636,7 @@
   </section>
 
 
-  <!-- 12. NEW ARRIVALS -->
+  <!-- 11. NEW ARRIVALS -->
   <section class="section arrivals-section fade-in-section">
     <div class="container">
       <div class="sec-head">
@@ -701,7 +651,7 @@
   </section>
 
 
-  <!-- 13. COMMUNITY -->
+  <!-- 12. COMMUNITY -->
   <section class="section community-section fade-in-section" id="community">
     <div class="container">
       <div class="sec-head centered">
@@ -712,7 +662,7 @@
       <div class="community-grid">
         <div class="comm-stat-card">
           <i class="fab fa-instagram comm-icon"></i>
-          <strong class="proof-num" data-target="8" data-suffix="K+">0</strong>
+          <strong class="proof-num" data-target="800" data-suffix="+">0</strong>
           <span>Instagram Followers</span>
           <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" class="comm-link">Follow us <i
               class="fas fa-arrow-right"></i></a>
@@ -759,73 +709,28 @@
   </section>
 
 
-  <!-- 14. ROADMAP -->
-  <section class="section roadmap-section fade-in-section" id="roadmap">
+  <!-- 13. NEXT DROP TEASER -->
+  <section class="section fade-in-section" id="next-drop" style="background:var(--ink2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="container">
-      <div class="sec-head centered">
-        <p class="sec-eyebrow">What's Next</p>
-        <h2 class="sec-title">The Roadmap</h2>
-        <p class="sec-sub">Where we're taking this.</p>
-      </div>
-      <div class="roadmap-track">
-        <div class="rm-phase rm-done">
-          <div class="rm-dot"></div>
-          <div class="rm-content">
-            <span class="rm-badge rm-badge-done">Shipped</span>
-            <h4>Phase 1 · Foundation</h4>
-            <ul>
-              <li>120+ curated products</li>
-              <li>13 anime universes</li>
-              <li>Style discovery system</li>
-              <li>Editorial lookbook</li>
-            </ul>
-          </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+        <div>
+          <p class="sec-eyebrow">Coming Next</p>
+          <h2 class="sec-title" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">AW25 Drop — <em style="font-family:var(--font-s);-webkit-text-fill-color:var(--gold);">Incoming</em></h2>
+          <p style="font-size:14px;color:var(--muted);font-weight:300;max-width:440px;margin-top:12px;line-height:1.8;">The next collection is in production. New universes, new aesthetics, new fabric. Get on the list to be first in line — early access means first pick before it sells out.</p>
         </div>
-        <div class="rm-phase rm-active">
-          <div class="rm-dot"></div>
-          <div class="rm-content">
-            <span class="rm-badge rm-badge-active">In Progress</span>
-            <h4>Phase 2 · Platform</h4>
-            <ul>
-              <li>Outfit builder</li>
-              <li>Wishlist &amp; saves</li>
-              <li>Seasonal drops</li>
-              <li>Size guide system</li>
-            </ul>
+        <div style="flex-shrink:0;">
+          <div class="nl-row" style="display:flex;gap:0;max-width:380px;">
+            <input type="email" id="next-drop-email" placeholder="your@email.com" style="flex:1;padding:13px 18px;background:var(--ink3);border:1px solid var(--border);border-right:none;color:var(--white);font-family:var(--font-b);font-size:13px;outline:none;" />
+            <button onclick="nlSubscribe()" style="padding:13px 20px;background:var(--red);color:#fff;font-family:var(--font-b);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='#f52040'" onmouseout="this.style.background='var(--red)'">Notify Me</button>
           </div>
-        </div>
-        <div class="rm-phase rm-planned">
-          <div class="rm-dot"></div>
-          <div class="rm-content">
-            <span class="rm-badge rm-badge-planned">Planned</span>
-            <h4>Phase 3 · Community</h4>
-            <ul>
-              <li>User style profiles</li>
-              <li>Community looks</li>
-              <li>Fan polls on next drops</li>
-              <li>Creator collaborations</li>
-            </ul>
-          </div>
-        </div>
-        <div class="rm-phase rm-planned">
-          <div class="rm-dot"></div>
-          <div class="rm-content">
-            <span class="rm-badge rm-badge-planned">Vision</span>
-            <h4>Phase 4 · Expansion</h4>
-            <ul>
-              <li>AI style recommendations</li>
-              <li>Mobile app</li>
-              <li>International shipping</li>
-              <li>Creator marketplace</li>
-            </ul>
-          </div>
+          <p style="font-size:11px;color:var(--muted);margin-top:10px;"><i class="fas fa-lock" style="margin-right:5px;"></i>No spam. Drop alerts only.</p>
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- 15. FOUNDER -->
+  <!-- 14. FOUNDER -->
   <section class="section founder-section fade-in-section" id="founder">
     <div class="container">
       <div class="founder-grid">
@@ -859,7 +764,7 @@
   </section>
 
 
-  <!-- 16. NEWSLETTER -->
+  <!-- 15. NEWSLETTER -->
   <section class="newsletter-section fade-in-section" id="newsletter">
     <div class="nl-bg"></div>
     <div class="container nl-inner">
@@ -894,10 +799,6 @@
           <div class="footer-socials">
             <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i
                 class="fab fa-instagram"></i></a>
-            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Twitter"><i
-                class="fab fa-twitter"></i></a>
-            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Discord"><i
-                class="fab fa-discord"></i></a>
             <a href="contact.html" aria-label="Email"><i class="fas fa-envelope"></i></a>
           </div>
         </div>
@@ -919,7 +820,7 @@
         <div class="footer-col">
           <h5>Company</h5>
           <a href="about.html">About</a>
-          <a href="#roadmap">Roadmap</a>
+          <a href="#next-drop">Roadmap</a>
           <a href="privacy.html">Privacy Policy</a>
           <a href="shipping.html">Shipping Policy</a>
         </div>
@@ -950,7 +851,9 @@
       class="fas fa-chevron-up"></i></button>
 
   <script src="data.js"></script>
+  <script src="data-patch.js"></script>
   <script src="wishlist.js"></script>
+  <script src="shared-ui.js"></script>
   <script src="main.js"></script>
   <script src="app.js"></script>
   <!-- Cookie Consent -->
@@ -967,7 +870,7 @@
     if (localStorage.getItem('sw_cookies_accepted')) document.getElementById('cookie-banner').style.display = 'none';
   </script>
   <!-- WhatsApp Widget -->
-  <a href="https://wa.me/919876543210?text=Hi%20Shonowear!%20I%20have%20a%20question." target="_blank" rel="noopener"
+  <a href="https://wa.me/91YOUR_NUMBER?text=Hi%20Shonowear!%20I%20have%20a%20question." target="_blank" rel="noopener"
     class="wa-float" title="Chat on WhatsApp" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
