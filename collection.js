@@ -1,6 +1,6 @@
 // collection.js
 
-let filteredProducts = [...products];
+let filteredProducts = [];
 let activeFilters = {
   category: '', type: '', anime: '', sort: 'newest', maxPrice: 5000, search: '',
   style: '', bodyType: ''
@@ -171,6 +171,10 @@ function clearStyleFilter() {
 
 // read URL params on load
 document.addEventListener('DOMContentLoaded', () => {
+  // Safely initialize from products array (loaded by data.js)
+  if (typeof products !== 'undefined') {
+    filteredProducts = [...products];
+  }
   buildAnimeDropdown();
 
   const params = new URLSearchParams(window.location.search);
