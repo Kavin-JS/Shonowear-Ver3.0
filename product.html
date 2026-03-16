@@ -37,9 +37,35 @@
     .pd-main-img {
       aspect-ratio: 3/4; width: 100%;
       background-size: cover; background-position: center top;
+      background-color: var(--ink2);
       position: relative; overflow: hidden;
       transition: background-image .3s ease;
     }
+    /* Loading skeleton for product image */
+    .pd-img-loading {
+      background-image: none !important;
+      background: linear-gradient(
+        110deg,
+        var(--ink2) 30%,
+        var(--ink3) 50%,
+        var(--ink2) 70%
+      ) !important;
+      background-size: 200% 100% !important;
+      animation: shimmerImg 1.4s ease-in-out infinite;
+    }
+    .pd-img-loading::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes shimmerImg {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
     .pd-main-img .pd-badge-new {
       position: absolute; top: 16px; left: 16px;
       background: var(--red); color: #fff;
@@ -326,13 +352,6 @@
 </head>
 <body>
   <script src="nav.js" data-page="collection"></script>
-<div class="wish-items" id="wish-items"></div>
-    <div class="wish-empty" id="wish-empty">
-      <i class="far fa-heart"></i>
-      <p>No saved items yet.</p>
-      <a href="collection.html">Browse Collection</a>
-    </div>
-  </div>
 
   <!-- Size Guide Modal -->
   <div class="size-modal" id="size-modal">

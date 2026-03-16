@@ -83,8 +83,8 @@
     <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
   </div>
 
-  <div class="wish-overlay" id="wish-overlay" onclick="closeWishlist()"></div>
-  <div class="wish-sidebar" id="wish-sidebar">
+  <div class="wish-overlay" id="wish-overlay" onclick="closeWishlist()" style="display:none;position:fixed;inset:0;z-index:1003;"></div>
+  <div class="wish-sidebar" id="wish-sidebar" style="position:fixed;top:0;right:-100%;width:360px;max-width:92vw;height:100vh;z-index:1004;overflow:hidden;">
     <div class="wish-head">
       <h3>Saved Items</h3>
       <button onclick="closeWishlist()"><i class="fas fa-times"></i></button>

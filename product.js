@@ -125,7 +125,21 @@ function renderProduct(p) {
   // Gallery
   const images = GALLERY_IMAGES[p.type] || GALLERY_IMAGES.tee;
   const mainImg = document.getElementById('pd-main-img');
-  mainImg.style.backgroundImage = `url('${images[0]}')`;
+
+  // Show skeleton shimmer while image loads
+  mainImg.classList.add('pd-img-loading');
+
+  // Preload first image before setting background so no black flash
+  const preloader = new Image();
+  preloader.onload = () => {
+    mainImg.style.backgroundImage = `url('${images[0]}')`;
+    mainImg.classList.remove('pd-img-loading');
+  };
+  preloader.onerror = () => {
+    mainImg.classList.remove('pd-img-loading');
+    mainImg.style.backgroundImage = `url('${images[0]}')`;
+  };
+  preloader.src = images[0];
 
   // Thumbnails
   const thumbs = document.getElementById('pd-thumbs');
@@ -294,9 +308,14 @@ function selectSize(size, el) {
 
 function switchThumb(idx) {
   const images = GALLERY_IMAGES[currentProduct.type] || GALLERY_IMAGES.tee;
-  document.getElementById('pd-main-img').style.backgroundImage = `url('${images[idx]}')`;
+  const mainImg = document.getElementById('pd-main-img');
   document.querySelectorAll('.pd-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
   currentThumb = idx;
+  // Preload before swap so no black flash between thumbnails
+  const img = new Image();
+  img.onload = () => { mainImg.style.backgroundImage = `url('${images[idx]}')`; };
+  img.onerror = () => { mainImg.style.backgroundImage = `url('${images[idx]}')`; };
+  img.src = images[idx];
 }
 
 function changeQty(delta) {
