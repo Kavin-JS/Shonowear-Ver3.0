@@ -29,35 +29,35 @@ let currentThumb    = 0;
 // Multiple images per product type for the gallery
 const GALLERY_IMAGES = {
   hoodie: [
-    'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1509942774463-acf339cf87d5?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=800&auto=format&fit=crop&q=85',
   ],
   tee: [
-    'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=800&auto=format&fit=crop&q=85',
   ],
   oversized: [
     'https://images.unsplash.com/photo-1603252109303-2751441dd157?w=800&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&auto=format&fit=crop&q=85',
-    'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=800&auto=format&fit=crop&q=85',
   ],
   jacket: [
-    'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=800&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&auto=format&fit=crop&q=85',
   ],
   phone: [
-    'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&auto=format&fit=crop&q=85',
   ],
   figurine: [
     'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&auto=format&fit=crop&q=85',
-    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1608889476561-6242cfdbf622?w=800&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=85',
   ],
 };
 
@@ -126,20 +126,8 @@ function renderProduct(p) {
   const images = GALLERY_IMAGES[p.type] || GALLERY_IMAGES.tee;
   const mainImg = document.getElementById('pd-main-img');
 
-  // Show skeleton shimmer while image loads
-  mainImg.classList.add('pd-img-loading');
-
-  // Preload first image before setting background so no black flash
-  const preloader = new Image();
-  preloader.onload = () => {
-    mainImg.style.backgroundImage = `url('${images[0]}')`;
-    mainImg.classList.remove('pd-img-loading');
-  };
-  preloader.onerror = () => {
-    mainImg.classList.remove('pd-img-loading');
-    mainImg.style.backgroundImage = `url('${images[0]}')`;
-  };
-  preloader.src = images[0];
+  // Set image immediately — no delay, no black flash
+  mainImg.style.backgroundImage = `url('${images[0]}')`;
 
   // Thumbnails
   const thumbs = document.getElementById('pd-thumbs');
