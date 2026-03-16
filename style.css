@@ -866,9 +866,21 @@ button:focus-visible {
   pointer-events: none;
 }
 
-/* 10. NAVBAR LOGO — crisper */
+/* 10. NAVBAR LOGO — restored to original gradient treatment */
 .nav-logo {
-  font-size: 1.4rem;
+  font-family: var(--font-d);
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  color: var(--white);
+  flex-shrink: 0;
+  background: linear-gradient(130deg, var(--white) 40%, var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: filter .2s;
+}
+.nav-logo span {
+  -webkit-text-fill-color: var(--red);
 }
 
 /* 11. COOKIE BANNER — de-emphasize so it's less jarring */
