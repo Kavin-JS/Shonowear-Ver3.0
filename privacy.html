@@ -33,14 +33,30 @@
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- TODO: Add real GA4 ID -->
-  
 </head>
 <body>
   <!-- Announcement Bar -->
-  
   <script src="nav.js" data-page="privacy"></script>
-  <a href="index.html"><i class="fas fa-home"></i>Home</a>
+
+
+      </div>
+      <button class="nav-icon-btn" id="wish-toggle" title="Wishlist" onclick="openWishlist()" style="position:relative;">
+        <i class="far fa-heart"></i>
+        <div class="wish-badge" id="wish-badge" style="display:none;">0</div>
+      </button>
+      <a id="nav-login" class="nav-login-btn" href="login.html">Login</a>
+      <div id="nav-user" class="nav-user" style="display:none;">
+        <span class="nav-uname" id="nav-uname"></span>
+        <button class="nav-logout" onclick="logout()">Logout</button>
+      </div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
+  </nav>
+  <div class="nav-progress" id="nav-progress"></div>
+  <div class="mob-overlay" id="mob-ov" onclick="closeMob()"></div>
+  <div class="mob-menu" id="mob-menu">
+    <div class="mob-head"><span class="mob-logo">SHONO<em>WEAR</em></span><button class="mob-close" onclick="closeMob()"><i class="fas fa-times"></i></button></div>
+    <a href="index.html"><i class="fas fa-home"></i>Home</a>
     <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
     <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
     <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
@@ -103,7 +119,7 @@
       </div>
       <div class="policy-section">
         <h2>CONTACT</h2>
-        <p>Questions about this policy? Reach us at <a href="mailto:support@shonowear.com" style="color:var(--red)">support@shonowear.com</a> or call <a href="tel:+919876543210" style="color:var(--red)">+91 98765 43210</a>.</p>
+        <p>Questions about this policy? Reach us at <a href="mailto:support@shonowear.com" style="color:var(--red)">support@shonowear.com</a> or call <a href="tel:+91YOUR_NUMBER" style="color:var(--red)">+91 98765 43210</a>.</p>
       </div>
     </div>
   </div>
@@ -115,7 +131,6 @@
           <p>Anime-inspired streetwear for the modern generation.</p>
           <div class="footer-socials">
             <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            
             <a href="contact.html" aria-label="Email"><i class="fas fa-envelope"></i></a>
           </div>
         </div>
