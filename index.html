@@ -73,14 +73,14 @@
     <div class="hero-body">
       <p class="hero-label"><span class="hero-dot"></span> Personalized Discovery — Now Live</p>
       <h1 class="hero-title">
-        <span class="ht-pre">Outfits Built</span>
-        <span class="ht-2">For Your</span>
+        <span class="ht-pre">Discover Outfits</span>
+        <span class="ht-2">That Suit Your</span>
         <span class="ht-street">Body Type.</span>
       </h1>
-      <p class="hero-sub" id="hero-sub-text">Anime streetwear that actually fits your silhouette — not just a mannequin. Tell us your body type, we'll find your look.</p>
+      <p class="hero-sub" id="hero-sub-text">Anime-inspired streetwear curated for your body and style. Tell us your measurements — we'll find your perfect look.</p>
       <div class="hero-ctas" id="hero-ctas">
         <a href="body-profile.html" class="cta-primary" id="hero-cta-primary"><i class="fas fa-magic"></i> Find My Style</a>
-        <a href="collection.html" class="cta-ghost">Browse All Drops</a>
+        <a href="recommendations.html" class="cta-ghost">Explore Outfits</a>
       </div>
       <div class="hero-trust">
         <span><i class="fas fa-star"></i> 4.9 rated</span>
@@ -93,7 +93,7 @@
     <script>
       // If profile exists, change CTA to "See My Recommendations"
       (function(){
-        const bt = localStorage.getItem('sw_bodyType');
+        const bt = localStorage.getItem('bodyType') || localStorage.getItem('sw_bodyType');
         if (bt) {
           const cta = document.getElementById('hero-cta-primary');
           const sub = document.getElementById('hero-sub-text');
@@ -174,100 +174,192 @@
   </section>
 
 
-  <!-- 3. HOW IT WORKS -->
+  <!-- HOW SHONOWEAR WORKS -->
   <section class="section hiw-section fade-in-section" id="how-it-works">
     <div class="container">
       <div class="sec-head centered">
         <p class="sec-eyebrow">The Platform</p>
         <h2 class="sec-title">How Shonowear Works</h2>
-        <p class="sec-sub">Not a generic store. A personalised discovery experience.</p>
+        <p class="sec-sub">Three steps to finding clothes that actually fit your body.</p>
       </div>
-      <div class="hiw-grid">
+      <div class="hiw-grid hiw-grid-3">
         <div class="hiw-step">
           <div class="hiw-num">01</div>
-          <div class="hiw-icon"><i class="fas fa-user-circle"></i></div>
-          <h4>Set Your Profile</h4>
-          <p>Enter your height, weight, and style preferences. Takes 30 seconds. No account needed.</p>
-          <a href="body-profile.html" class="hiw-link">Build profile <i class="fas fa-arrow-right"></i></a>
+          <div class="hiw-icon"><i class="fas fa-ruler-combined"></i></div>
+          <h4>Enter Your Body Details</h4>
+          <p>Enter your height and weight. We calculate your body type in seconds — no account needed.</p>
+          <a href="body-profile.html" class="hiw-link">Start now <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="hiw-connector"><i class="fas fa-arrow-right"></i></div>
         <div class="hiw-step">
           <div class="hiw-num">02</div>
           <div class="hiw-icon"><i class="fas fa-magic"></i></div>
-          <h4>Get Matched</h4>
-          <p>We estimate your body type and show only outfits curated for your silhouette — Slim, Athletic, Average, or Broad.</p>
-          <a href="recommendations.html" class="hiw-link">See matches <i class="fas fa-arrow-right"></i></a>
+          <h4>Discover Outfits for Your Body Type</h4>
+          <p>We filter our entire catalog to show only outfits curated for your silhouette — Slim, Athletic, Average, or Broad.</p>
+          <a href="recommendations.html" class="hiw-link">See outfits <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="hiw-connector"><i class="fas fa-arrow-right"></i></div>
         <div class="hiw-step">
           <div class="hiw-num">03</div>
-          <div class="hiw-icon"><i class="fas fa-tshirt"></i></div>
-          <h4>Explore &amp; Build</h4>
-          <p>Browse by anime universe or aesthetic. Use the outfit builder to put together a complete look in one click.</p>
-          <a href="#outfit-builder" class="hiw-link">Open builder <i class="fas fa-arrow-right"></i></a>
+          <div class="hiw-icon"><i class="fas fa-check-circle"></i></div>
+          <h4>Shop With Confidence</h4>
+          <p>Stop guessing how clothes will fit. Every recommendation is matched to your body — buy knowing it will look good.</p>
+          <a href="collection.html" class="hiw-link">Shop collection <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="hiw-connector"><i class="fas fa-arrow-right"></i></div>
-        <div class="hiw-step">
-          <div class="hiw-num">04</div>
-          <div class="hiw-icon"><i class="fas fa-shipping-fast"></i></div>
-          <h4>Wear the Culture</h4>
-          <p>350 GSM premium fabric, free shipping above ₹999. Delivered across India in 3–7 days.</p>
-          <a href="shipping.html" class="hiw-link">Shipping info <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STYLE FINDER ENTRY -->
+  <section class="section style-finder-section fade-in-section" id="style-finder">
+    <div class="container">
+      <div class="style-finder-inner">
+        <div class="sf-text">
+          <p class="sec-eyebrow">Personalised Discovery</p>
+          <h2 class="sec-title" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">Find Your Style</h2>
+          <p class="sf-desc">Enter your height and weight to discover outfits designed for your body type. Takes under 30 seconds. No account required.</p>
+        </div>
+        <div class="sf-cta">
+          <a href="body-profile.html" class="cta-primary sf-btn">
+            <i class="fas fa-ruler-combined"></i> Start Style Finder
+          </a>
+          <p class="sf-note"><i class="fas fa-lock"></i> Your data stays private. Stored only on your device.</p>
         </div>
       </div>
     </div>
   </section>
 
 
+  <!-- FEATURED OUTFITS -->
+  <section class="section featured-outfits-section fade-in-section" id="featured-outfits">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <p class="sec-eyebrow">Curated Looks</p>
+          <h2 class="sec-title">Featured Outfits</h2>
+        </div>
+        <a href="recommendations.html" class="sec-link">View all outfits <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <!-- Outfit cards injected by JS — fallback static cards shown below -->
+      <div class="outfit-grid" id="featured-outfits-grid">
+        <div class="outfit-card fade-in-section" onclick="window.location='outfit.html?id=o1'">
+          <div class="oc-img-wrap">
+            <div class="oc-img" style="background-image:url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&auto=format&fit=crop&q=80')"></div>
+            <div class="oc-overlay"></div>
+            <div class="oc-trend"><span>●●●●●</span></div>
+          </div>
+          <div class="oc-body">
+            <div class="oc-meta"><span class="oc-style">Tokyo Street</span><span class="oc-anime">Naruto</span></div>
+            <h3 class="oc-name">Tokyo Street Fit</h3>
+            <p class="oc-desc">Bold graphics, oversized energy — the quintessential anime streetwear look.</p>
+            <div class="oc-footer">
+              <div class="oc-info"><span class="oc-items"><i class="fas fa-tshirt"></i> 3 pieces</span></div>
+              <button class="oc-btn" onclick="event.stopPropagation();window.location='outfit.html?id=o1'">View Outfit <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="outfit-card fade-in-section" onclick="window.location='outfit.html?id=o6'">
+          <div class="oc-img-wrap">
+            <div class="oc-img" style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80')"></div>
+            <div class="oc-overlay"></div>
+            <div class="oc-trend"><span>●●●●●</span></div>
+          </div>
+          <div class="oc-body">
+            <div class="oc-meta"><span class="oc-style">Cyberpunk</span><span class="oc-anime">Original</span></div>
+            <h3 class="oc-name">Cyberpunk Night Look</h3>
+            <p class="oc-desc">Neon accents, futuristic silhouettes. High-contrast cuts for those living in the future.</p>
+            <div class="oc-footer">
+              <div class="oc-info"><span class="oc-items"><i class="fas fa-tshirt"></i> 3 pieces</span></div>
+              <button class="oc-btn" onclick="event.stopPropagation();window.location='outfit.html?id=o6'">View Outfit <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="outfit-card fade-in-section" onclick="window.location='outfit.html?id=o4'">
+          <div class="oc-img-wrap">
+            <div class="oc-img" style="background-image:url('https://images.unsplash.com/photo-1509942774463-acf339cf87d5?w=600&auto=format&fit=crop&q=80')"></div>
+            <div class="oc-overlay"></div>
+            <div class="oc-trend"><span>●●●●○</span></div>
+          </div>
+          <div class="oc-body">
+            <div class="oc-meta"><span class="oc-style">Minimal Anime</span><span class="oc-anime">Demon Slayer</span></div>
+            <h3 class="oc-name">Minimal Anime Style</h3>
+            <p class="oc-desc">Clean lines, subtle references. Everyday wear with anime soul.</p>
+            <div class="oc-footer">
+              <div class="oc-info"><span class="oc-items"><i class="fas fa-tshirt"></i> 3 pieces</span></div>
+              <button class="oc-btn" onclick="event.stopPropagation();window.location='outfit.html?id=o4'">View Outfit <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="outfit-card fade-in-section" onclick="window.location='outfit.html?id=o8'">
+          <div class="oc-img-wrap">
+            <div class="oc-img" style="background-image:url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&auto=format&fit=crop&q=80')"></div>
+            <div class="oc-overlay"></div>
+            <div class="oc-trend"><span>●●●●○</span></div>
+          </div>
+          <div class="oc-body">
+            <div class="oc-meta"><span class="oc-style">Shibuya Casual</span><span class="oc-anime">Original</span></div>
+            <h3 class="oc-name">Shibuya Casual Set</h3>
+            <p class="oc-desc">Relaxed fits, effortless street cool. The everyday Shibuya energy.</p>
+            <div class="oc-footer">
+              <div class="oc-info"><span class="oc-items"><i class="fas fa-tshirt"></i> 3 pieces</span></div>
+              <button class="oc-btn" onclick="event.stopPropagation();window.location='outfit.html?id=o8'">View Outfit <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 4. STYLE COLLECTIONS — anime-inspired aesthetic universes -->
+  <!-- EXPLORE STYLES -->
   <section class="section style-collections-section fade-in-section" id="style-collections" style="background:var(--ink2);border-top:1px solid var(--border);">
     <div class="container">
       <div class="sec-head centered">
         <p class="sec-eyebrow">Aesthetic Universes</p>
-        <h2 class="sec-title">Find Your Style</h2>
+        <h2 class="sec-title">Explore Styles</h2>
         <p class="sec-sub">Four distinct aesthetics. Each curated for a different kind of energy.</p>
       </div>
       <div class="sc-grid">
-        <a href="collection.html?style=Tokyo+Street" class="sc-card">
+        <div class="sc-card">
           <div class="sc-img sc-tokyo"></div>
           <div class="sc-overlay"></div>
           <div class="sc-label">
             <span class="sc-tag">東京</span>
             <h3>Tokyo Street</h3>
             <p>Bold graphics. Dark silhouettes. Oversized energy.</p>
-            <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+            <a href="collection.html?style=Tokyo+Street" class="sc-explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
           </div>
-        </a>
-        <a href="collection.html?style=Cyberpunk" class="sc-card">
+        </div>
+        <div class="sc-card">
           <div class="sc-img sc-cyber"></div>
           <div class="sc-overlay"></div>
           <div class="sc-label">
             <span class="sc-tag">サイバー</span>
             <h3>Cyberpunk</h3>
             <p>Neon accents. Futuristic. High-contrast cuts.</p>
-            <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+            <a href="collection.html?style=Cyberpunk" class="sc-explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
           </div>
-        </a>
-        <a href="collection.html?style=Minimal+Anime" class="sc-card">
+        </div>
+        <div class="sc-card">
           <div class="sc-img sc-minimal"></div>
           <div class="sc-overlay"></div>
           <div class="sc-label">
             <span class="sc-tag">ミニマル</span>
             <h3>Minimal Anime</h3>
             <p>Clean lines. Subtle references. Everyday wear.</p>
-            <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+            <a href="collection.html?style=Minimal+Anime" class="sc-explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
           </div>
-        </a>
-        <a href="collection.html?style=Shibuya+Casual" class="sc-card">
+        </div>
+        <div class="sc-card">
           <div class="sc-img sc-shibuya"></div>
           <div class="sc-overlay"></div>
           <div class="sc-label">
             <span class="sc-tag">渋谷</span>
             <h3>Shibuya Casual</h3>
             <p>Relaxed fits. Street cool. Effortless wear.</p>
-            <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+            <a href="collection.html?style=Shibuya+Casual" class="sc-explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </section>

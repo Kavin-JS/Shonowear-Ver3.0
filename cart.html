@@ -107,13 +107,80 @@
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Google Analytics -->
-  <!-- Meta Pixel -->
+  <!-- TODO: Add real GA4 ID -->
+  
 </head>
 <body>
   <!-- Announcement Bar -->
   
-  <script src="nav.js"></script>
+  <script src="nav.js" data-page="cart"></script>
+
+  <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
+    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
+    <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </div>
+
+  <div class="pw">
+    <section class="prd-sec">
+      <div class="sh">
+        <span class="sh-tag">— CHECKOUT</span>
+        <h2 class="sh-title">YOUR CART</h2>
+        <div class="sh-line"></div>
+      </div>
+      <div class="cart-section">
+        <div id="cart-items"></div>
+        <div class="cart-empty" id="empty-cart" style="display:none;">
+          <i class="fas fa-shopping-bag"></i>
+          <p>Your cart is empty.</p>
+          <a href="collection.html" class="btn-r">CONTINUE SHOPPING</a>
+        </div>
+        <div class="cart-summary" id="cart-summary" style="display:none;">
+          <div class="summary-row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+          <div class="summary-row"><span>Shipping</span><span style="color:var(--gold)">FREE</span></div>
+          <div class="summary-row total"><span>Total</span><span id="total">₹0</span></div>
+          
+          <div class="promo-row" id="promo-row">
+            <input type="text" id="promo-input" class="promo-input" placeholder="Promo code" />
+            <button class="promo-btn" onclick="applyPromo()">Apply</button>
+          </div>
+          <p class="promo-note" id="promo-note"></p>
+
+          <button class="checkout-btn" onclick="checkout()"><i class="fas fa-lock"></i> Proceed to Checkout</button>
+          <div class="trust-badges">
+            <div class="trust-badge"><i class="fas fa-shield-alt"></i> Secure Checkout</div>
+            <div class="trust-badge"><i class="fas fa-credit-card"></i> UPI / Cards</div>
+            <div class="trust-badge"><i class="fas fa-shipping-fast"></i> Free Shipping 999+</div>
+            <div class="trust-badge"><i class="fas fa-undo"></i> Easy Returns</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+          <p>Anime-inspired streetwear for the modern generation.</p>
+          <div class="footer-socials">
+                      <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          
+          
+          <a href="contact.html" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="footer-col"><h5>Shop</h5><a href="collection.html">All Products</a><a href="new-arrivals.html">New Arrivals</a></div>
+        <div class="footer-col"><h5>Help</h5><a href="contact.html">Contact Us</a><a href="login.html">Login</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="about.html">About</a><a href="privacy.html">Privacy Policy</a></div>
+      </div>
+      <div class="footer-base"><p>© <script>document.write(new Date().getFullYear())</script> Shonowear. All rights reserved.</p><p>Made for the community, by the community.</p></div>
+    </div>
+  </footer>
 
 
   <div id="toast" class="toast"></div>
@@ -130,7 +197,6 @@
 
   <script src="data.js"></script>
   <script src="wishlist.js"></script>
-  <script src="shared-ui.js"></script>
   <script src="main.js"></script>
   <script src="cart.js"></script>
   <script>
@@ -191,8 +257,5 @@
   <a href="https://wa.me/91YOUR_NUMBER?text=Hi%20Shonowear!%20I%20have%20a%20question." target="_blank" rel="noopener" class="wa-float" title="Chat on WhatsApp" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
-
-  <script>
-  </script>
 </body>
 </html>

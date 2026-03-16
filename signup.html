@@ -44,13 +44,79 @@
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Google Analytics -->
-  <!-- Meta Pixel -->
+  <!-- TODO: Add real GA4 ID -->
+  
 </head>
 <body>
   <!-- Announcement Bar -->
   
-  <script src="nav.js"></script>
+  <div class="announce-bar" id="announce-bar">
+    <span>🔥 <strong>SS25 Drop Live</strong> — Free shipping above ₹999 &nbsp;|&nbsp; Use code <strong>ANIME10</strong> for 10% off</span>
+    <button onclick="this.parentElement.style.display='none';sessionStorage.setItem('sw_announce_closed','1')" aria-label="Close">✕</button>
+  </div>
+  <script>if(sessionStorage.getItem('sw_announce_closed'))document.getElementById('announce-bar').style.display='none';</script>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="collection.html">Collection</a></li>
+      <li><a href="new-arrivals.html">New Arrivals</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="cart-wrap">
+        <a href="cart.html" class="nav-icon-btn" title="Cart"><i class="fas fa-shopping-bag"></i></a>
+        <div class="cart-badge">0</div>
+      </div>
+    <button class="nav-icon-btn" id="wish-toggle" title="Wishlist" onclick="openWishlist()" style="position:relative;">
+        <i class="far fa-heart"></i>
+        <div class="wish-badge" id="wish-badge" style="display:none;">0</div>
+      </button>
+    </div>
+    <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
+    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+  </div>
+
+  <div class="auth-page">
+    <div class="auth-card">
+      <a href="index.html" class="auth-logo nav-logo" style="display:block;text-align:center;margin-bottom:32px;-webkit-text-fill-color:unset;background:unset;color:var(--white);">
+        SHONO<span style="color:var(--red)">WEAR</span>
+      </a>
+      <h2>JOIN US</h2>
+      <p class="auth-sub">Create your account and start discovering.</p>
+
+      <div class="auth-field">
+        <label>Full Name</label>
+        <input type="text" id="signup-name" placeholder="Aryan Sharma"/>
+      </div>
+      <div class="auth-field">
+        <label>Email Address</label>
+        <input type="email" id="signup-email" placeholder="your@email.com"/>
+      </div>
+      <div class="auth-field">
+        <label>Password</label>
+        <input type="password" id="signup-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doSignup()"/>
+      </div>
+
+      <button class="auth-btn" onclick="doSignup()">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+
+      <div class="auth-divider">OR</div>
+
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Sign in →</a>
+      </div>
+    </div>
+  </div>
 
 
   <div id="toast" class="toast"></div>

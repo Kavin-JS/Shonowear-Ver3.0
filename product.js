@@ -180,7 +180,7 @@ function renderBodyTypeSuitability(p) {
 
   const bodyTypes  = p.bodyTypes  || [];
   const style      = p.style      || '';
-  const userType   = localStorage.getItem('sw_bodyType');
+  const userType   = localStorage.getItem('bodyType') || localStorage.getItem('sw_bodyType');
   const isMatch    = userType && bodyTypes.includes(userType);
 
   const ALL_TYPES  = ['Slim', 'Athletic', 'Average', 'Broad'];
@@ -209,6 +209,7 @@ function renderBodyTypeSuitability(p) {
         <span class="pd-suit-label">Body Type Fit</span>
         ${style ? `<span class="pd-style-chip">${style}</span>` : ''}
       </div>
+      <div class="pd-best-suited">Best suited for: <strong>${bodyTypes.join(' / ')}</strong></div>
       <div class="pd-bt-pills">${pillsHTML}</div>
       ${matchBanner}
     </div>`;

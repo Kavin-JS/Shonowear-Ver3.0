@@ -19,13 +19,115 @@
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Google Analytics -->
-  <!-- Meta Pixel -->
+  <!-- TODO: Add real GA4 ID -->
+  
 </head>
 <body>
   <!-- Announcement Bar -->
   
   <script src="nav.js" data-page="collection"></script>
+
+  <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
+    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
+    <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </div>
+
+  <div class="pw">
+    <section class="prd-sec">
+      <div class="sh">
+        <span class="sh-tag">— COLLECTION</span>
+        <h2 class="sh-title">ALL PRODUCTS</h2>
+        <div class="sh-line"></div>
+      </div>
+
+      <div class="search-wrap">
+        <div class="search-bar">
+          <input type="text" placeholder="Search styles, anime, drops…" id="search-input">
+          <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="filters-section">
+        <div class="filter-group">
+          <label>CATEGORY</label>
+          <select id="category-filter" onchange="filterProducts()">
+            <option value="">All Categories</option>
+            <option value="Apparel">Apparel</option>
+            <option value="Figurines">Figurines</option>
+            <option value="Accessories">Accessories</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>TYPE</label>
+          <select id="type-filter" onchange="filterProducts()">
+            <option value="">All Types</option>
+            <option value="hoodie">Hoodie</option>
+            <option value="tee">T-Shirt</option>
+            <option value="phone">Phone Case</option>
+            <option value="figurine">Figurine</option>
+            <option value="oversized">Oversized</option>
+            <option value="jacket">Jacket</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>SORT BY</label>
+          <select id="sort-filter" onchange="filterProducts()">
+            <option value="newest">Newest First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name-a">Name: A to Z</option>
+            <option value="name-z">Name: Z to A</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>ANIME</label>
+          <select id="anime-filter" onchange="filterProducts()">
+            <option value="">All Universes</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>MAX PRICE: <span id="price-value">₹5,000</span></label>
+          <input type="range" id="price-filter" min="299" max="5000" value="5000" oninput="filterProducts()">
+        </div>
+        <div class="filter-group">
+          <label>&nbsp;</label>
+          <button class="btn-reset" onclick="resetFilters()">RESET</button>
+        </div>
+      </div>
+
+      <div id="active-filters-bar" class="active-filters-bar" style="display:none;"></div>
+      <div class="result-bar">
+        <span id="result-count" class="result-count"></span>
+      </div>
+      <div class="no-res" id="no-res"><i class="fas fa-search"></i> No products found</div>
+      <div class="prd-grid" id="products-grid"></div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+          <p>Anime-inspired streetwear for the modern generation.</p>
+          <div class="footer-socials">
+                      <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          
+          
+          <a href="contact.html" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="footer-col"><h5>Shop</h5><a href="collection.html">All Products</a><a href="new-arrivals.html">New Arrivals</a></div>
+        <div class="footer-col"><h5>Help</h5><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="login.html">Login</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="about.html">About</a><a href="privacy.html">Privacy Policy</a></div>
+      </div>
+      <div class="footer-base"><p>© <script>document.write(new Date().getFullYear())</script> Shonowear. All rights reserved.</p><p>Made for the community, by the community.</p></div>
+    </div>
+  </footer>
 
 
   <div id="toast" class="toast"></div>
@@ -42,7 +144,6 @@
 
   <script src="data.js"></script>
   <script src="wishlist.js"></script>
-  <script src="shared-ui.js"></script>
   <script src="main.js"></script>
   <script src="collection.js"></script>
   <script>
@@ -73,8 +174,5 @@
   <a href="https://wa.me/91YOUR_NUMBER?text=Hi%20Shonowear!%20I%20have%20a%20question." target="_blank" rel="noopener" class="wa-float" title="Chat on WhatsApp" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
-
-  <script>
-  </script>
 </body>
 </html>

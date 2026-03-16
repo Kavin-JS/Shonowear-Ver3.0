@@ -108,19 +108,165 @@
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Google Analytics -->
-  <!-- Meta Pixel -->
+  <!-- TODO: Add real GA4 ID -->
+  
 </head>
 <body>
   <!-- Announcement Bar -->
   
   <script src="nav.js" data-page="about"></script>
 
+  <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
+    <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a id="mob-login" href="login.html"><i class="fas fa-user"></i>Sign In</a>
+    <a id="mob-logout" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </div>
+
+  <!-- Hero -->
+  <div class="about-hero">
+    <div class="about-hero-inner">
+      <p class="sec-eyebrow" style="justify-content:center;">About Shonowear</p>
+      <h1>OUR STORY</h1>
+      <p>Born from anime culture. Built on the streets. Here for the community.</p>
+    </div>
+  </div>
+
+  <div class="about-body">
+
+    <!-- Story -->
+    <div class="about-story">
+      <div class="story-img"></div>
+      <div class="story-text">
+        <p class="sec-eyebrow">Who We Are</p>
+        <h2>Not just merch.<br><em>A movement.</em></h2>
+        <p>Shonowear started as a personal project — one person who loved anime and couldn't find streetwear that actually looked good. Every piece on the market was either cheap, generic, or overpriced. So we built something different.</p>
+        <p>Every design is drawn with intention. Every fabric is chosen for quality. Every drop is curated for the culture — not for margins.</p>
+        <p>We're a fashion discovery platform first, a store second. That means you don't just browse products here — you find your aesthetic.</p>
+        <a href="collection.html" class="cta-primary" style="margin-top:8px;display:inline-flex;">Shop the Collection <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="about-stats">
+      <div class="astat"><strong>10K+</strong><span>Orders Shipped</span></div>
+      <div class="astat"><strong>80+</strong><span>Unique Designs</span></div>
+      <div class="astat"><strong>4.9★</strong><span>Average Rating</span></div>
+      <div class="astat"><strong>100%</strong><span>Premium Fabric</span></div>
+    </div>
+
+    <!-- Values -->
+    <div class="values-grid">
+      <div class="val-card">
+        <div class="val-num">01</div>
+        <i class="val-icon fas fa-tshirt"></i>
+        <h4>Premium Fabric</h4>
+        <p>350 GSM heavyweight cotton. Structured. Soft. Built to last years, not seasons.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">02</div>
+        <i class="val-icon fas fa-drafting-compass"></i>
+        <h4>Intentional Design</h4>
+        <p>No filler graphics. Every piece is drawn with purpose — clean compositions, tight execution.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">03</div>
+        <i class="val-icon fas fa-rupee-sign"></i>
+        <h4>Fair Pricing</h4>
+        <p>Premium quality without the luxury markup. We cut the middlemen, not the craftsmanship.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">04</div>
+        <i class="val-icon fas fa-fire-alt"></i>
+        <h4>Culture-First</h4>
+        <p>Born from anime, raised on the streets. Every drop connects fans across generations.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">05</div>
+        <i class="val-icon fas fa-shipping-fast"></i>
+        <h4>Fast Shipping</h4>
+        <p>Dispatched within 24 hours. Delivered in 3–7 days. Free shipping above ₹999.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">06</div>
+        <i class="val-icon fas fa-headset"></i>
+        <h4>Real Support</h4>
+        <p>Reach us directly — phone, email, or DM. No bots, no ticket queues. Real people.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="about-cta">
+      <div>
+        <h3>Ready to find your aesthetic?</h3>
+        <p>Browse over 80 designs across hoodies, tees, figurines, and more.</p>
+      </div>
+      <div class="about-cta-btns">
+        <a href="collection.html" class="cta-primary">Shop Now <i class="fas fa-arrow-right"></i></a>
+        <a href="contact.html" class="cta-ghost">Get in Touch</a>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Founder Section -->
+  <div style="border-top:1px solid var(--border);background:var(--ink2);">
+    <div style="max-width:1100px;margin:0 auto;padding:80px 40px;">
+      <div class="about-founder-grid">
+        <div class="about-founder-img-wrap">
+          <div class="founder-img"></div>
+          <div class="founder-ring"></div>
+        </div>
+        <div class="founder-text">
+          <p class="sec-eyebrow">The Founder</p>
+          <h2 class="founder-name">Kavin J.S</h2>
+          <p class="founder-title">Computer Science · Anime Fan · Builder</p>
+          <blockquote class="founder-quote">
+            "I couldn't find streetwear that actually respected anime culture — so I built it. Shonowear isn't a side project. It's the platform I always wished existed."
+          </blockquote>
+          <div class="founder-stack">
+            <span>Naruto</span>
+            <span>JJK</span>
+            <span>AoT</span>
+            <span>Demon Slayer</span>
+          </div>
+          <div class="founder-links">
+            <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> @kavin.j.s</a>
+            <a href="mailto:kavin.js@outlook.com"><i class="fas fa-envelope"></i> kavin.js@outlook.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
+          <p>Anime-inspired streetwear for the modern generation.</p>
+          <div class="footer-socials">
+                      <a href="https://www.instagram.com/kavin.j.s" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          
+          
+          <a href="contact.html" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="footer-col"><h5>Shop</h5><a href="collection.html">All Products</a><a href="new-arrivals.html">New Arrivals</a></div>
+        <div class="footer-col"><h5>Help</h5><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="login.html">Login</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="about.html">About</a><a href="privacy.html">Privacy Policy</a></div>
+      </div>
+      <div class="footer-base"><p>© <script>document.write(new Date().getFullYear())</script> Shonowear. All rights reserved.</p><p>Made for the community, by the community.</p></div>
+    </div>
+  </footer>
+
 
   <div id="toast" class="toast"></div>
   <script src="data.js"></script>
   <script src="wishlist.js"></script>
-  <script src="shared-ui.js"></script>
   <script src="main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -150,8 +296,5 @@
   <a href="https://wa.me/91YOUR_NUMBER?text=Hi%20Shonowear!%20I%20have%20a%20question." target="_blank" rel="noopener" class="wa-float" title="Chat on WhatsApp" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
-
-  <script>
-  </script>
 </body>
 </html>
