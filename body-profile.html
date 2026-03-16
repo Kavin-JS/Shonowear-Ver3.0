@@ -323,32 +323,9 @@
 </head>
 <body>
   <!-- Announce bar -->
-  <div class="announce-bar" id="announce-bar">
-    <span>🔥 <strong>SS25 Drop Live</strong> — Free shipping above ₹999 &nbsp;|&nbsp; Use code <strong>ANIME10</strong> for 10% off</span>
-    <button onclick="this.parentElement.style.display='none';sessionStorage.setItem('sw_announce_closed','1')" aria-label="Close">✕</button>
-  </div>
-  <script>if(sessionStorage.getItem('sw_announce_closed'))document.getElementById('announce-bar').style.display='none';</script>
+  
+  <script src="nav.js" data-page="profile"></script>
 
-  <!-- Navbar -->
-  <nav class="navbar" id="navbar">
-    <a href="index.html" class="nav-logo">SHONO<span>WEAR</span></a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="collection.html">Collection</a></li>
-      <li><a href="new-arrivals.html">New Arrivals</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <div class="cart-wrap">
-        <a href="cart.html" class="nav-icon-btn" title="Cart"><i class="fas fa-shopping-bag"></i></a>
-        <div class="cart-badge" style="display:none;">0</div>
-      </div>
-      <a id="nav-login" class="nav-login-btn" href="login.html">Login</a>
-    </div>
-    <button class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></button>
-  </nav>
-  <div class="nav-progress" id="nav-progress"></div>
 
   <main class="bp-page">
     <div class="bp-grid">

@@ -1,16 +1,26 @@
 /**
- * nav.js — Shared navbar, mobile menu & wishlist sidebar
- * Include BEFORE main.js and app.js on every page.
- * Usage: <script src="nav.js"></script>
+ * nav.js — Single source of truth for navbar, mobile menu, wishlist sidebar
+ * Shonowear
  *
- * Pass the active page as a data attribute on the script tag:
- * <script src="nav.js" data-page="collection"></script>
- * Valid values: home, collection, new-arrivals, about, contact
+ * Replaces ALL hardcoded navbar HTML across every page.
+ * Load as FIRST script in <body> — before data.js, main.js, etc.
+ *
+ * Usage:
+ *   <script src="nav.js" data-page="home"></script>
+ *
+ * data-page values: home | collection | outfits | new-arrivals | about | contact
  */
 (function () {
-  const page = document.currentScript?.getAttribute('data-page') || '';
 
-  const isActive = (p) => p === page ? ' class="active"' : '';
+  const page   = document.currentScript?.getAttribute('data-page') || '';
+  const bodyType = localStorage.getItem('bodyType') || localStorage.getItem('sw_bodyType');
+
+  const active = (p) => p === page ? ' class="active"' : '';
+
+  // "Find My Style" / "My Picks" nav link — personalisation entry point
+  const styleLink = bodyType
+    ? `<li><a href="recommendations.html" class="nav-style-link${page === 'outfits' ? ' active' : ''}"><i class="fas fa-magic"></i> My Picks</a></li>`
+    : `<li><a href="body-profile.html"    class="nav-style-link${page === 'profile' ? ' active' : ''}"><i class="fas fa-magic"></i> Find My Style</a></li>`;
 
   const NAV_HTML = `
   <div class="announce-bar" id="announce-bar">
@@ -26,16 +36,18 @@
       <div class="nav-search-results" id="nav-search-results"></div>
     </div>
     <ul class="nav-links">
-      <li><a href="index.html"${isActive('home')}>Home</a></li>
-      <li><a href="collection.html"${isActive('collection')}>Collection</a></li>
-      <li><a href="new-arrivals.html"${isActive('new-arrivals')}>New Arrivals</a></li>
-      <li><a href="about.html"${isActive('about')}>About</a></li>
-      <li><a href="contact.html"${isActive('contact')}>Contact</a></li>
+      <li><a href="index.html"${active('home')}>Home</a></li>
+      <li><a href="collection.html"${active('collection')}>Collection</a></li>
+      <li><a href="recommendations.html"${active('outfits')}>Outfits</a></li>
+      <li><a href="new-arrivals.html"${active('new-arrivals')}>New Arrivals</a></li>
+      <li><a href="about.html"${active('about')}>About</a></li>
+      <li><a href="contact.html"${active('contact')}>Contact</a></li>
+      ${styleLink}
     </ul>
     <div class="nav-actions">
       <div class="cart-wrap">
         <a href="cart.html" class="nav-icon-btn" title="Cart"><i class="fas fa-shopping-bag"></i></a>
-        <div class="cart-badge">0</div>
+        <div class="cart-badge" style="display:none;">0</div>
       </div>
       <button class="nav-icon-btn" id="wish-toggle" title="Wishlist" onclick="openWishlist()" style="position:relative;">
         <i class="far fa-heart"></i>
@@ -61,8 +73,9 @@
       <input type="text" id="mob-search-input" placeholder="Search styles…" />
       <button onclick="doMobSearch()"><i class="fas fa-arrow-right"></i></button>
     </div>
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="index.html"${active('home') ? ' style="color:var(--white)"' : ''}><i class="fas fa-home"></i>Home</a>
     <a href="collection.html"><i class="fas fa-th-large"></i>Collection</a>
+    <a href="recommendations.html"><i class="fas fa-magic"></i>Outfits</a>
     <a href="new-arrivals.html"><i class="fas fa-star"></i>New Arrivals</a>
     <a href="about.html"><i class="fas fa-info-circle"></i>About</a>
     <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
@@ -85,35 +98,44 @@
   </div>
   `;
 
-  // Inject at the top of body
+  // ── Inject at very top of body ─────────────────────────────────
   document.body.insertAdjacentHTML('afterbegin', NAV_HTML);
 
-  // Restore announce bar dismiss state
+  // ── Restore announce bar dismiss ───────────────────────────────
   if (sessionStorage.getItem('sw_announce_closed')) {
-    const bar = document.getElementById('announce-bar');
-    if (bar) bar.style.display = 'none';
+    document.getElementById('announce-bar').style.display = 'none';
   }
 
-  // Scroll progress + navbar shrink
+  // ── Scroll: navbar shrink + progress bar ──────────────────────
   window.addEventListener('scroll', () => {
     const nb = document.getElementById('navbar');
     const pr = document.getElementById('nav-progress');
+    const st = document.getElementById('scroll-top');
     if (nb) nb.classList.toggle('scrolled', window.scrollY > 60);
-    if (pr) {
-      const pct = Math.min(
-        (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100,
-        100
-      );
-      pr.style.width = pct + '%';
-    }
+    if (pr) pr.style.width = Math.min(
+      (window.scrollY / Math.max(document.body.scrollHeight - window.innerHeight, 1)) * 100, 100
+    ) + '%';
+    if (st) st.classList.toggle('visible', window.scrollY > 400);
   }, { passive: true });
 
-  // Mobile search — redirect to collection with query
+  // ── Mobile menu toggle ────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('nav-toggle')?.addEventListener('click', openMob);
+  });
+
+  // ── Mobile search ─────────────────────────────────────────────
   window.doMobSearch = function () {
     const q = document.getElementById('mob-search-input')?.value?.trim();
     if (q) window.location.href = 'collection.html?q=' + encodeURIComponent(q);
   };
-  document.getElementById('mob-search-input')?.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') window.doMobSearch();
+
+  // ── openMob / closeMob (needed by hamburger + overlay) ────────
+  window.openMob  = () => { document.getElementById('mob-ov')?.classList.add('on'); document.getElementById('mob-menu')?.classList.add('on'); };
+  window.closeMob = () => { document.getElementById('mob-ov')?.classList.remove('on'); document.getElementById('mob-menu')?.classList.remove('on'); };
+
+  // ── Keyboard: Escape closes mobile menu ───────────────────────
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeMob(); }
   });
+
 })();
